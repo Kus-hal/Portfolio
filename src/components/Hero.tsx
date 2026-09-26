@@ -1,3 +1,5 @@
+import Image from "next/image";
+import portrait from "@/assets/kushal.jpg";
 import { hero, links, person } from "@/content/site";
 import { ButtonLink } from "./ButtonLink";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
@@ -29,10 +31,21 @@ export function Hero() {
           </p>
         </EntranceItem>
 
-        <EntranceItem fade={false}>
+        <EntranceItem
+          fade={false}
+          className="mb-[22px] flex items-center gap-4 sm:gap-6"
+        >
+          {/* The source is 327 px wide, so it stays sharp on 2× screens up to ~160 px. */}
+          <Image
+            src={portrait}
+            alt={`Portrait of ${person.name}`}
+            loading="eager"
+            sizes="(min-width: 1024px) 136px, (min-width: 640px) 112px, 80px"
+            className="size-20 shrink-0 rounded-full border border-line object-cover object-top sm:size-28 lg:size-[136px]"
+          />
           <h1
             id="hero-heading"
-            className="mb-[22px] font-display text-[clamp(3rem,8vw,5.4rem)] leading-[0.98] font-bold tracking-[-0.03em]"
+            className="font-display text-[clamp(3rem,8vw,5.4rem)] leading-[0.98] font-bold tracking-[-0.03em]"
           >
             {person.name.split(" ").map((part, i) => (
               <span key={part} className="block">
