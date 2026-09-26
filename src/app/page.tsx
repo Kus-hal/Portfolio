@@ -3,6 +3,7 @@ import { Capabilities } from "@/components/Capabilities";
 import { Contact } from "@/components/Contact";
 import { Hero } from "@/components/Hero";
 import { Nav } from "@/components/Nav";
+import { PersonJsonLd } from "@/components/PersonJsonLd";
 import { Section } from "@/components/Section";
 import { Stack } from "@/components/Stack";
 import { Timeline } from "@/components/Timeline";
@@ -12,6 +13,7 @@ import { education, experience } from "@/content/site";
 export default function Home() {
   return (
     <>
+      <PersonJsonLd />
       <a
         href="#main"
         className="sr-only z-[60] rounded-full bg-ink px-4 py-2 text-paper focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
