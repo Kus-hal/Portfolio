@@ -43,7 +43,7 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
 - **Flat work badges**. The warm orange appears only on the hero dot. No `→` in link text.
 - **Education section** added (structure borrowed from a reference site; visuals unchanged), plus tech
   tags under every job.
-- **Photo** as a round avatar in About. **Mobile nav** hides the links, as in the reference.
+- **Photo in the hero:** a round avatar beside the name below 1024 px, and its own 240 px column on desktop (switched by CSS, one download). It was moved out of About. **Mobile nav** hides the links, as in the reference.
 - **Stack** curated from the résumé into 9 groups.
 
 ## Engineering decisions worth knowing
