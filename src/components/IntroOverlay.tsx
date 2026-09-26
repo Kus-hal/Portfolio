@@ -14,9 +14,10 @@ const button =
   "rounded-full border border-line bg-surface/90 px-4 py-2 text-sm font-medium text-ink backdrop-blur-sm transition-[border-color,transform] duration-200 ease-out hover:border-ink active:scale-[0.97]";
 
 /**
- * First-visit intro. The markup is always server-rendered but hidden by CSS unless the <head>
- * script flagged this visit (`html[data-intro]`), so there's no hydration mismatch and no flash.
- * The video file is only requested when the intro actually shows.
+ * First-visit intro: autoplays for every first-time visitor, then fades into the site when it
+ * ends (or on Skip / Esc). The markup is always server-rendered but hidden by CSS unless the
+ * <head> script flagged this visit (`html[data-intro]`), so there's no hydration mismatch and no
+ * flash. The video file is only requested when the intro actually shows.
  */
 export function IntroOverlay() {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -64,6 +65,7 @@ export function IntroOverlay() {
       const portrait = window.matchMedia("(orientation: portrait)").matches;
       video.src = portrait ? SOURCES.portrait : SOURCES.landscape;
     }
+    // Browsers only allow autoplay when muted; the Sound button unmutes.
     video.muted = true;
     // Autoplay can still be refused (e.g. battery saver); never trap visitors behind it.
     // An AbortError only means a newer load superseded this one, so it isn't a refusal.
