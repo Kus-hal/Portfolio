@@ -41,6 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # local AI tooling (kept on disk, not published)
+.impeccable/
 AGENTS.md
 CLAUDE.md
 .claude/
