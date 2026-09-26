@@ -108,25 +108,70 @@
   }
 }
 
-/* First-visit intro: only shown when the <head> script sets html[data-intro]. The poster is a
-   background so it paints instantly and isn't downloaded when the intro is hidden. */
+/* First-visit intro sting: shown only when the <head> script sets html[data-intro="<version>"].
+   Everything starts hidden; the timeline in IntroSting animates it in on the beat. */
 .intro-overlay {
   display: none;
-  background: var(--color-paper) url("/intro/stack.jpg") center / contain
-    no-repeat;
-  transition: opacity 400ms ease-out;
 }
 html[data-intro] {
   overflow: hidden;
 }
 html[data-intro] .intro-overlay {
-  display: flex;
+  display: block;
 }
-.intro-overlay[data-closing] {
+.intro-bg {
+  background: var(--color-paper);
+}
+.intro-stage {
+  color: var(--color-ink);
+}
+.intro-mark {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+/* Hidden until each part's beat; animations use fill: forwards, so this holds until then. */
+.intro-mark,
+.intro-ring,
+.intro-sweep,
+.intro-role,
+.intro-rule,
+.intro-line > span {
   opacity: 0;
 }
-@media (orientation: portrait) {
-  .intro-overlay {
-    background-image: url("/intro/projects.jpg");
-  }
+/* Type is left-aligned, so scale it from the left edge (keeps Slam's 1.7x hit on screen). */
+.intro-role,
+.intro-line > span {
+  transform-origin: left center;
+}
+.intro-button {
+  border-color: var(--color-line);
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  color: var(--color-ink);
+}
+.intro-button:hover {
+  border-color: var(--color-ink);
+}
+
+/* Reveal: lines rise out of masks. The padding keeps ascenders from being clipped. */
+html[data-intro="2"] .intro-line {
+  overflow: hidden;
+  padding-top: 0.12em;
+  margin-top: -0.12em;
+}
+
+/* Slam: ink background, paper type. */
+html[data-intro="3"] .intro-bg {
+  background: var(--color-ink);
+}
+html[data-intro="3"] .intro-stage {
+  color: var(--color-paper);
+}
+html[data-intro="3"] .intro-mark {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+html[data-intro="3"] .intro-button {
+  border-color: rgb(244 245 247 / 0.3);
+  background: rgb(23 24 28 / 0.6);
+  color: var(--color-paper);
 }

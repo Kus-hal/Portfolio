@@ -9,7 +9,7 @@ export const siteUrl =
 export const person = {
   name: "Kushal Sharma",
   initials: "KS",
-  title: "Android Engineer",
+  title: "Mobile Engineer",
   location: "Jaipur, India",
   locationShort: "Jaipur, IN",
   email: "kushals0209@gmail.com",
@@ -31,8 +31,11 @@ export const navItems = [
 ] as const;
 
 export const hero = {
-  availability: "Open to Android & mobile roles — worldwide",
-  role: { strong: "Android engineer.", rest: "Kotlin & Jetpack Compose." },
+  availability: "Open to Android & Kotlin Multiplatform roles — worldwide",
+  role: {
+    strong: "Mobile engineer.",
+    rest: "Android, Kotlin Multiplatform & Compose.",
+  },
   lede: "I build the apps people keep on their phones: a multi-role fintech super-app, an offline engine that keeps audio in sync across devices, and Ting, live on Google Play. A year and a half of production Kotlin, owning features from first commit to Play Store release. Now looking for products at real scale.",
   tickerStatus: "in production",
 } as const;
@@ -44,15 +47,16 @@ export const ogImage = {
   alt: `${person.name} — ${person.title}. ${hero.role.rest}`,
 } as const;
 
-// Search-facing copy: "Android Developer" is the term recruiters search most, alongside "Engineer".
+// Search-facing copy. "Mobile Engineer" is the headline; "Android Developer" stays as an alternate
+// job title because it's the term recruiters search most.
 // The description is kept to ~158 characters so Google shows it without truncation.
 export const seo = {
-  title: `${person.name} — Android Developer · Kotlin & Jetpack Compose`,
+  title: `${person.name} — Mobile Engineer · Android & Kotlin Multiplatform`,
   alternateJobTitle: "Android Developer",
 } as const;
 
 export const metaDescription =
-  "Android developer in Kotlin & Jetpack Compose: fintech super-app, offline audio-sync engine, Ting on Google Play. Jaipur, India · open to remote & relocation.";
+  "Mobile engineer: Android, Kotlin Multiplatform & Compose. Fintech super-app, offline audio-sync engine, Ting on Google Play. Jaipur · remote or relocation.";
 
 /** Text runs; `strong` runs render bold. */
 export type Rich = readonly { text: string; strong?: boolean }[];
@@ -87,7 +91,7 @@ export const about: {
     ],
     [
       {
-        text: "I'm looking for my next role, ideally closer to products with a lot of people on the other end of the screen, and I'm open to remote work or relocating for the right one.",
+        text: "Right now I'm also learning Swift and SwiftUI, and Kotlin on the server with Spring Boot, so I can work across the whole product. I'm looking for my next role, ideally closer to products with a lot of people on the other end of the screen, and I'm open to remote work or relocating for the right one.",
       },
     ],
   ],
@@ -95,7 +99,7 @@ export const about: {
     { label: "Status", value: "Open to new roles" },
     { label: "Now", value: "Building Loudly" },
     { label: "Previously", value: "Kotlin Dev, SDLC Corp" },
-    { label: "Focus", value: "Android & mobile" },
+    { label: "Focus", value: "Android & Kotlin Multiplatform" },
     { label: "Based in", value: "Jaipur, India" },
     { label: "Open to", value: "Remote · Relocation" },
     { label: "Education", value: "B.Tech CSE, RIET" },
@@ -284,13 +288,15 @@ export const stack = {
   kicker: "Stack",
   heading: "The tools, grouped by what they're for.",
   groups: [
-    { name: "Languages", items: ["Kotlin", "Java"] },
+    { name: "Languages", items: ["Kotlin", "Java", "TypeScript"] },
     {
-      name: "UI",
+      name: "Mobile & multiplatform",
       items: [
         "Jetpack Compose",
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "Material 3",
         "XML Views",
-        "Material Design",
         "Jetpack Glance",
       ],
     },
@@ -313,28 +319,36 @@ export const stack = {
         "DataStore",
         "Paging 3",
         "WorkManager",
+        "kotlinx.serialization",
       ],
     },
     {
       name: "Network & real-time",
-      items: ["Retrofit", "Ktor", "OkHttp", "WebSocket", "Socket.IO"],
+      items: ["Ktor", "Retrofit", "OkHttp", "WebSocket", "Socket.IO"],
     },
     { name: "Media & device", items: ["CameraX", "ML Kit", "ExoPlayer"] },
     {
-      name: "Firebase & quality",
+      name: "Backend & cloud",
       items: [
-        "Firebase",
+        "Firebase Auth",
+        "Firestore",
+        "Cloud Functions",
         "FCM",
         "Crashlytics",
         "Sentry",
-        "Android Studio Profiler",
       ],
     },
     {
       name: "Build & tooling",
-      items: ["Gradle", "R8 / ProGuard", "Git", "GitHub Actions"],
+      items: [
+        "Gradle",
+        "R8 / ProGuard",
+        "Git",
+        "GitHub Actions",
+        "Android Studio Profiler",
+      ],
     },
-    { name: "Currently exploring", items: ["KMP"] },
+    { name: "Currently learning", items: ["Swift", "SwiftUI", "Spring Boot"] },
   ],
 } as const;
 

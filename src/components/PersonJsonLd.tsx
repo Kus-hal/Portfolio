@@ -22,6 +22,8 @@ export function PersonJsonLd() {
     knowsAbout: [
       "Android development",
       "Kotlin",
+      "Kotlin Multiplatform",
+      "Compose Multiplatform",
       "Jetpack Compose",
       "Clean Architecture",
       "Kotlin Coroutines",

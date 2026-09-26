@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { introDecisionScript } from "@/components/intro";
-import { IntroOverlay } from "@/components/IntroOverlay";
+import { IntroSting } from "@/components/IntroSting";
 import { MotionProvider } from "@/components/MotionProvider";
 import { metaDescription, ogImage, person, seo, siteUrl } from "@/content/site";
 import "./globals.css";
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </style>
         </noscript>
         <MotionProvider>
-          <IntroOverlay />
+          <IntroSting />
           {children}
         </MotionProvider>
       </body>
