@@ -83,3 +83,27 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
    Vercel Web Analytics (cookie-free, Vercel only), or GA4 (needs a consent banner for EU/UK visitors).
 6. **Search Console:** after deploying, verify the domain in Google Search Console and submit
    `/sitemap.xml`.
+
+## v2 on `motion2` (2026-09-27)
+
+`motion2` merges the hero-photo, motion and SEO branches, then adds:
+
+- **Positioning:** Mobile Engineer (Android and Kotlin Multiplatform), applying for Android and KMP
+  roles. That wording now appears in the title, role line, availability chip, focus fact, meta
+  description, JSON-LD and OG image. Swift, SwiftUI and Spring Boot appear only as "Currently learning".
+  The Stack is regrouped from the résumé plus Cloth Lab's real dependencies.
+- **Intro sting:** replaces the 15–20 s video intro. It's a ~5 s silent sting built with the Web
+  Animations API: KS mark, then name, then role, and the name flies onto the real hero heading
+  (verified 0 px off at desktop and phone). It autoplays for every first-time visitor, including
+  reduced-motion users (Kushal's call), and can always be skipped. There are three versions cut to NCS
+  beat grids, previewed at `?intro=1|2|3`. The default is version 1 until Kushal picks.
+- **Music:** NCS's free licence covers social-media videos, not websites. The site sting is silent and
+  the preview clips stay local (gitignored).
+
+**Still open for v2:**
+
+- Kushal picks a sting version.
+- The hero lede, About story, stats and a Cloth Lab project card wait for the Cloth Lab write-up.
+  Cloth Lab is early-stage and must be presented as in development.
+- The social videos (`brag-output/`) still use the old "Android engineer" story, and get remade after
+  that write-up.
