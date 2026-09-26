@@ -14,6 +14,10 @@ Next.js 16 App Router project: TypeScript, Tailwind CSS v4, Motion, `next/font`.
   reveal, session timer.
 - **Meta:** title, description, canonical, Open Graph + Twitter card with a build-time 1200×630 `/og.png`,
   KS-mark SVG favicon, `theme-color`.
+- **SEO:** schema.org `Person` JSON-LD (job titles, location, education, skills, GitHub/LinkedIn),
+  `robots.txt` and `sitemap.xml`. The title and description use "Android Developer" alongside
+  "Engineer", plus location and remote/relocation. This deliberately changes the handoff's title
+  (Kushal approved it).
 - **Real content:** from the interview and Kushal's résumé. Nothing was invented.
 
 ## Verification (local, 2026-09-26)
@@ -75,3 +79,7 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
 2. **Loudly link:** add `href` in `src/content/site.ts` when the repo or demo goes public.
 3. **Certificates:** to be added to the Education section when provided.
 4. **Real-world Lighthouse:** run PageSpeed Insights on the deployed URL.
+5. **Analytics:** to be chosen with the host. Options: Cloudflare Web Analytics (cookie-free, any host),
+   Vercel Web Analytics (cookie-free, Vercel only), or GA4 (needs a consent banner for EU/UK visitors).
+6. **Search Console:** after deploying, verify the domain in Google Search Console and submit
+   `/sitemap.xml`.
