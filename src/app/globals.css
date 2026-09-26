@@ -107,3 +107,26 @@
     }
   }
 }
+
+/* First-visit intro: only shown when the <head> script sets html[data-intro]. The poster is a
+   background so it paints instantly and isn't downloaded when the intro is hidden. */
+.intro-overlay {
+  display: none;
+  background: var(--color-paper) url("/intro/stack.jpg") center / contain
+    no-repeat;
+  transition: opacity 400ms ease-out;
+}
+html[data-intro] {
+  overflow: hidden;
+}
+html[data-intro] .intro-overlay {
+  display: flex;
+}
+.intro-overlay[data-closing] {
+  opacity: 0;
+}
+@media (orientation: portrait) {
+  .intro-overlay {
+    background-image: url("/intro/projects.jpg");
+  }
+}
