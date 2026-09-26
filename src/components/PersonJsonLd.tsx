@@ -1,4 +1,4 @@
-import { links, person, siteUrl } from "@/content/site";
+import { links, person, seo, siteUrl } from "@/content/site";
 
 /** schema.org Person data so search engines can connect the name, role and profiles. */
 export function PersonJsonLd() {
@@ -9,7 +9,7 @@ export function PersonJsonLd() {
     url: `${siteUrl}/`,
     image: `${siteUrl}/og.png`,
     email: `mailto:${person.email}`,
-    jobTitle: person.title,
+    jobTitle: [person.title, seo.alternateJobTitle],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Jaipur",

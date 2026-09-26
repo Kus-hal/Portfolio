@@ -44,8 +44,15 @@ export const ogImage = {
   alt: `${person.name} — ${person.title}. ${hero.role.rest}`,
 } as const;
 
+// Search-facing copy: "Android Developer" is the term recruiters search most, alongside "Engineer".
+// The description is kept to ~158 characters so Google shows it without truncation.
+export const seo = {
+  title: `${person.name} — Android Developer · Kotlin & Jetpack Compose`,
+  alternateJobTitle: "Android Developer",
+} as const;
+
 export const metaDescription =
-  "Android engineer building in Kotlin and Jetpack Compose — a multi-role fintech super-app, a real-time audio-sync engine, and Ting on Google Play.";
+  "Android developer in Kotlin & Jetpack Compose: fintech super-app, offline audio-sync engine, Ting on Google Play. Jaipur, India · open to remote & relocation.";
 
 /** Text runs; `strong` runs render bold. */
 export type Rich = readonly { text: string; strong?: boolean }[];

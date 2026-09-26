@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { MotionProvider } from "@/components/MotionProvider";
-import { metaDescription, ogImage, person, siteUrl } from "@/content/site";
+import { metaDescription, ogImage, person, seo, siteUrl } from "@/content/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,7 +30,7 @@ const jetBrainsMono = localFont({
   fallback: ["ui-monospace", "Cascadia Mono", "Menlo", "monospace"],
 });
 
-const title = `${person.name} — ${person.title}`;
+const { title } = seo;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
