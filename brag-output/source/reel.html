@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Showreel — Kushal Sharma</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      #stage {
+        width: 1920px;
+        height: 1080px;
+      }
+      #bg {
+        position: absolute;
+        inset: 0;
+      }
+      #bgNext {
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+      }
+
+      #intro {
+        position: absolute;
+        left: 120px;
+        top: 300px;
+        font-size: 230px;
+      }
+      #intro span {
+        display: block;
+      }
+
+      #wordBox {
+        position: absolute;
+        left: 120px;
+        right: 120px;
+        top: 0;
+        bottom: 0;
+      }
+      .word {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        white-space: nowrap;
+        font-size: 250px;
+      }
+      #index {
+        position: absolute;
+        left: 120px;
+        top: 150px;
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 44px;
+      }
+      #progress {
+        position: absolute;
+        left: 120px;
+        right: 120px;
+        bottom: 120px;
+        height: 8px;
+        border-radius: 4px;
+        background: rgba(23, 24, 28, 0.1);
+        overflow: hidden;
+      }
+      #progress i {
+        display: block;
+        height: 100%;
+        background: currentColor;
+        transform-origin: left;
+      }
+
+      #shipped {
+        position: absolute;
+        left: 120px;
+        top: 250px;
+        font-size: 48px;
+      }
+      #products {
+        position: absolute;
+        left: 120px;
+        top: 400px;
+        display: flex;
+        gap: 90px;
+      }
+      .product {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+      .badge {
+        width: 170px;
+        height: 170px;
+        border-radius: 40px;
+        display: grid;
+        place-items: center;
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 84px;
+      }
+      .productName {
+        font-size: 112px;
+      }
+
+      #finale {
+        position: absolute;
+        left: 120px;
+        top: 50%;
+        margin-top: -150px;
+        display: flex;
+        align-items: center;
+        gap: 72px;
+      }
+      #mark {
+        width: 300px;
+        height: 300px;
+        border-radius: 72px;
+        background: var(--ink);
+        color: var(--paper);
+        display: grid;
+        place-items: center;
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 130px;
+        flex: none;
+      }
+      #finaleText {
+        overflow: hidden;
+      }
+      #finaleName {
+        font-size: 170px;
+        white-space: nowrap;
+      }
+      #finaleRole {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        margin-top: 28px;
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 60px;
+        color: var(--muted);
+      }
+      .dot {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--tick);
+      }
+      .dot i {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--tick);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <div id="bg"></div>
+      <div id="bgNext"></div>
+
+      <h1 id="intro" class="display"><span data-anim>Android</span><span data-anim>engineer</span></h1>
+
+      <p id="index" data-anim></p>
+      <div id="wordBox"></div>
+      <div id="progress" data-anim><i></i></div>
+
+      <p id="shipped" class="kicker" data-anim>Shipped in</p>
+      <div id="products">
+        <div class="product" data-anim>
+          <span class="badge" style="background: var(--accent); color: #fff">T</span>
+          <span class="productName display">Ting</span>
+        </div>
+        <div class="product" data-anim>
+          <span class="badge" style="background: var(--ink); color: var(--paper)">L</span>
+          <span class="productName display">Loudly</span>
+        </div>
+        <div class="product" data-anim>
+          <span class="badge" style="background: var(--paper); color: var(--ink); border: 4px solid var(--line)">O</span>
+          <span class="productName display">OMNIA</span>
+        </div>
+      </div>
+
+      <div id="finale">
+        <div id="mark" data-anim>KS</div>
+        <div id="finaleText">
+          <h2 id="finaleName" class="display" data-anim>Kushal Sharma</h2>
+          <p id="finaleRole" data-anim><span class="dot"><i></i></span>Android engineer</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+      // vol-11 beat grid is 0.525 s; words land on alternate beats from 1.60 s.
+      window.VIDEO = { width: 1920, height: 1080, duration: 15, poster: 14.4 };
+
+      const WORDS = [
+        { text: "Kotlin", bg: "paper" },
+        { text: "Jetpack Compose", bg: "paper" },
+        { text: "Clean Architecture", bg: "accent" },
+        { text: "MVI", bg: "paper" },
+        { text: "Coroutines & Flow", bg: "ink" },
+        { text: "Hilt", bg: "paper" },
+        { text: "CameraX", bg: "paper" },
+        { text: "ML Kit", bg: "accent" },
+        { text: "ExoPlayer", bg: "paper" },
+      ];
+      const BEATS = [1.6, 2.65, 3.7, 4.75, 5.8, 6.86, 7.91, 8.96, 10.01];
+      const WORDS_END = 11.0;
+      const COLORS = {
+        paper: { bg: "var(--paper)", fg: "var(--ink)", sub: "var(--accent-ink)" },
+        accent: { bg: "var(--accent)", fg: "#ffffff", sub: "rgba(255,255,255,0.8)" },
+        ink: { bg: "var(--ink)", fg: "var(--paper)", sub: "rgba(244,245,247,0.7)" },
+      };
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => [...document.querySelectorAll(s)];
+      const box = $("#wordBox");
+      const els = WORDS.map(({ text }) => {
+        const el = document.createElement("span");
+        el.className = "word display";
+        el.textContent = text;
+        el.dataset.anim = "";
+        box.appendChild(el);
+        return el;
+      });
+
+      /** Shrink long words so each fits the frame width; keeps short words big. */
+      function fitWords() {
+        const max = box.clientWidth;
+        els.forEach((el) => {
+          el.style.opacity = 0;
+          const w = el.getBoundingClientRect().width;
+          if (w > max) el.style.fontSize = `${Math.floor(250 * (max / w))}px`;
+        });
+      }
+
+      const bg = $("#bg");
+      const bgNext = $("#bgNext");
+      const intro = $$("#intro span");
+      const index = $("#index");
+      const progress = $("#progress");
+      const progressBar = $("#progress i");
+      const shipped = $("#shipped");
+      const products = $$(".product");
+      const mark = $("#mark");
+      const finaleName = $("#finaleName");
+      const finaleRole = $("#finaleRole");
+      const dotRing = $("#finaleRole .dot i");
+      const finale = $("#finale");
+
+      function currentWord(t) {
+        let i = -1;
+        BEATS.forEach((b, k) => t >= b - 0.001 && (i = k));
+        return t >= WORDS_END ? -1 : i;
+      }
+
+      function renderAt(t) {
+        const i = currentWord(t);
+        const scheme = COLORS[i >= 0 ? WORDS[i].bg : "paper"];
+        const prevScheme = COLORS[i > 0 ? WORDS[i - 1].bg : "paper"];
+
+        // Background: a fast wipe in whenever the colour scheme changes on a beat.
+        bg.style.background = prevScheme.bg;
+        bgNext.style.background = scheme.bg;
+        const bgP = i >= 0 ? easeOut(prog(t, BEATS[i] - 0.12, 0.24)) : 1;
+        bgNext.style.transform = `translateX(${(bgP - 1) * 100}%)`;
+        if (i < 0) bg.style.background = bgNext.style.background = "var(--paper)";
+        document.getElementById("stage").style.color = scheme.fg;
+
+        // Intro: "Android engineer", out just before the first word.
+        intro.forEach((el, k) => {
+          rise(el, t, 0.15 + k * 0.3, { dist: 70 });
+          const out = easeInOut(prog(t, 1.38, 0.2));
+          el.style.opacity = String(Number(el.style.opacity) * (1 - out));
+          el.style.transform += ` translateY(${-out * 120}px)`;
+        });
+
+        // Words: each rises in on its beat and leaves upward just before the next.
+        els.forEach((el, k) => {
+          const start = BEATS[k];
+          const end = k + 1 < BEATS.length ? BEATS[k + 1] : WORDS_END;
+          const inP = easeOut(prog(t, start - 0.04, 0.3));
+          const outP = easeInOut(prog(t, end - 0.2, 0.18));
+          const visible = t >= start - 0.04 && t < end;
+          el.style.opacity = visible ? inP * (1 - outP) : 0;
+          el.style.transform = `translateY(calc(-50% + ${(1 - inP) * 110 - outP * 110}px))`;
+        });
+
+        index.style.opacity = i >= 0 ? 1 : 0;
+        index.style.color = scheme.sub;
+        if (i >= 0) index.textContent = String(i + 1).padStart(2, "0");
+        progress.style.opacity = t >= 1.5 && t < WORDS_END ? 1 : 0;
+        progressBar.style.transform = `scaleX(${i >= 0 ? (i + easeOut(prog(t, BEATS[i], 0.3))) / WORDS.length : 0})`;
+
+        // Products, on half beats.
+        rise(shipped, t, 11.06, { dist: 20 });
+        products.forEach((p, k) => rise(p, t, 11.06 + k * 0.26, { dist: 60 }));
+        const prodOut = easeInOut(prog(t, 12.4, 0.22));
+        [shipped, ...products].forEach((el) => {
+          el.style.opacity = String(Number(el.style.opacity) * (1 - prodOut));
+        });
+
+        // Finale: KS mark lands on 12.65, then the name slides out from behind it.
+        const markP = easeOut(prog(t, 12.65, 0.4));
+        mark.style.opacity = markP;
+        mark.style.transform = `scale(${0.8 + 0.2 * markP})`;
+        const nameP = easeOut(prog(t, 13.18, 0.5));
+        finaleName.style.opacity = nameP;
+        finaleName.style.transform = `translateX(${(1 - nameP) * -140}px)`;
+        rise(finaleRole, t, 13.5, { dist: 24 });
+        const ping = prog(t, 13.7, 1.0);
+        dotRing.style.transform = `scale(${1 + 1.8 * ping})`;
+        dotRing.style.opacity = ping > 0 && ping < 1 ? 0.6 * (1 - ping) : 0;
+        finale.style.visibility = t >= 12.6 ? "visible" : "hidden";
+      }
+
+      window.renderAt = renderAt;
+      window.ready = assetsReady().then(() => {
+        fitWords();
+        renderAt(0);
+      });
+    </script>
+  </body>
+</html>

@@ -44,3 +44,8 @@ next-env.d.ts
 AGENTS.md
 CLAUDE.md
 .claude/
+
+# video tooling: regenerable frames and its own dependencies
+/brag-output/work/
+/brag-output/source/node_modules/
+/brag-output/music/

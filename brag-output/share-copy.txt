@@ -1,0 +1,19 @@
+LAUNCH VIDEO (brag.mp4, vertical)
+
+LinkedIn
+20 seconds on what I build. At SDLC Corp I worked on OMNIA, a multi-role fintech super-app, where I took the release build from 350 MB to under 110 MB and cut crashes by about half. On my own time I'm building Loudly, which keeps audio in sync across phones to within ~68 ms with no internet. I'm an Android engineer (Kotlin, Jetpack Compose) open to Android and mobile roles worldwide, remote or relocation. kushals0209@gmail.com
+
+X
+Android engineer, in 20 seconds. OMNIA: 350 MB → 110 MB release build, ~50% fewer crashes. Loudly: audio in sync across phones, ~68 ms, no internet. Open to Android roles worldwide.
+
+
+SHOWREEL (showreel.mp4, landscape)
+
+LinkedIn
+The stack I reach for, in 15 seconds: Kotlin, Jetpack Compose, Clean Architecture, MVI, Coroutines and Flow, Hilt, CameraX, ML Kit and ExoPlayer, shipped in Ting, Loudly and OMNIA. Open to Android and mobile roles, remote or relocation.
+
+X
+Kotlin → Compose → Clean Architecture → MVI → Coroutines & Flow → Hilt → CameraX → ML Kit → ExoPlayer. Shipped in Ting, Loudly and OMNIA.
+
+
+Before posting: check the ende.app licence for the music (see source/README.md), and add your X handle if you want it in the captions.

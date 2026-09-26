@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Video tooling is a separate package with its own dependencies.
+    "brag-output/**",
   ]),
 ]);
 

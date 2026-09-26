@@ -1,0 +1,94 @@
+/* Shared by both compositions. Tokens mirror src/app/globals.css so the videos match the site. */
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 400;
+  src: url("node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 500;
+  src: url("node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 600;
+  src: url("node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-weight: 500;
+  src: url("node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-weight: 600;
+  src: url("node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-weight: 700;
+  src: url("node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2") format("woff2");
+}
+
+:root {
+  --paper: #f4f5f7;
+  --surface: #fcfcfd;
+  --ink: #17181c;
+  --body: #33353c;
+  --muted: #666a73;
+  --line: #e4e5ea;
+  --accent: #2743ff;
+  --accent-ink: #1b31c9;
+  --tick: #ff9f1c;
+  --display: "Space Grotesk", system-ui, sans-serif;
+  --sans: "Inter", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+#stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+}
+
+.display {
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+.kicker {
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Every animated element starts hidden; renderAt(t) sets its state for the frame. */
+[data-anim] {
+  opacity: 0;
+  will-change: transform, opacity;
+}
