@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
+import { introDecisionScript } from "@/components/intro";
+import { IntroOverlay } from "@/components/IntroOverlay";
 import { MotionProvider } from "@/components/MotionProvider";
 import { metaDescription, ogImage, person, siteUrl } from "@/content/site";
 import "./globals.css";
@@ -64,14 +66,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
+      // The intro script below may add `data-intro` before React hydrates.
+      suppressHydrationWarning
     >
+      <head>
+        {/* Runs before first paint so the intro covers the page without a flash of the site. */}
+        <script dangerouslySetInnerHTML={{ __html: introDecisionScript }} />
+      </head>
       <body>
         <noscript>
           <style>
             {"[data-animate]{opacity:1!important;transform:none!important}"}
           </style>
         </noscript>
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <IntroOverlay />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );

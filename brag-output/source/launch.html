@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Launch video — Kushal Sharma</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      #stage {
+        width: 1080px;
+        height: 1920px;
+      }
+      .pad {
+        position: absolute;
+        left: 96px;
+        right: 96px;
+      }
+
+      /* Hook and outro flow vertically and sit centred, so wrapped lines can never collide. */
+      .column {
+        position: absolute;
+        inset: 0 96px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      #photo {
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top;
+        border: 3px solid var(--line);
+        margin-bottom: 64px;
+      }
+      #hookName {
+        font-size: 212px;
+      }
+      #hookName span {
+        display: block;
+      }
+      .role {
+        margin-top: 44px;
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 58px;
+        line-height: 1.2;
+        color: var(--muted);
+      }
+      .role b {
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      /* Work scenes */
+      .sceneKicker {
+        top: 200px;
+        font-size: 40px;
+      }
+      .sceneTitle {
+        top: 262px;
+        font-size: 196px;
+      }
+      .sceneSub {
+        top: 480px;
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 54px;
+        color: var(--muted);
+      }
+
+      #omniaPhone {
+        position: absolute;
+        left: 96px;
+        top: 660px;
+        width: 888px;
+        height: 1140px;
+        border: 5px solid var(--ink);
+        border-radius: 88px;
+        background: var(--surface);
+        padding: 120px 72px 0;
+      }
+      #omniaPhone::before {
+        content: "";
+        position: absolute;
+        top: 36px;
+        left: 50%;
+        width: 150px;
+        height: 22px;
+        margin-left: -75px;
+        border-radius: 11px;
+        background: var(--line);
+      }
+      .statLabel {
+        font-size: 36px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      #fromSize {
+        margin-top: 18px;
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 104px;
+        color: var(--muted);
+        letter-spacing: -0.02em;
+      }
+      #arrow {
+        display: block;
+        margin: 22px 0 10px 8px;
+      }
+      #toSize {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 176px;
+        line-height: 1;
+        color: var(--accent);
+        letter-spacing: -0.03em;
+      }
+      #divider {
+        height: 4px;
+        background: var(--line);
+        margin: 64px 0 56px;
+        transform-origin: left;
+      }
+      #crash {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 176px;
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+
+      /* Loudly */
+      #phones {
+        position: absolute;
+        left: 96px;
+        top: 680px;
+        display: flex;
+        gap: 42px;
+      }
+      .phone {
+        width: 268px;
+        height: 520px;
+        border: 5px solid var(--ink);
+        border-radius: 52px;
+        background: var(--surface);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 16px;
+        padding-bottom: 150px;
+      }
+      .phone i {
+        display: block;
+        width: 24px;
+        height: 220px;
+        border-radius: 8px;
+        background: var(--accent);
+        transform-origin: bottom;
+      }
+      #loudlyStat {
+        top: 1290px;
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 78px;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+      }
+      #loudlyStat b {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+        border: 3px solid var(--line);
+        background: var(--surface);
+        border-radius: 999px;
+        padding: 18px 34px;
+        font-size: 40px;
+        color: var(--muted);
+      }
+      #soonChip {
+        top: 1520px;
+      }
+
+      /* Outro */
+      #outroName {
+        font-size: 168px;
+      }
+      #outroName span {
+        display: block;
+      }
+      #openChip {
+        margin-top: 64px;
+      }
+      #openChip .chip {
+        font-size: 36px;
+      }
+      .dot {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--tick);
+        flex: none;
+      }
+      .dot i {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--tick);
+      }
+      #email {
+        margin-top: 64px;
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 66px;
+        color: var(--accent-ink);
+        text-decoration: underline;
+        text-decoration-thickness: 4px;
+        text-underline-offset: 14px;
+      }
+      #socials {
+        margin-top: 72px;
+        display: flex;
+        gap: 28px;
+      }
+      .social {
+        width: 128px;
+        height: 128px;
+        border-radius: 32px;
+        border: 3px solid var(--line);
+        background: var(--surface);
+        display: grid;
+        place-items: center;
+        color: var(--ink);
+      }
+      .social svg {
+        width: 60px;
+        height: 60px;
+      }
+
+      #wipe {
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        transform: translateX(-100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <section class="scene" id="hook">
+        <div class="column">
+          <img id="photo" data-anim src="../../src/assets/kushal.jpg" alt="" />
+          <h1 id="hookName" class="display">
+            <span data-anim>Kushal</span><span data-anim>Sharma</span>
+          </h1>
+          <p id="hookRole" class="role" data-anim><b>Android engineer.</b> Kotlin &amp; Jetpack Compose.</p>
+        </div>
+      </section>
+
+      <section class="scene" id="omnia">
+        <p class="pad kicker sceneKicker" data-anim>Selected work</p>
+        <h2 class="pad display sceneTitle" data-anim>OMNIA</h2>
+        <p class="pad sceneSub" data-anim>Fintech super-app · SDLC Corp</p>
+        <div id="omniaPhone" data-anim>
+          <p class="statLabel" data-anim id="buildLabel">Release build</p>
+          <p id="fromSize" data-anim>350 MB</p>
+          <svg id="arrow" width="90" height="120" viewBox="0 0 90 120" fill="none">
+            <path id="arrowPath" d="M45 4 V108 M12 76 L45 110 L78 76" stroke="#2743ff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <p id="toSize" data-anim><span id="toNum">110</span> MB</p>
+          <div id="divider" data-anim></div>
+          <p id="crash" data-anim>~<span id="crashNum">50</span>%</p>
+          <p class="statLabel" data-anim id="crashLabel" style="margin-top: 18px">fewer crashes</p>
+        </div>
+      </section>
+
+      <section class="scene" id="loudly">
+        <p class="pad kicker sceneKicker" data-anim>Selected work</p>
+        <h2 class="pad display sceneTitle" data-anim>Loudly</h2>
+        <p class="pad sceneSub" data-anim>Audio in sync across phones</p>
+        <div id="phones">
+          <div class="phone" data-anim><i></i><i></i><i></i><i></i></div>
+          <div class="phone" data-anim><i></i><i></i><i></i><i></i></div>
+          <div class="phone" data-anim><i></i><i></i><i></i><i></i></div>
+        </div>
+        <p id="loudlyStat" class="pad" data-anim><b>~68 ms</b> drift<br />no internet</p>
+        <p id="soonChip" class="pad" data-anim style="left: 96px; right: auto"><span class="chip">Public release soon</span></p>
+      </section>
+
+      <section class="scene" id="outro">
+        <div class="column">
+        <h2 id="outroName" class="display"><span data-anim>Kushal</span><span data-anim>Sharma</span></h2>
+        <p id="outroRole" class="role" data-anim><b>Android engineer.</b> Kotlin &amp; Jetpack Compose.</p>
+        <p id="openChip" data-anim>
+          <span class="chip"><span class="dot"><i></i></span>Open to Android &amp; mobile roles — worldwide</span>
+        </p>
+        <p id="email" data-anim>kushals0209@gmail.com</p>
+        <div id="socials">
+          <span class="social" data-anim aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z" /></svg>
+          </span>
+          <span class="social" data-anim aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+          </span>
+          <span class="social" data-anim aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.81-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.03 10.03 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" /></svg>
+          </span>
+        </div>
+        </div>
+      </section>
+
+      <div id="wipe"></div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+      // Timeline (seconds). Strong beats in the vol-9 track: 3.70, 6.34, 8.44, 10.54, 12.65.
+      window.VIDEO = { width: 1080, height: 1920, duration: 20, poster: 3.3 };
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => [...document.querySelectorAll(s)];
+
+      const hook = { photo: $("#photo"), name: $$("#hookName span"), role: $("#hookRole") };
+      const omnia = {
+        kicker: $("#omnia .sceneKicker"),
+        title: $("#omnia .sceneTitle"),
+        sub: $("#omnia .sceneSub"),
+        phone: $("#omniaPhone"),
+        label: $("#buildLabel"),
+        from: $("#fromSize"),
+        arrow: $("#arrowPath"),
+        to: $("#toSize"),
+        toNum: $("#toNum"),
+        divider: $("#divider"),
+        crash: $("#crash"),
+        crashNum: $("#crashNum"),
+        crashLabel: $("#crashLabel"),
+      };
+      const loudly = {
+        kicker: $("#loudly .sceneKicker"),
+        title: $("#loudly .sceneTitle"),
+        sub: $("#loudly .sceneSub"),
+        phones: $$(".phone"),
+        stat: $("#loudlyStat"),
+        chip: $("#soonChip"),
+      };
+      const outro = {
+        name: $$("#outroName span"),
+        role: $("#outroRole"),
+        chip: $("#openChip"),
+        dotRing: $("#openChip .dot i"),
+        email: $("#email"),
+        socials: $$(".social"),
+      };
+      const scenes = { hook: $("#hook"), omnia: $("#omnia"), loudly: $("#loudly"), outro: $("#outro") };
+      const wipe = $("#wipe");
+      const arrowLen = 260;
+      omnia.arrow.style.strokeDasharray = arrowLen;
+
+      /** Cobalt panel sweeps in to land on `beat`, holds briefly, then sweeps out. */
+      function wipeAt(t, beat) {
+        const inP = easeInOut(prog(t, beat - 0.3, 0.3));
+        const outP = easeInOut(prog(t, beat + 0.08, 0.36));
+        if (t < beat - 0.3 || t > beat + 0.44) return null;
+        return outP > 0 ? outP * 100 : (inP - 1) * 100;
+      }
+
+      function renderAt(t) {
+        // Scene visibility switches while the wipe covers the frame.
+        show(scenes.hook, t < 3.74);
+        show(scenes.omnia, t >= 3.74 && t < 10.58);
+        show(scenes.loudly, t >= 10.58 && t < 16.2);
+        show(scenes.outro, t >= 16.2);
+
+        const w = wipeAt(t, 3.7) ?? wipeAt(t, 10.54);
+        wipe.style.transform = `translateX(${w ?? -100}%)`;
+
+        // Hook
+        rise(hook.photo, t, 0.1, { dur: 0.8, dist: 0, scale: 0.94 });
+        rise(hook.name[0], t, 0.85, { dist: 60 });
+        rise(hook.name[1], t, 1.25, { dist: 60 });
+        rise(hook.role, t, 2.05, { dist: 30 });
+
+        // OMNIA
+        rise(omnia.kicker, t, 3.95, { dist: 24 });
+        rise(omnia.title, t, 4.05, { dist: 50 });
+        rise(omnia.sub, t, 4.23, { dist: 30 });
+        rise(omnia.phone, t, 4.55, { dist: 60, dur: 0.7 });
+        rise(omnia.label, t, 5.0, { dist: 16 });
+        rise(omnia.from, t, 5.2, { dist: 24 });
+        const draw = easeOut(prog(t, 5.95, 0.4));
+        omnia.arrow.style.strokeDashoffset = arrowLen * (1 - draw);
+        rise(omnia.to, t, 6.34, { dist: 30 });
+        omnia.toNum.textContent = Math.round(350 - 240 * easeOut(prog(t, 6.34, 0.8)));
+        omnia.divider.style.opacity = prog(t, 7.9, 0.3);
+        omnia.divider.style.transform = `scaleX(${easeOut(prog(t, 7.9, 0.5))})`;
+        rise(omnia.crash, t, 8.44, { dist: 30 });
+        omnia.crashNum.textContent = Math.round(50 * easeOut(prog(t, 8.44, 0.8)));
+        rise(omnia.crashLabel, t, 8.6, { dist: 16 });
+
+        // Loudly
+        rise(loudly.kicker, t, 10.75, { dist: 24 });
+        rise(loudly.title, t, 10.85, { dist: 50 });
+        rise(loudly.sub, t, 11.06, { dist: 30 });
+        loudly.phones.forEach((phone, i) => rise(phone, t, 11.3 + i * 0.15, { dist: 50 }));
+        // Before 12.65 each phone plays with its own lag; on the beat they snap into sync.
+        const period = 60 / 114.84;
+        const lags = [0, 0.19, 0.33];
+        const sync = easeOut(prog(t, 12.4, 0.25));
+        loudly.phones.forEach((phone, i) => {
+          const lag = lags[i] * (1 - sync);
+          [...phone.children].forEach((bar, j) => {
+            const phase = (t - 12.65 - lag - j * 0.13) / period;
+            const h = 0.3 + 0.7 * Math.abs(Math.sin(Math.PI * phase));
+            bar.style.transform = `scaleY(${h})`;
+          });
+          phone.style.borderColor = t >= 12.65 ? "var(--accent)" : "var(--ink)";
+        });
+        rise(loudly.stat, t, 12.65, { dist: 30 });
+        rise(loudly.chip, t, 13.7, { dist: 20 });
+        // Dip to paper into the outro.
+        const dip = prog(t, 15.85, 0.3);
+        scenes.loudly.style.opacity = 1 - dip;
+
+        // Outro
+        rise(outro.name[0], t, 16.3, { dist: 50 });
+        rise(outro.name[1], t, 16.5, { dist: 50 });
+        rise(outro.role, t, 16.8, { dist: 24 });
+        rise(outro.chip, t, 17.1, { dist: 20 });
+        const ping = ((t - 17.1) % 2) / 2;
+        outro.dotRing.style.transform = `scale(${1 + 1.6 * ping})`;
+        outro.dotRing.style.opacity = t < 17.1 ? 0 : 0.6 * (1 - Math.min(1, ping / 0.8));
+        rise(outro.email, t, 17.45, { dist: 24 });
+        outro.socials.forEach((s, i) => rise(s, t, 17.85 + i * 0.12, { dist: 24 }));
+      }
+
+      window.renderAt = renderAt;
+      window.ready = assetsReady().then(() => renderAt(0));
+    </script>
+  </body>
+</html>
