@@ -115,7 +115,11 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
 **Still open for v2:**
 
 - Kushal picks a sting version.
-- The hero lede, About story, stats and a Cloth Lab project card wait for the Cloth Lab write-up.
-  Cloth Lab is early-stage and must be presented as in development.
-- The social videos (`brag-output/`) still use the old "Android engineer" story, and get remade after
-  that write-up.
+- Hosting: the site isn't live yet (needs Kushal's hosting account; see README "Deploying").
+- Next phase, after launch: a page for each project, plus navigation between them.
+- The social videos (`brag-output/`) still use the old "Android engineer" story.
+
+**Done since (2026-09-28):** Cloth Lab added as the lead project (Cloth Lab, OMNIA, Loudly, Ting),
+presented as in development: customer app and backend built, vendor and admin apps next. The copy
+was rewritten with the LinkedIn humanizer rules, with the facts unchanged. `motion2` was merged into
+`main`.
