@@ -100,6 +100,18 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
 - **Music:** NCS's free licence covers social-media videos, not websites. The site sting is silent and
   the preview clips stay local (gitignored).
 
+- **Liquid metal and glass:**
+  - A chrome/cobalt liquid-metal KS in the sting (capable devices only) and in the footer (lazy, only
+    while visible).
+  - The nav is now a floating liquid-glass pill, and the Skip button is glass too.
+  - Details are in README.md.
+- **Performance (measured 2026-09-27, local production build):**
+  - First-visit mobile Lighthouse is **64–70** on the metal path and **70–80** without metal (what
+    budget phones get). Desktop is 93. Accessibility, best practices and SEO stay at 100.
+  - The sting itself costs 10–20 mobile points on a first visit, because the LCP becomes the sting's
+    name. The metal adds about 0.5 s of main thread on a mid laptop.
+  - Returning visitors don't get the sting or the metal.
+
 **Still open for v2:**
 
 - Kushal picks a sting version.

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { hero, person } from "@/content/site";
 import { INTRO_DONE_EVENT, INTRO_STORAGE_KEY, introActive } from "./intro";
+import { LiquidMetalMark } from "./LiquidMetalMark";
 
 /**
  * First-visit intro sting: KS mark → name → role, cut to a track's beat grid, then the name flies
@@ -237,8 +238,25 @@ const TIMELINES: Record<Version, (e: Els, p: number, play: Play) => number> = {
   },
 };
 
+/**
+ * Compiling the liquid-metal shader costs ~2 s of main thread on a slow phone, right as the page
+ * loads, so only capable devices get it in the sting (the footer metal loads later, on scroll).
+ * Laptops/desktops need 4+ cores; phones need 8+ cores and 6+ GB; Data Saver always opts out.
+ */
+function canAffordMetal() {
+  const nav = navigator as Navigator & {
+    deviceMemory?: number;
+    connection?: { saveData?: boolean };
+  };
+  if (nav.connection?.saveData) return false;
+  const cores = nav.hardwareConcurrency ?? 2;
+  const memory = nav.deviceMemory ?? 8;
+  const desktop = window.matchMedia("(pointer: fine)").matches;
+  return desktop ? cores >= 4 : cores >= 8 && memory >= 6;
+}
+
 const button =
-  "rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-sm transition-[border-color,transform] duration-200 ease-out active:scale-[0.97]";
+  "glass rounded-full px-4 py-2 text-sm font-medium transition-transform duration-200 ease-out active:scale-[0.97]";
 
 export function IntroSting() {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -246,11 +264,13 @@ export function IntroSting() {
   const [version, setVersion] = useState<Version | null>(null);
   const [preview, setPreview] = useState(false);
   const [started, setStarted] = useState(false);
+  const [metal, setMetal] = useState(false);
   const running = useRef({
     anims: [] as Animation[],
     timers: [] as number[],
     audio: null as HTMLAudioElement | null,
     announced: false,
+    started: false,
     done: false,
   });
 
@@ -266,6 +286,7 @@ export function IntroSting() {
     const r = running.current;
     if (r.done) return;
     r.done = true;
+    setMetal(false); // unmounts the shader, so the GPU stops once the intro is gone
     r.timers.forEach(clearTimeout);
     r.audio?.pause();
     delete document.documentElement.dataset.intro;
@@ -313,6 +334,9 @@ export function IntroSting() {
         rule: el("rule"),
       };
       const r = running.current;
+      // The setup effect can re-run (e.g. a Suspense re-reveal); the timeline must start only once.
+      if (r.started) return;
+      r.started = true;
       setStarted(true);
 
       if (withSound) {
@@ -406,6 +430,7 @@ export function IntroSting() {
     const isPreview = data.introPreview === "1";
     setVersion(v);
     setPreview(isPreview);
+    setMetal(canAffordMetal());
 
     if (!isPreview) {
       // Remember immediately, so a refresh mid-intro doesn't replay it.
@@ -457,9 +482,16 @@ export function IntroSting() {
             />
             <div
               data-el="mark"
-              className="intro-mark relative grid size-28 place-items-center overflow-hidden rounded-[28px] font-display text-5xl font-semibold"
+              className="intro-mark relative size-32 overflow-hidden rounded-[30px]"
             >
-              {person.initials}
+              {/* Liquid metal only while the intro runs, so other visits never load the shader. */}
+              {metal ? (
+                <LiquidMetalMark className="size-full" />
+              ) : (
+                <div className="metal-solid grid size-full place-items-center rounded-[30px] font-display text-5xl font-semibold">
+                  {person.initials}
+                </div>
+              )}
               <div
                 data-el="sweep"
                 className="intro-sweep absolute inset-y-0 left-0 w-1/2 bg-accent"

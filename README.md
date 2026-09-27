@@ -35,6 +35,22 @@ at build time so canonical and Open Graph URLs are absolute and correct.
 - **Motion:** Motion handles the hero entrance and section reveals; CSS handles the ambient loops and hover.
   With `prefers-reduced-motion`, everything is static and the session timer stays at `00:00:00`.
 
+## Liquid metal and liquid glass
+
+- **Liquid-metal KS mark:** Paper Shaders' liquid-metal shader (`@paper-design/shaders`, Apache-2.0)
+  is fed a **precomputed** mask, `public/brand/ks-liquid-metal.png`, so visitors never run the costly
+  shape processing. Regenerate the mask with `node brand-mask.mjs` in `brag-output/source`.
+  `LiquidMetalMark` shows a solid KS until the metal has drawn, falls back to it without WebGL, and
+  lazy-loads the shader code.
+- **Where the metal appears:**
+  - In the **intro sting**, only on capable devices (laptops/desktops, or phones with 8+ cores and
+    6+ GB; never with Data Saver). Compiling the shader during page start-up costs about 0.5 s of main
+    thread on a mid laptop and more on budget phones.
+  - In the **footer**, mounted only while near the viewport.
+- **Liquid glass** (`.glass` in `globals.css`) is native CSS: a frosted blur, tint and rim everywhere,
+  plus edge refraction via the `#glass-refract` SVG filter where the browser supports SVG backdrop
+  filters (Chromium). It's used on the floating nav pill and the intro's Skip button.
+
 ## Intro sting
 
 - **What it does:** every first-time visitor sees a ~5 s sting: the KS mark, then the name, then the role.
