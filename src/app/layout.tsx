@@ -74,25 +74,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: introDecisionScript }} />
       </head>
       <body>
-        {/* Refraction used by .glass edges (Chromium applies it; other browsers ignore it). */}
-        <svg aria-hidden="true" width="0" height="0" className="absolute">
-          <filter id="glass-refract" colorInterpolationFilters="sRGB">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.012 0.02"
-              numOctaves="2"
-              seed="7"
-              result="noise"
-            />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="34"
-              xChannelSelector="R"
-              yChannelSelector="G"
-            />
-          </filter>
-        </svg>
         <noscript>
           <style>
             {"[data-animate]{opacity:1!important;transform:none!important}"}

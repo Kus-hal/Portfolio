@@ -47,9 +47,9 @@ at build time so canonical and Open Graph URLs are absolute and correct.
     6+ GB; never with Data Saver). Compiling the shader during page start-up costs about 0.5 s of main
     thread on a mid laptop and more on budget phones.
   - In the **footer**, mounted only while near the viewport.
-- **Liquid glass** (`.glass` in `globals.css`) is native CSS: a frosted blur, tint and rim everywhere,
-  plus edge refraction via the `#glass-refract` SVG filter where the browser supports SVG backdrop
-  filters (Chromium). It's used on the floating nav pill and the intro's Skip button.
+- **Liquid glass** (`.glass` in `globals.css`) is native CSS: one frosted blur layer, a light tint and a
+  bright rim. (An SVG edge-refraction layer was removed because it doubled the content behind the
+  pill.) It's used on the floating nav pill and the intro's Skip button.
 
 ## Intro sting
 

@@ -108,10 +108,9 @@
   }
 }
 
-/* Liquid glass (native CSS + SVG, no library). Layer 1, every browser: frosted blur, light tint,
-   bright top rim. Layer 2, Chromium only: a thin ring along the edges refracts what's behind it
-   through the #glass-refract SVG filter (in the root layout). Browsers without SVG backdrop
-   filters just skip layer 2. */
+/* Liquid glass (native CSS, no library): one frosted blur layer, a light tint and a bright rim.
+   An SVG refraction ring on the edges was tried and removed: it smeared the content behind the
+   pill into a second, displaced copy on top of the blur. */
 .glass {
   position: relative;
   isolation: isolate;
@@ -128,27 +127,16 @@
     inset -1px -1px 0 rgb(23 24 28 / 0.1),
     0 12px 32px -16px rgb(23 24 28 / 0.3);
 }
-.glass::before,
-.glass::after {
+.glass::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
   border-radius: inherit;
   pointer-events: none;
-}
-.glass::before {
   /* Standard property only: the build adds the -webkit- prefix for Safari. Writing both by hand
      made the minifier keep just the prefixed one, which Chrome ignores (no blur in production). */
   backdrop-filter: blur(8px) saturate(1.8);
-}
-.glass::after {
-  padding: 10px;
-  backdrop-filter: url(#glass-refract);
-  /* Keep only a 10px ring at the edges, where real glass bends light the most. */
-  mask:
-    linear-gradient(#000 0 0) content-box exclude,
-    linear-gradient(#000 0 0);
 }
 .glass-dark {
   background: rgb(23 24 28 / 0.45);
