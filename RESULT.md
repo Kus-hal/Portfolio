@@ -14,6 +14,10 @@ Next.js 16 App Router project: TypeScript, Tailwind CSS v4, Motion, `next/font`.
   reveal, session timer.
 - **Meta:** title, description, canonical, Open Graph + Twitter card with a build-time 1200×630 `/og.png`,
   KS-mark SVG favicon, `theme-color`.
+- **SEO:** schema.org `Person` JSON-LD (job titles, location, education, skills, GitHub/LinkedIn),
+  `robots.txt` and `sitemap.xml`. The title and description use "Android Developer" alongside
+  "Engineer", plus location and remote/relocation. This deliberately changes the handoff's title
+  (Kushal approved it).
 - **Real content:** from the interview and Kushal's résumé. Nothing was invented.
 
 ## Verification (local, 2026-09-26)
@@ -43,7 +47,7 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
 - **Flat work badges**. The warm orange appears only on the hero dot. No `→` in link text.
 - **Education section** added (structure borrowed from a reference site; visuals unchanged), plus tech
   tags under every job.
-- **Photo** as a round avatar in About. **Mobile nav** hides the links, as in the reference.
+- **Photo in the hero:** a round avatar beside the name below 1024 px, and its own 240 px column on desktop (switched by CSS, one download). It was moved out of About. **Mobile nav** hides the links, as in the reference.
 - **Stack** curated from the résumé into 9 groups.
 
 ## Engineering decisions worth knowing
@@ -75,3 +79,43 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
 2. **Loudly link:** add `href` in `src/content/site.ts` when the repo or demo goes public.
 3. **Certificates:** to be added to the Education section when provided.
 4. **Real-world Lighthouse:** run PageSpeed Insights on the deployed URL.
+5. **Analytics:** to be chosen with the host. Options: Cloudflare Web Analytics (cookie-free, any host),
+   Vercel Web Analytics (cookie-free, Vercel only), or GA4 (needs a consent banner for EU/UK visitors).
+6. **Search Console:** after deploying, verify the domain in Google Search Console and submit
+   `/sitemap.xml`.
+
+## v2 on `motion2` (2026-09-27)
+
+`motion2` merges the hero-photo, motion and SEO branches, then adds:
+
+- **Positioning:** Mobile Engineer (Android and Kotlin Multiplatform), applying for Android and KMP
+  roles. That wording now appears in the title, role line, availability chip, focus fact, meta
+  description, JSON-LD and OG image. Swift, SwiftUI and Spring Boot appear only as "Currently learning".
+  The Stack is regrouped from the résumé plus Cloth Lab's real dependencies.
+- **Intro sting:** replaces the 15–20 s video intro. It's a ~5 s silent sting built with the Web
+  Animations API: KS mark, then name, then role, and the name flies onto the real hero heading
+  (verified 0 px off at desktop and phone). It autoplays for every first-time visitor, including
+  reduced-motion users (Kushal's call), and can always be skipped. There are three versions cut to NCS
+  beat grids, previewed at `?intro=1|2|3`. The default is version 1 until Kushal picks.
+- **Music:** NCS's free licence covers social-media videos, not websites. The site sting is silent and
+  the preview clips stay local (gitignored).
+
+- **Liquid metal and glass:**
+  - A chrome/cobalt liquid-metal KS in the sting (capable devices only) and in the footer (lazy, only
+    while visible).
+  - The nav is now a floating liquid-glass pill, and the Skip button is glass too.
+  - Details are in README.md.
+- **Performance (measured 2026-09-27, local production build):**
+  - First-visit mobile Lighthouse is **64–70** on the metal path and **70–80** without metal (what
+    budget phones get). Desktop is 93. Accessibility, best practices and SEO stay at 100.
+  - The sting itself costs 10–20 mobile points on a first visit, because the LCP becomes the sting's
+    name. The metal adds about 0.5 s of main thread on a mid laptop.
+  - Returning visitors don't get the sting or the metal.
+
+**Still open for v2:**
+
+- Kushal picks a sting version.
+- The hero lede, About story, stats and a Cloth Lab project card wait for the Cloth Lab write-up.
+  Cloth Lab is early-stage and must be presented as in development.
+- The social videos (`brag-output/`) still use the old "Android engineer" story, and get remade after
+  that write-up.

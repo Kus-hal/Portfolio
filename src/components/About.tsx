@@ -1,6 +1,4 @@
-import Image from "next/image";
-import portrait from "@/assets/kushal.jpg";
-import { about, person } from "@/content/site";
+import { about } from "@/content/site";
 import { RichText } from "./RichText";
 import { Section } from "./Section";
 
@@ -17,11 +15,6 @@ export function About() {
         </div>
 
         <div>
-          <Image
-            src={portrait}
-            alt={person.name}
-            className="mb-5 size-32 rounded-full border border-line object-cover object-top"
-          />
           <dl className="overflow-hidden rounded-card border border-line bg-surface">
             {about.facts.map(({ label, value }) => (
               <div

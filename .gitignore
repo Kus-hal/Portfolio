@@ -41,6 +41,15 @@ yarn-error.log*
 next-env.d.ts
 
 # local AI tooling (kept on disk, not published)
+.impeccable/
 AGENTS.md
 CLAUDE.md
 .claude/
+
+# video tooling: regenerable frames and its own dependencies
+/brag-output/work/
+/brag-output/source/node_modules/
+/brag-output/music/
+
+# NCS clips for the local intro preview only (not deployed)
+/public/intro/audio/

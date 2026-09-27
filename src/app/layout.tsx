@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
+import { introDecisionScript } from "@/components/intro";
+import { IntroSting } from "@/components/IntroSting";
 import { MotionProvider } from "@/components/MotionProvider";
-import { metaDescription, ogImage, person, siteUrl } from "@/content/site";
+import { metaDescription, ogImage, person, seo, siteUrl } from "@/content/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,7 +32,7 @@ const jetBrainsMono = localFont({
   fallback: ["ui-monospace", "Cascadia Mono", "Menlo", "monospace"],
 });
 
-const title = `${person.name} — ${person.title}`;
+const { title } = seo;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -64,14 +66,42 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
+      // The intro script below may add `data-intro` before React hydrates.
+      suppressHydrationWarning
     >
+      <head>
+        {/* Runs before first paint so the intro covers the page without a flash of the site. */}
+        <script dangerouslySetInnerHTML={{ __html: introDecisionScript }} />
+      </head>
       <body>
+        {/* Refraction used by .glass edges (Chromium applies it; other browsers ignore it). */}
+        <svg aria-hidden="true" width="0" height="0" className="absolute">
+          <filter id="glass-refract" colorInterpolationFilters="sRGB">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.012 0.02"
+              numOctaves="2"
+              seed="7"
+              result="noise"
+            />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="noise"
+              scale="22"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </svg>
         <noscript>
           <style>
             {"[data-animate]{opacity:1!important;transform:none!important}"}
           </style>
         </noscript>
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <IntroSting />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );

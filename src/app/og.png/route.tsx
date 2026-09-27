@@ -65,14 +65,19 @@ export async function GET() {
         <div
           style={{
             display: "flex",
-            gap: 12,
+            flexWrap: "wrap",
+            columnGap: 12,
+            rowGap: 4,
             marginTop: 28,
             fontSize: 40,
             fontWeight: 500,
           }}
         >
-          <span>{hero.role.strong}</span>
-          <span style={{ color: "#666a73" }}>{hero.role.rest}</span>
+          {/* No shrinking: a long role line wraps instead of the halves overlapping. */}
+          <span style={{ flexShrink: 0 }}>{hero.role.strong}</span>
+          <span style={{ flexShrink: 0, color: "#666a73" }}>
+            {hero.role.rest}
+          </span>
         </div>
       </div>
       <div

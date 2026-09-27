@@ -6,6 +6,8 @@ import {
   type Transition,
   type Variants,
 } from "motion/react";
+import { useEffect, useState } from "react";
+import { INTRO_DONE_EVENT, introActive } from "./intro";
 
 const easeOut: Transition["ease"] = [0.23, 1, 0.32, 1];
 
@@ -27,11 +29,20 @@ export function Entrance({
   className?: string;
 }) {
   const reduce = useReducedMotion();
+  // While the first-visit intro covers the page, hold the entrance so it plays when revealed.
+  const [ready, setReady] = useState(() => !introActive());
+  useEffect(() => {
+    if (ready) return;
+    const onDone = () => setReady(true);
+    window.addEventListener(INTRO_DONE_EVENT, onDone);
+    return () => window.removeEventListener(INTRO_DONE_EVENT, onDone);
+  }, [ready]);
+
   return (
     <m.div
       className={className}
       initial="hidden"
-      animate="shown"
+      animate={ready ? "shown" : "hidden"}
       transition={
         reduce
           ? { duration: 0 }

@@ -4,8 +4,9 @@ import { NavLinks } from "./NavLinks";
 
 export function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-paper/82 backdrop-blur-md">
-      <div className="wrap flex items-center justify-between gap-5 py-3.5">
+    // A floating liquid-glass pill: the page scrolls behind it and refracts at its edges.
+    <header className="sticky top-3 z-50 mx-auto max-w-[1080px] px-3 sm:top-4 sm:px-4">
+      <div className="glass flex items-center justify-between gap-5 rounded-full py-1.5 pr-1.5 pl-3 sm:pl-4">
         <a
           href="#top"
           className="flex items-center gap-2.5 font-display text-[17px] font-bold tracking-[-0.01em] whitespace-nowrap"

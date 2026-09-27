@@ -9,7 +9,7 @@ export const siteUrl =
 export const person = {
   name: "Kushal Sharma",
   initials: "KS",
-  title: "Android Engineer",
+  title: "Mobile Engineer",
   location: "Jaipur, India",
   locationShort: "Jaipur, IN",
   email: "kushals0209@gmail.com",
@@ -31,9 +31,12 @@ export const navItems = [
 ] as const;
 
 export const hero = {
-  availability: "Open to Android & mobile roles — worldwide",
-  role: { strong: "Android engineer.", rest: "Kotlin & Jetpack Compose." },
-  lede: "I build the apps people keep on their phones: a multi-role fintech super-app, an offline engine that keeps audio in sync across devices, and Ting, live on Google Play. A year and a half of production Kotlin, owning features from first commit to Play Store release. Now looking for products at real scale.",
+  availability: "Open to Android & Kotlin Multiplatform roles — worldwide",
+  role: {
+    strong: "Mobile engineer.",
+    rest: "Android, Kotlin Multiplatform & Compose.",
+  },
+  lede: "I build Android and Kotlin Multiplatform apps and own them from the first commit to the store release. Right now that's Cloth Lab, a laundry pickup app I'm building solo for Android, iOS and web. Before it I spent a year on OMNIA, a fintech super-app at SDLC Corp, and I shipped Ting to Google Play on my own.",
   tickerStatus: "in production",
 } as const;
 
@@ -44,8 +47,16 @@ export const ogImage = {
   alt: `${person.name} — ${person.title}. ${hero.role.rest}`,
 } as const;
 
+// Search-facing copy. "Mobile Engineer" is the headline; "Android Developer" stays as an alternate
+// job title because it's the term recruiters search most.
+// The description is kept to ~158 characters so Google shows it without truncation.
+export const seo = {
+  title: `${person.name} — Mobile Engineer · Android & Kotlin Multiplatform`,
+  alternateJobTitle: "Android Developer",
+} as const;
+
 export const metaDescription =
-  "Android engineer building in Kotlin and Jetpack Compose — a multi-role fintech super-app, a real-time audio-sync engine, and Ting on Google Play.";
+  "Mobile engineer: Android, Kotlin Multiplatform & Compose. Building Cloth Lab solo; before that a fintech super-app at SDLC Corp. Jaipur · remote or relocation.";
 
 /** Text runs; `strong` runs render bold. */
 export type Rich = readonly { text: string; strong?: boolean }[];
@@ -62,33 +73,37 @@ export const about: {
   paragraphs: [
     [
       {
-        text: "I build software people actually carry around. On the surface that's Kotlin and Jetpack Compose; underneath it's clean architecture, real-time data, and whatever the product needs to feel fast.",
+        text: "Most of what I build ends up in someone's pocket, so I care how it feels in the hand. On screen that means Kotlin and Jetpack Compose. Under it I spend just as much time on architecture and real-time data, because that's usually where an app gets slow.",
       },
     ],
     [
-      { text: "Most of the last year went into " },
+      { text: "Right now I'm building " },
+      { text: "Cloth Lab", strong: true },
+      {
+        text: " for a startup: I worked out the product and design with the founder, and I write all of it, one Kotlin Multiplatform codebase for Android, iOS and web on a Firebase backend. Before that I spent a year on ",
+      },
       { text: "OMNIA", strong: true },
       {
-        text: " at SDLC Corp, a fintech super-app where one codebase served consumers, merchants and distributors, each with their own screens and permissions. Alongside it I ship my own things: ",
+        text: " at SDLC Corp, a fintech super-app where one codebase served consumers, merchants and distributors, each with their own screens and permissions. On the side there's ",
       },
       { text: "Ting", strong: true },
-      { text: ", an interval timer live on Google Play, and " },
+      { text: ", an interval timer on Google Play, and " },
       { text: "Loudly", strong: true },
       {
-        text: ", an engine that keeps audio in sync across a room full of phones with no internet, which I'm preparing for public release.",
+        text: ", which keeps audio in sync across a room of phones with no internet. Loudly isn't public yet.",
       },
     ],
     [
       {
-        text: "I'm looking for my next role, ideally closer to products with a lot of people on the other end of the screen, and I'm open to remote work or relocating for the right one.",
+        text: "Right now I'm also learning Swift and SwiftUI, and Kotlin on the server with Spring Boot, so I can work across the whole product. I'm looking for my next role, ideally closer to products with a lot of people on the other end of the screen, and I'm open to remote work or relocating for the right one.",
       },
     ],
   ],
   facts: [
     { label: "Status", value: "Open to new roles" },
-    { label: "Now", value: "Building Loudly" },
+    { label: "Now", value: "Building Cloth Lab & Loudly" },
     { label: "Previously", value: "Kotlin Dev, SDLC Corp" },
-    { label: "Focus", value: "Android & mobile" },
+    { label: "Focus", value: "Android & Kotlin Multiplatform" },
     { label: "Based in", value: "Jaipur, India" },
     { label: "Open to", value: "Remote · Relocation" },
     { label: "Education", value: "B.Tech CSE, RIET" },
@@ -127,7 +142,7 @@ export const capabilities = {
 export type Project = {
   name: string;
   badge: string;
-  tone: "accent" | "ink" | "neutral";
+  tone: "accent" | "ink" | "neutral" | "outline";
   summary: string;
   tags: readonly string[];
   href?: string;
@@ -136,17 +151,32 @@ export type Project = {
 
 export const work: { kicker: string; heading: string; projects: Project[] } = {
   kicker: "Selected work",
-  heading: "Products, not just repositories.",
+  heading: "What I've been building.",
   projects: [
     {
-      name: "Ting",
-      badge: "T",
-      tone: "accent",
+      // Client startup product; Kushal shaped the product and design with the founder and builds
+      // it solo. Only claim what exists: customer app + backend built, vendor/admin apps next.
+      name: "Cloth Lab",
+      badge: "C",
+      tone: "outline",
       summary:
-        "An offline-first interval timer with a home-screen widget and exact alarms that fire through Doze. Live on Google Play, built solo.",
-      tags: ["Kotlin", "Jetpack Compose", "Jetpack Glance", "Play Store"],
-      href: links.ting,
-      cta: "View on Google Play",
+        "Laundry pickup and delivery, shaped with the founder and built solo: one Kotlin Multiplatform app for Android, iOS and web, on a Firebase backend with server-side pricing and WhatsApp sign-in. Customer app built; vendor and admin apps next.",
+      tags: [
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "Firebase",
+        "Cloud Functions",
+      ],
+      cta: "In development · startup product",
+    },
+    {
+      name: "OMNIA",
+      badge: "O",
+      tone: "neutral",
+      summary:
+        "A multi-role fintech super-app built at SDLC Corp: wallet, payments, KYC liveness and gold trading for consumers, merchants and distributors.",
+      tags: ["Kotlin", "Compose", "Clean Architecture", "Fintech"],
+      cta: "Internal work · SDLC Corp",
     },
     {
       name: "Loudly",
@@ -158,13 +188,14 @@ export const work: { kicker: string; heading: string; projects: Project[] } = {
       cta: "Public release soon",
     },
     {
-      name: "OMNIA",
-      badge: "O",
-      tone: "neutral",
+      name: "Ting",
+      badge: "T",
+      tone: "accent",
       summary:
-        "A multi-role fintech super-app built at SDLC Corp: wallet, payments, KYC liveness and gold trading for consumers, merchants and distributors.",
-      tags: ["Kotlin", "Compose", "Clean Architecture", "Fintech"],
-      cta: "Internal work · SDLC Corp",
+        "An offline-first interval timer with a home-screen widget and exact alarms that fire through Doze. Live on Google Play, built solo.",
+      tags: ["Kotlin", "Jetpack Compose", "Jetpack Glance", "Play Store"],
+      href: links.ting,
+      cta: "View on Google Play",
     },
   ],
 };
@@ -263,7 +294,7 @@ export const experience: {
 
 export const education = {
   kicker: "Education",
-  heading: "The foundation under the production work.",
+  heading: "Where I studied.",
   entries: [
     {
       org: "Rajasthan Institute of Engineering & Technology",
@@ -277,13 +308,15 @@ export const stack = {
   kicker: "Stack",
   heading: "The tools, grouped by what they're for.",
   groups: [
-    { name: "Languages", items: ["Kotlin", "Java"] },
+    { name: "Languages", items: ["Kotlin", "Java", "TypeScript"] },
     {
-      name: "UI",
+      name: "Mobile & multiplatform",
       items: [
         "Jetpack Compose",
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "Material 3",
         "XML Views",
-        "Material Design",
         "Jetpack Glance",
       ],
     },
@@ -306,28 +339,36 @@ export const stack = {
         "DataStore",
         "Paging 3",
         "WorkManager",
+        "kotlinx.serialization",
       ],
     },
     {
       name: "Network & real-time",
-      items: ["Retrofit", "Ktor", "OkHttp", "WebSocket", "Socket.IO"],
+      items: ["Ktor", "Retrofit", "OkHttp", "WebSocket", "Socket.IO"],
     },
     { name: "Media & device", items: ["CameraX", "ML Kit", "ExoPlayer"] },
     {
-      name: "Firebase & quality",
+      name: "Backend & cloud",
       items: [
-        "Firebase",
+        "Firebase Auth",
+        "Firestore",
+        "Cloud Functions",
         "FCM",
         "Crashlytics",
         "Sentry",
-        "Android Studio Profiler",
       ],
     },
     {
       name: "Build & tooling",
-      items: ["Gradle", "R8 / ProGuard", "Git", "GitHub Actions"],
+      items: [
+        "Gradle",
+        "R8 / ProGuard",
+        "Git",
+        "GitHub Actions",
+        "Android Studio Profiler",
+      ],
     },
-    { name: "Currently exploring", items: ["KMP"] },
+    { name: "Currently learning", items: ["Swift", "SwiftUI", "Spring Boot"] },
   ],
 } as const;
 
