@@ -6,6 +6,7 @@ const badgeTone: Record<Project["tone"], string> = {
   accent: "bg-accent text-white",
   ink: "bg-ink text-paper",
   neutral: "border border-line bg-paper text-ink",
+  outline: "border-2 border-accent bg-surface text-accent-ink",
 };
 
 const card =

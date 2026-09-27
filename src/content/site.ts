@@ -138,7 +138,7 @@ export const capabilities = {
 export type Project = {
   name: string;
   badge: string;
-  tone: "accent" | "ink" | "neutral";
+  tone: "accent" | "ink" | "neutral" | "outline";
   summary: string;
   tags: readonly string[];
   href?: string;
@@ -149,6 +149,22 @@ export const work: { kicker: string; heading: string; projects: Project[] } = {
   kicker: "Selected work",
   heading: "Products, not just repositories.",
   projects: [
+    {
+      // Client startup product; Kushal shaped the product and design with the founder and builds
+      // it solo. Only claim what exists: customer app + backend built, vendor/admin apps next.
+      name: "Cloth Lab",
+      badge: "C",
+      tone: "outline",
+      summary:
+        "Laundry pickup and delivery, shaped with the founder and built solo: one Kotlin Multiplatform app for Android, iOS and web, on a Firebase backend with server-side pricing and WhatsApp sign-in. Customer app built; vendor and admin apps next.",
+      tags: [
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "Firebase",
+        "Cloud Functions",
+      ],
+      cta: "In development · startup product",
+    },
     {
       name: "Ting",
       badge: "T",
