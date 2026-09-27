@@ -87,7 +87,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <feDisplacementMap
               in="SourceGraphic"
               in2="noise"
-              scale="22"
+              scale="34"
               xChannelSelector="R"
               yChannelSelector="G"
             />

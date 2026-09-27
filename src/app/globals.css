@@ -115,12 +115,18 @@
 .glass {
   position: relative;
   isolation: isolate;
-  background: rgb(252 252 253 / 0.5);
-  border: 1px solid rgb(255 255 255 / 0.7);
+  /* A thin, clear tint with a diagonal sheen, so what's behind reads through instead of a white bar. */
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.3),
+    rgb(255 255 255 / 0.08) 55%,
+    rgb(255 255 255 / 0.18)
+  );
+  border: 1px solid rgb(255 255 255 / 0.55);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.9),
-    inset 0 -1px 0 rgb(23 24 28 / 0.06),
-    0 10px 30px -14px rgb(23 24 28 / 0.28);
+    inset 1px 1px 0 rgb(255 255 255 / 0.95),
+    inset -1px -1px 0 rgb(23 24 28 / 0.1),
+    0 12px 32px -16px rgb(23 24 28 / 0.3);
 }
 .glass::before,
 .glass::after {
@@ -132,13 +138,14 @@
   pointer-events: none;
 }
 .glass::before {
-  backdrop-filter: blur(14px) saturate(1.7);
-  -webkit-backdrop-filter: blur(14px) saturate(1.7);
+  /* Standard property only: the build adds the -webkit- prefix for Safari. Writing both by hand
+     made the minifier keep just the prefixed one, which Chrome ignores (no blur in production). */
+  backdrop-filter: blur(8px) saturate(1.8);
 }
 .glass::after {
-  padding: 7px;
+  padding: 10px;
   backdrop-filter: url(#glass-refract);
-  /* Keep only a 7px ring at the edges, where real glass bends light the most. */
+  /* Keep only a 10px ring at the edges, where real glass bends light the most. */
   mask:
     linear-gradient(#000 0 0) content-box exclude,
     linear-gradient(#000 0 0);
