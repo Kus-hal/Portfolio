@@ -7,7 +7,7 @@ type SectionProps = {
   children: React.ReactNode;
 };
 
-/** Shared scaffolding: bordered block, kicker, h2 — header and body reveal separately. */
+/** Shared scaffolding: bordered block, kicker, h2; header and body reveal separately. */
 export function Section({ id, kicker, heading, children }: SectionProps) {
   const headingId = `${id}-heading`;
   return (

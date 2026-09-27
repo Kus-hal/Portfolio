@@ -13,7 +13,7 @@ function split(totalSeconds: number) {
   };
 }
 
-/** Counts up from page load — a nod to Ting. Frozen at 00:00:00 under reduced motion. */
+/** Counts up from page load, a nod to Ting. Frozen at 00:00:00 under reduced motion. */
 export function SessionTimer() {
   const reduce = useReducedMotion();
   const [seconds, setSeconds] = useState(0);

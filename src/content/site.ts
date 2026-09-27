@@ -1,5 +1,5 @@
 /**
- * Every word and link on the page lives here. Copy was approved line by line —
+ * Every word and link on the page lives here. Copy was approved line by line;
  * edit it here rather than in components.
  */
 
@@ -31,7 +31,7 @@ export const navItems = [
 ] as const;
 
 export const hero = {
-  availability: "Open to Android & Kotlin Multiplatform roles — worldwide",
+  availability: "Open to Android & Kotlin Multiplatform roles, worldwide",
   role: {
     strong: "Mobile engineer.",
     rest: "Android, Kotlin Multiplatform & Compose.",
@@ -44,14 +44,14 @@ export const ogImage = {
   url: "/og.png",
   width: 1200,
   height: 630,
-  alt: `${person.name} — ${person.title}. ${hero.role.rest}`,
+  alt: `${person.name}, ${person.title}. ${hero.role.rest}`,
 } as const;
 
 // Search-facing copy. "Mobile Engineer" is the headline; "Android Developer" stays as an alternate
 // job title because it's the term recruiters search most.
 // The description is kept to ~158 characters so Google shows it without truncation.
 export const seo = {
-  title: `${person.name} — Mobile Engineer · Android & Kotlin Multiplatform`,
+  title: `${person.name} | Mobile Engineer · Android & Kotlin Multiplatform`,
   alternateJobTitle: "Android Developer",
 } as const;
 

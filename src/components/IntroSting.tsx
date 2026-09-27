@@ -20,17 +20,17 @@ const VERSIONS: Record<
 > = {
   1: {
     label: "Pop",
-    track: "Different Heaven — Nekozilla",
+    track: "Nekozilla by Different Heaven",
     bpm: 129,
     period: 0.4644,
   },
   2: {
     label: "Reveal",
-    track: "Electro-Light — Symbolism",
+    track: "Symbolism by Electro-Light",
     bpm: 112,
     period: 0.5341,
   },
-  3: { label: "Slam", track: "HXI — Lock n' Load", bpm: 129, period: 0.4644 },
+  3: { label: "Slam", track: "Lock n' Load by HXI", bpm: 129, period: 0.4644 },
 };
 const HIT = 0.35;
 
