@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { hero, person } from "@/content/site";
-import { INTRO_DONE_EVENT, INTRO_STORAGE_KEY, introActive } from "./intro";
+import { INTRO_DONE_EVENT, introActive } from "./intro";
 import { LiquidMetalMark } from "./LiquidMetalMark";
 
 /**
@@ -432,12 +432,6 @@ export function IntroSting() {
     setPreview(isPreview);
     setMetal(canAffordMetal());
 
-    if (!isPreview) {
-      // Remember immediately, so a refresh mid-intro doesn't replay it.
-      try {
-        localStorage.setItem(INTRO_STORAGE_KEY, "1");
-      } catch {}
-    }
     // Keep keyboard and screen-reader focus inside the intro while it's up.
     for (const child of Array.from(document.body.children)) {
       if (child !== overlay && child instanceof HTMLElement && !child.inert) {

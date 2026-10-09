@@ -29,7 +29,7 @@ export function Entrance({
   className?: string;
 }) {
   const reduce = useReducedMotion();
-  // While the first-visit intro covers the page, hold the entrance so it plays when revealed.
+  // While the intro covers the page, hold the entrance so it plays when revealed.
   const [ready, setReady] = useState(() => !introActive());
   useEffect(() => {
     if (ready) return;

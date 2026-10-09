@@ -53,10 +53,11 @@ at build time so canonical and Open Graph URLs are absolute and correct.
 
 ## Intro sting
 
-- **What it does:** every first-time visitor sees a ~5 s sting: the KS mark, then the name, then the role.
+- **What it does:** the ~5 s sting plays every time someone opens the site: the KS mark, then the name, then the role.
   At the end, the name flies onto the real hero heading. It's built with the Web Animations API in
-  `src/components/IntroSting.tsx`, is silent, and can always be skipped (button or Esc). Returning
-  visitors skip it; the flag lives in `localStorage`.
+  `src/components/IntroSting.tsx`, is silent, and can always be skipped (button or Esc). It doesn't
+  replay on a reload, on back/forward, or when arriving from another page of this site (checked from
+  the navigation type and the referrer; nothing is stored).
 - **Three versions:** each is cut to an NCS track's beat grid: 1 Pop (Different Heaven, "Nekozilla"),
   2 Reveal (Electro-Light, "Symbolism") and 3 Slam (HXI, "Lock n' Load"). The shipped version is
   `DEFAULT_STING` in `src/components/intro.ts`.
