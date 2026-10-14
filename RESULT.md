@@ -123,3 +123,18 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
 presented as in development: customer app and backend built, vendor and admin apps next. The copy
 was rewritten with the LinkedIn humanizer rules, with the facts unchanged. `motion2` was merged into
 `main`.
+
+## Homepage redesign (`feature/home-redesign`, 2026-10-14)
+
+Built from the approved drafts in `docs/drafts/home/` (draft 3):
+
+- **Hero:** the name as a monument (one line from md up, two on phones), a pitch tagline, two actions and a
+  four-tile proof rail. The "Open to roles" chip, the long lede and the session ticker are gone. The intro
+  sting's name is now set like the monument, so the hand-off still lands at 0 px.
+- **Sections, in order:** marquee, What I can build for you (four offers, each with a proof), Work (cards
+  with app icons and two small phone thumbnails), Experience (its own section), About (short, in shapes),
+  Stack (32 tools; picking one opens a panel on the right, a bottom sheet on phones), Contact (unchanged).
+- **Education** is hidden; its content and `<Timeline>` stay for later.
+- **To confirm with Kushal:** the tagline (A of three options), which project used which tool in the stack
+  map (`src/content/site.ts`), and real screenshots for the OMNIA, Loudly and Ting thumbnails. Work cards
+  say "Case study coming soon" until the case-study pages exist.

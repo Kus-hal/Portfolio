@@ -4,6 +4,7 @@ const base =
 const variants = {
   solid: "border-transparent bg-ink text-paper hover:bg-accent",
   ghost: "border-line text-ink hover:border-ink",
+  soft: "border-transparent bg-tone text-ink hover:bg-tone-2",
 } as const;
 
 type ButtonLinkProps = React.ComponentProps<"a"> & {

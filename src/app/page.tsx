@@ -1,14 +1,13 @@
 import { About } from "@/components/About";
-import { Capabilities } from "@/components/Capabilities";
 import { Contact } from "@/components/Contact";
+import { Experience } from "@/components/Experience";
 import { Hero } from "@/components/Hero";
+import { Marquee } from "@/components/Marquee";
 import { Nav } from "@/components/Nav";
+import { Offers } from "@/components/Offers";
 import { PersonJsonLd } from "@/components/PersonJsonLd";
-import { Section } from "@/components/Section";
 import { Stack } from "@/components/Stack";
-import { Timeline } from "@/components/Timeline";
 import { Work } from "@/components/Work";
-import { education, experience } from "@/content/site";
 
 export default function Home() {
   return (
@@ -21,27 +20,21 @@ export default function Home() {
         Skip to content
       </a>
       <Nav />
-      <main id="main" tabIndex={-1} className="outline-none">
+      <main
+        id="main"
+        tabIndex={-1}
+        className="pb-[150px] outline-none max-sm:pb-[110px]"
+      >
         <span id="top" />
         <Hero />
-        <About />
-        <Capabilities />
+        <Marquee />
+        <Offers />
         <Work />
-        <Section
-          id="experience"
-          kicker={experience.kicker}
-          heading={experience.heading}
-        >
-          <Timeline items={experience.entries} />
-        </Section>
-        <Section
-          id="education"
-          kicker={education.kicker}
-          heading={education.heading}
-        >
-          <Timeline items={education.entries} />
-        </Section>
+        <Experience />
+        <About />
         <Stack />
+        {/* Education is hidden for now; the content stays in site.ts and <Timeline> can render it:
+            <Section id="education" heading={education.heading}><Timeline items={education.entries} /></Section> */}
       </main>
       <Contact />
     </>

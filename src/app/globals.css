@@ -16,6 +16,8 @@
   --color-body: #33353c;
   --color-muted: #666a73;
   --color-line: #e4e5ea;
+  --color-tone: #e9ebef;
+  --color-tone-2: #dfe2e8;
   --color-accent: #2743ff;
   --color-accent-ink: #1b31c9;
   --color-tick: #ff9f1c;
@@ -37,6 +39,14 @@
     }
   }
 
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
   /* scaleY instead of height keeps the loop on the compositor */
   @keyframes eq {
     0%,
@@ -51,8 +61,12 @@
 
 @utility wrap {
   margin-inline: auto;
-  max-width: 1080px;
+  max-width: 1240px;
   padding-inline: 28px;
+
+  @media (max-width: 640px) {
+    padding-inline: 18px;
+  }
 }
 
 @layer base {
@@ -144,6 +158,30 @@
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.25),
     0 10px 30px -14px rgb(0 0 0 / 0.5);
+}
+
+/* Contents of the stack panel replay this as you step through tools. */
+.stage-in {
+  animation: stage-in 450ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(3px);
+  }
+}
+
+/* Work cards that link somewhere fan their two phones on hover. */
+@media (hover: hover) and (pointer: fine) {
+  .work-link:hover .thumb-back {
+    rotate: -11deg;
+    translate: -8px 0;
+  }
+  .work-link:hover .thumb-front {
+    rotate: 3deg;
+    translate: 0 -6px;
+  }
 }
 
 /* Liquid-metal KS mark: the solid badge shows until the metal layer has drawn, then they swap.

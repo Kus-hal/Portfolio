@@ -29,7 +29,7 @@ export function NavLinks() {
   }, []);
 
   return (
-    <ul className="hidden gap-[26px] text-[15px] text-muted min-[821px]:flex">
+    <ul className="hidden gap-[22px] px-2 text-[15px] text-muted min-[821px]:flex">
       {navItems.map(({ id, label }) => {
         const current = active === id;
         return (

@@ -1,44 +1,44 @@
 import { about } from "@/content/site";
-import { RichText } from "./RichText";
 import { Section } from "./Section";
 
+const tones = {
+  tone: { box: "bg-tone", label: "text-muted" },
+  surface: { box: "bg-surface", label: "text-muted" },
+  deep: { box: "bg-tone-2", label: "text-muted" },
+  accent: { box: "bg-accent text-white", label: "text-[#dfe3ff]" },
+} as const;
+
+// Column spans on the 12-column desktop grid; phones stack, with the two short facts side by side.
+const spans = {
+  2: "col-span-1 min-[821px]:col-span-2",
+  3: "col-span-1 min-[821px]:col-span-3",
+  5: "col-span-2 min-[821px]:col-span-5",
+  7: "col-span-2 min-[821px]:col-span-7",
+} as const;
+
+/** About in shapes: one statement, then short facts. Nobody reads three paragraphs here. */
 export function About() {
   return (
-    <Section id="about" kicker={about.kicker} heading={about.heading}>
-      <div className="grid items-start gap-14 max-[820px]:gap-[34px] min-[821px]:grid-cols-[1.3fr_0.9fr]">
-        <div className="space-y-[18px] text-body">
-          {about.paragraphs.map((runs, i) => (
-            <p key={i}>
-              <RichText runs={runs} />
-            </p>
-          ))}
+    <Section id="about" heading={about.heading}>
+      <div className="grid grid-cols-2 gap-2 min-[821px]:grid-cols-12 min-[821px]:gap-2.5">
+        <div className="col-span-2 flex flex-col justify-between gap-[30px] rounded-card bg-ink p-[26px] text-paper min-[821px]:col-span-7 min-[821px]:row-span-2 min-[821px]:p-9">
+          <p className="max-w-[24ch] font-display text-[clamp(1.4rem,2.3vw,2rem)] leading-[1.25] font-medium tracking-[-0.02em]">
+            {about.statement}
+          </p>
+          <p className="text-[15px] text-[#b9bcc6]">{about.statementNote}</p>
         </div>
-
-        <div>
-          <dl className="overflow-hidden rounded-card border border-line bg-surface">
-            {about.facts.map(({ label, value }) => (
-              <div
-                key={label}
-                className="flex justify-between gap-4 border-b border-line px-[18px] py-[15px] text-[15px] last:border-b-0"
-              >
-                <dt className="text-muted">{label}</dt>
-                <dd className="text-right font-medium">{value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-
-      <dl className="mt-11 grid grid-cols-2 gap-[26px] min-[821px]:grid-cols-4 min-[821px]:gap-5">
-        {about.stats.map(({ value, label }) => (
-          <div key={label} className="flex flex-col-reverse">
-            <dt className="mt-0.5 text-sm text-muted">{label}</dt>
-            <dd className="font-display text-[1.9rem] leading-tight font-semibold tracking-[-0.02em]">
+        {about.cells.map(({ label, value, tone, span }) => (
+          <div
+            key={label}
+            className={`rounded-card px-[26px] py-6 ${tones[tone].box} ${spans[span]}`}
+          >
+            <p className={`text-sm ${tones[tone].label}`}>{label}</p>
+            <p className="mt-1.5 font-display text-[1.2rem] leading-[1.3] font-semibold tracking-[-0.015em]">
               {value}
-            </dd>
+            </p>
           </div>
         ))}
-      </dl>
+      </div>
     </Section>
   );
 }

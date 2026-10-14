@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { hero, person } from "@/content/site";
 import { INTRO_DONE_EVENT, introActive } from "./intro";
 import { LiquidMetalMark } from "./LiquidMetalMark";
@@ -494,14 +494,19 @@ export function IntroSting() {
           </div>
           <p
             data-el="name"
-            className="intro-name origin-top-left font-display text-[clamp(3rem,8vw,5.4rem)] leading-[0.98] font-bold tracking-[-0.03em]"
+            className="intro-name origin-top-left font-display text-[clamp(3rem,8vw,5.4rem)] leading-[0.86] font-bold tracking-[-0.05em] md:whitespace-nowrap"
           >
-            {person.name.split(" ").map((part) => (
-              <span key={part} className="intro-line block">
-                <span data-line className="block">
-                  {part}
+            {/* Set like the hero's monument (one line from md up, two on phones, same leading and
+                tracking), so the flight onto #hero-heading is a pure scale. */}
+            {person.name.split(" ").map((part, i) => (
+              <Fragment key={part}>
+                {i > 0 && " "}
+                <span className="intro-line block md:inline-block">
+                  <span data-line className="block">
+                    {part}
+                  </span>
                 </span>
-              </span>
+              </Fragment>
             ))}
           </p>
           <p

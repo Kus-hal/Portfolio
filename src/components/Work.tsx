@@ -1,64 +1,166 @@
-import { work, type Project } from "@/content/site";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
+import clothLabScreen from "@/assets/work/clothlab-screen.webp";
+import { work, type Project, type ProjectId } from "@/content/site";
+import { ProjectIcon } from "./ProjectIcon";
 import { Section } from "./Section";
 import { Tags } from "./Tags";
 
-const badgeTone: Record<Project["tone"], string> = {
-  accent: "bg-accent text-white",
-  ink: "bg-ink text-paper",
-  neutral: "border border-line bg-paper text-ink",
-  outline: "border-2 border-accent bg-surface text-accent-ink",
-};
+/** Two small phones per card. Cloth Lab's front screen is its real home banner; the rest are simple
+ *  drawings in each app's colours, to be swapped for real screenshots. */
+function Screen({ id, front }: { id: ProjectId; front: boolean }) {
+  if (id === "cloth-lab" && front)
+    return (
+      <Image
+        src={clothLabScreen}
+        alt=""
+        className="size-full object-cover object-left-top"
+      />
+    );
+  const blocks = (bg: string, rows: [number, string][]) => (
+    <div
+      className="grid h-full content-start gap-[5px] px-1.5 pt-3.5"
+      style={{ background: bg }}
+    >
+      {rows.map(([h, c], i) => (
+        <i
+          key={i}
+          className="block rounded-[5px]"
+          style={{ height: h, background: c }}
+        />
+      ))}
+    </div>
+  );
+  switch (id) {
+    case "cloth-lab":
+      return blocks("#fbf8f1", [
+        [22, "#fff"],
+        [30, "#fff"],
+        [12, "#fbf3c9"],
+      ]);
+    case "omnia":
+      return front ? (
+        blocks("#101114", [
+          [40, "#2a2c31"],
+          [8, "#e9c46a"],
+          [18, "#1f2126"],
+          [18, "#1f2126"],
+        ])
+      ) : (
+        <div className="grid h-full place-items-center bg-[#101114]">
+          <i className="block h-[52px] w-10 rounded-full border-2 border-dashed border-[#e9c46a]" />
+        </div>
+      );
+    case "loudly":
+      return front ? (
+        <div className="flex h-full items-center justify-center gap-[3px] bg-[#1d2027]">
+          {[30, 46, 22, 38].map((h, i) => (
+            <i
+              key={i}
+              className={`block w-1 rounded-sm ${i === 2 ? "bg-[#8fa0ff]" : "bg-white"}`}
+              style={{ height: h }}
+            />
+          ))}
+        </div>
+      ) : (
+        blocks("#1d2027", [
+          [14, "#2c303a"],
+          [14, "#2c303a"],
+          [14, "#2c303a"],
+        ])
+      );
+    case "ting":
+      return front ? (
+        <div className="grid h-full place-items-center bg-accent font-display text-[17px] font-semibold text-white tabular-nums">
+          00:45
+        </div>
+      ) : (
+        blocks("#f4f5f7", [
+          [34, "#2743ff"],
+          [14, "#e2e5ec"],
+          [14, "#e2e5ec"],
+        ])
+      );
+  }
+}
+
+function Thumbs({ id }: { id: ProjectId }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="relative hidden h-[150px] w-[150px] min-[821px]:block"
+    >
+      <div className="thumb-back absolute right-[58px] bottom-0 h-[146px] w-[72px] rotate-[-6deg] rounded-[15px] bg-[#121316] p-1 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">
+        <div className="size-full overflow-hidden rounded-[11px]">
+          <Screen id={id} front={false} />
+        </div>
+      </div>
+      <div className="thumb-front absolute right-1 bottom-0 z-[1] h-[146px] w-[72px] rounded-[15px] bg-[#121316] p-1 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">
+        <div className="size-full overflow-hidden rounded-[11px]">
+          <Screen id={id} front />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const card =
-  // Phones stack the badge above the copy so tags get the full width.
-  "grid items-center gap-4 rounded-card border border-line bg-surface px-5 py-6 min-[521px]:grid-cols-[auto_1fr] min-[521px]:gap-[22px] min-[521px]:px-[26px] min-[821px]:grid-cols-[auto_1fr_auto]";
+  "grid grid-cols-[52px_1fr] items-center gap-4 rounded-[20px] bg-surface px-[18px] py-[22px] min-[821px]:grid-cols-[64px_1fr_150px] min-[821px]:gap-[26px] min-[821px]:py-[26px] min-[821px]:pr-[30px] min-[821px]:pl-[26px]";
 
-function ProjectBody({ project }: { project: Project }) {
+function Body({ project }: { project: Project }) {
   return (
-    <>
-      <span
-        aria-hidden="true"
-        className={`grid size-11 place-items-center self-start rounded-xl font-display text-[1.2rem] font-bold min-[521px]:size-[52px] ${badgeTone[project.tone]}`}
-      >
-        {project.badge}
-      </span>
-      <div>
-        <h3 className="mb-1 font-display text-[1.2rem] font-semibold">
-          {project.name}
-        </h3>
-        <p className="mb-2.5 text-[0.97rem] text-muted">{project.summary}</p>
-        <Tags items={project.tags} />
-      </div>
-    </>
+    <div>
+      <h3 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-[1.4rem] font-semibold tracking-[-0.02em]">
+        {project.name}
+        <span className="font-sans text-[13.5px] font-medium tracking-normal text-muted">
+          {project.status}
+        </span>
+      </h3>
+      <p className="mt-1.5 max-w-[58ch] text-body">{project.summary}</p>
+      <Tags items={project.tags} className="mt-3.5" />
+    </div>
   );
 }
 
 export function Work() {
   return (
-    <Section id="work" kicker={work.kicker} heading={work.heading}>
-      <ul className="grid gap-4">
+    <Section id="work" heading={work.heading}>
+      <ul className="grid gap-2.5">
         {work.projects.map((project) => (
-          <li key={project.name}>
+          <li
+            key={project.id}
+            id={`work-${project.id}`}
+            className="scroll-mt-24"
+          >
             {project.href ? (
-              // Only linked cards lift on hover, so the motion never promises a click that isn't there.
+              // Only linked cards lift and fan their phones, so motion never promises a click that isn't there.
               <a
                 href={project.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${card} group transition-[border-color,transform] duration-200 ease-out hover:border-ink pointer-fine:hover:-translate-y-0.5`}
+                className={`${card} group work-link transition-[transform,background-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] pointer-fine:hover:-translate-y-[3px] pointer-fine:hover:bg-white`}
               >
-                <ProjectBody project={project} />
-                <span className="col-span-full text-sm whitespace-nowrap text-muted transition-colors duration-200 group-hover:text-accent-ink min-[821px]:col-auto">
-                  {project.cta}
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </span>
+                <ProjectIcon id={project.id} />
+                <div>
+                  <Body project={project} />
+                  <span className="mt-4 inline-flex items-center gap-2 text-[15px] font-medium transition-colors duration-200 group-hover:text-accent-ink">
+                    {project.hrefLabel}
+                    <ArrowUpRight aria-hidden="true" size={15} />
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </span>
+                </div>
+                <Thumbs id={project.id} />
               </a>
             ) : (
               <article className={card}>
-                <ProjectBody project={project} />
-                <span className="col-span-full text-sm whitespace-nowrap text-muted min-[821px]:col-auto">
-                  {project.cta}
-                </span>
+                <ProjectIcon id={project.id} />
+                <div>
+                  <Body project={project} />
+                  <p className="mt-4 text-[15px] text-muted">
+                    Case study coming soon
+                  </p>
+                </div>
+                <Thumbs id={project.id} />
               </article>
             )}
           </li>
