@@ -29,12 +29,10 @@ export function PersonJsonLd() {
       "Kotlin Coroutines",
       "Kotlin Flow",
       "Room",
-      "Retrofit",
       "Ktor",
       "Firebase",
       "CameraX",
       "ML Kit",
-      "ExoPlayer",
     ],
     sameAs: [links.github, links.linkedin],
   };
