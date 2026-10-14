@@ -357,7 +357,7 @@ export type StackTool = {
   how: string;
 };
 
-// Drafted from the résumé; Kushal to confirm which project used what.
+// Which project used what, checked against the four codebases (October 2026).
 export const stack: {
   heading: string;
   sub: string;

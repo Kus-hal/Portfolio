@@ -56,3 +56,6 @@ CLAUDE.md
 
 # taste-skill working files
 /.taste-skill/
+
+# raw screenshots Kushal drops in for case studies (processed copies go to src/assets/case-studies)
+/docs/case-study-assets/

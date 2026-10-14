@@ -4,7 +4,7 @@ import { Section } from "./Section";
 const tones = {
   tone: { box: "bg-tone", label: "text-muted" },
   surface: { box: "bg-surface", label: "text-muted" },
-  deep: { box: "bg-tone-2", label: "text-muted" },
+  deep: { box: "bg-tone-2", label: "text-body" },
   accent: { box: "bg-accent text-white", label: "text-[#dfe3ff]" },
 } as const;
 

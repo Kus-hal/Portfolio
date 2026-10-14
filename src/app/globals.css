@@ -162,7 +162,7 @@
 
 /* Contents of the stack panel replay this as you step through tools. */
 .stage-in {
-  animation: stage-in 450ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: stage-in 320ms cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 @keyframes stage-in {
   from {

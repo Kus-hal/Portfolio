@@ -41,7 +41,7 @@ export function Hero() {
           </h1>
         </EntranceItem>
 
-        <div className="mt-3 grid grid-cols-2 gap-2 md:h-[clamp(380px,50vh,500px)] md:grid-cols-12 md:gap-2.5">
+        <div className="mt-3 grid grid-cols-2 gap-2 md:min-h-[clamp(380px,50vh,500px)] md:grid-cols-12 md:gap-2.5">
           <EntranceItem className="relative col-span-1 min-h-[260px] overflow-hidden rounded-card md:col-span-3 md:min-h-0">
             <Image
               src={portrait}

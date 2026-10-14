@@ -10,7 +10,7 @@ export function Nav() {
         {/* The hero already sets the name huge, so the bar carries only the mark. */}
         <a
           href="#top"
-          aria-label={`${person.name}, back to top`}
+          aria-label={`${person.initials}, ${person.name}, back to top`}
           className="grid size-[30px] shrink-0 place-items-center rounded-lg bg-ink font-display text-[13px] font-semibold text-paper"
         >
           {person.initials}
