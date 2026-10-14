@@ -1,5 +1,8 @@
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import Link from "next/link";
+import { ViewTransition } from "react";
+import { hasCaseStudy } from "@/content/case-studies";
 import clothLabScreen from "@/assets/work/clothlab-screen.webp";
 import { work, type Project, type ProjectId } from "@/content/site";
 import { ProjectIcon } from "./ProjectIcon";
@@ -111,7 +114,14 @@ function Body({ project }: { project: Project }) {
   return (
     <div>
       <h3 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-[1.4rem] font-semibold tracking-[-0.02em]">
-        {project.name}
+        {/* Shares its name with the case-study title, so the title morphs from card to page. */}
+        <ViewTransition
+          name={`project-title-${project.id}`}
+          share="morph"
+          default="none"
+        >
+          <span>{project.name}</span>
+        </ViewTransition>
         <span className="font-sans text-[13.5px] font-medium tracking-normal text-muted">
           {project.status}
         </span>
@@ -132,7 +142,34 @@ export function Work() {
             id={`work-${project.id}`}
             className="scroll-mt-24"
           >
-            {project.href ? (
+            {hasCaseStudy(project.id) ? (
+              <Link
+                href={`/work/${project.id}`}
+                className={`${card} group work-link transition-[transform,background-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] pointer-fine:hover:-translate-y-[3px] pointer-fine:hover:bg-white`}
+              >
+                <ViewTransition
+                  name={`project-icon-${project.id}`}
+                  share="morph"
+                  default="none"
+                >
+                  <span className="block self-start">
+                    <ProjectIcon id={project.id} />
+                  </span>
+                </ViewTransition>
+                <div>
+                  <Body project={project} />
+                  <span className="mt-4 inline-flex items-center gap-2 text-[15px] font-medium transition-colors duration-200 group-hover:text-accent-ink">
+                    Read the case study
+                    <ArrowRight
+                      aria-hidden="true"
+                      size={15}
+                      className="transition-transform duration-200 pointer-fine:group-hover:translate-x-1"
+                    />
+                  </span>
+                </div>
+                <Thumbs id={project.id} />
+              </Link>
+            ) : project.href ? (
               // Only linked cards lift and fan their phones, so motion never promises a click that isn't there.
               <a
                 href={project.href}

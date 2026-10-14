@@ -1,5 +1,6 @@
 import { ChalkboardTeacher } from "@phosphor-icons/react/dist/ssr";
 import * as simpleIcons from "simple-icons";
+import { hasCaseStudy } from "@/content/case-studies";
 import { stack, work, type ProjectId } from "@/content/site";
 import { ProjectIcon } from "./ProjectIcon";
 import { Section } from "./Section";
@@ -44,7 +45,7 @@ export function Stack() {
       {
         name: p.name,
         blurb: blurbs[p.id],
-        href: `#work-${p.id}`,
+        href: hasCaseStudy(p.id) ? `/work/${p.id}` : `#work-${p.id}`,
         icon: <ProjectIcon id={p.id} size={44} />,
       },
     ]),

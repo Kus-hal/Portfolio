@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build --webpack",
+    "build": "next build --webpack && node scripts/flatten-segment-prefetch.mjs",
     "preview": "npx --yes serve@14 out",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",

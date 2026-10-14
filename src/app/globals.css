@@ -172,6 +172,59 @@
   }
 }
 
+/* Case studies: highlighter runs swipe in as they scroll into view (static and full where
+   scroll-driven animations aren't supported, or under reduced motion). */
+.cs-mark {
+  color: inherit;
+  padding: 0 0.06em;
+  background: linear-gradient(var(--proj-mark), var(--proj-mark)) no-repeat 0
+    88% / 100% 44%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+/* On dark cards a half-height band would cut light text in two: fill the line, darken the text. */
+[data-tone="dark"] .cs-mark {
+  color: var(--color-ink);
+  border-radius: 4px;
+  background-position: 0 0;
+  background-size: 100% 100%;
+}
+@supports (animation-timeline: view()) {
+  .cs-mark {
+    animation: mark-swipe linear both;
+    animation-timeline: view();
+    animation-range: entry 40% cover 38%;
+  }
+}
+@keyframes mark-swipe {
+  from {
+    background-size: 0% 44%;
+  }
+}
+/* No swipe on dark: text the swipe hasn't reached yet would be dark on dark. */
+@supports (animation-timeline: view()) {
+  [data-tone="dark"] .cs-mark {
+    animation: none;
+  }
+}
+/* Skim mode hides the long paragraphs and keeps headlines, numbers and screens. */
+[data-skim="true"] [data-full] {
+  display: none;
+}
+/* Card-to-page morph (View Transitions): a short, slightly blurred flight. */
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+@keyframes via-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
 /* Work cards that link somewhere fan their two phones on hover. */
 @media (hover: hover) and (pointer: fine) {
   .work-link:hover .thumb-back {

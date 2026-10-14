@@ -1,8 +1,15 @@
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { offers } from "@/content/site";
+import { hasCaseStudy } from "@/content/case-studies";
+import { offers, type ProjectId } from "@/content/site";
 import { Section } from "./Section";
 
 type Proof = (typeof offers.items)[number]["proof"];
+
+/** "#work-cloth-lab" becomes "/work/cloth-lab" once that case study is published. */
+const caseHref = (href: string) => {
+  const id = href.replace("#work-", "") as ProjectId;
+  return hasCaseStudy(id) ? `/work/${id}` : href;
+};
 
 const panel: Record<
   Proof["kind"],
@@ -83,7 +90,7 @@ export function Offers() {
                 </h3>
                 <p className="mt-2.5 max-w-[46ch] text-body">{body}</p>
                 <a
-                  href={from.href}
+                  href={caseHref(from.href)}
                   className="mt-3.5 inline-flex items-center gap-1.5 text-sm font-medium text-accent-ink transition-colors duration-200 hover:text-ink"
                 >
                   {from.label}

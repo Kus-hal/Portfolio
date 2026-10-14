@@ -24,13 +24,13 @@ export function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="pt-24 max-sm:pt-[84px]">
       <Entrance className="mx-auto max-w-[1440px] px-7 max-sm:px-[18px]">
-        {/* The name is the monument: one line from md up, sized to the width; two lines on phones.
+        {/* The name leads: one line from md up, about half the width; two lines on phones.
             The intro sting sets its name the same way, so the hand-off lands exactly. The name is
             the LCP element, so it rises without fading. */}
         <EntranceItem fade={false}>
           <h1
             id="hero-heading"
-            className="font-display text-[24vw] leading-[0.86] font-bold tracking-[-0.05em] md:text-[min(calc((100vw-56px)/6.55),224px)] md:whitespace-nowrap"
+            className="font-display text-[15vw] leading-[0.86] font-bold tracking-[-0.05em] md:text-[min(calc((100vw-56px)/13),110px)] md:whitespace-nowrap"
           >
             {person.name.split(" ").map((part, i) => (
               <Fragment key={part}>
@@ -41,7 +41,7 @@ export function Hero() {
           </h1>
         </EntranceItem>
 
-        <div className="mt-3 grid grid-cols-2 gap-2 md:min-h-[clamp(380px,50vh,500px)] md:grid-cols-12 md:gap-2.5">
+        <div className="mt-6 grid grid-cols-2 gap-2 md:min-h-[clamp(380px,50vh,500px)] md:grid-cols-12 md:gap-2.5">
           <EntranceItem className="relative col-span-1 min-h-[260px] overflow-hidden rounded-card md:col-span-3 md:min-h-0">
             <Image
               src={portrait}

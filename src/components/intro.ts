@@ -8,10 +8,10 @@ export const DEFAULT_STING = 1;
 /**
  * Inlined in <head> so the intro covers the page before first paint. Sets
  * `html[data-intro="<version>"]` every time someone opens the site (Kushal's call; it's always
- * skippable), but not on a reload, on back/forward, or when arriving from another page of this
+ * skippable), on the homepage only, and not on a reload, on back/forward, or when arriving from another page of this
  * site. `?intro=N` always previews a version and also sets `data-intro-preview`.
  */
-export const introDecisionScript = `(function(){var d=document.documentElement,m=location.search.match(/[?&]intro=([123])/);if(m){d.dataset.intro=m[1];d.dataset.introPreview="1";return}try{var n=performance.getEntriesByType("navigation")[0],t=n?n.type:"navigate";if(t==="reload"||t==="back_forward")return;if(document.referrer&&new URL(document.referrer).origin===location.origin)return}catch(e){}d.dataset.intro="${DEFAULT_STING}"})()`;
+export const introDecisionScript = `(function(){var d=document.documentElement,m=location.search.match(/[?&]intro=([123])/);if(m){d.dataset.intro=m[1];d.dataset.introPreview="1";return}if(location.pathname!=="/")return;try{var n=performance.getEntriesByType("navigation")[0],t=n?n.type:"navigate";if(t==="reload"||t==="back_forward")return;if(document.referrer&&new URL(document.referrer).origin===location.origin)return}catch(e){}d.dataset.intro="${DEFAULT_STING}"})()`;
 
 /** True while the intro is (or is about to be) on screen. */
 export const introActive = () =>

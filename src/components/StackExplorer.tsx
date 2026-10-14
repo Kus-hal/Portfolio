@@ -8,8 +8,8 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-  useSyncExternalStore,
 } from "react";
+import { useMedia } from "./useMedia";
 
 export type ExplorerTool = {
   name: string;
@@ -30,19 +30,6 @@ const DRAWER = "cubic-bezier(0.32, 0.72, 0, 1)"; // iOS-style sheet curve
 const EASE_OUT = "cubic-bezier(0.23, 1, 0.32, 1)";
 const PHONE_QUERY = "(max-width: 820px)";
 
-/** Tracks the phone breakpoint, so the panel can switch between side panel and modal sheet live. */
-function usePhone() {
-  return useSyncExternalStore(
-    (onChange) => {
-      const mq = window.matchMedia(PHONE_QUERY);
-      mq.addEventListener("change", onChange);
-      return () => mq.removeEventListener("change", onChange);
-    },
-    () => window.matchMedia(PHONE_QUERY).matches,
-    () => false,
-  );
-}
-
 /**
  * Tool tiles; picking one opens a panel on the right (a modal bottom sheet on phones) that says what
  * the tool did and which projects used it. Opening re-settles the tiles in a short wave; the panel
@@ -57,7 +44,7 @@ export function StackExplorer({
 }) {
   const [current, setCurrent] = useState<number | null>(null);
   const open = current !== null;
-  const phone = usePhone();
+  const phone = useMedia(PHONE_QUERY);
   const reduce = useReducedMotion();
   const tiles = useRef<(HTMLButtonElement | null)[]>([]);
   const panel = useRef<HTMLElement>(null);
