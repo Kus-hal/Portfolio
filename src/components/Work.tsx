@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ViewTransition } from "react";
 import { hasCaseStudy } from "@/content/case-studies";
+import clothLabPick from "@/assets/work/clothlab-pick.webp";
 import clothLabScreen from "@/assets/work/clothlab-screen.webp";
 import geofenceInside from "@/assets/work/geofence-inside.webp";
 import geofenceOutside from "@/assets/work/geofence-outside.webp";
@@ -32,12 +33,12 @@ function Screen({ id, front }: { id: ProjectId; front: boolean }) {
         className="size-full object-cover object-top"
       />
     );
-  if (id === "cloth-lab" && front)
+  if (id === "cloth-lab")
     return (
       <Image
-        src={clothLabScreen}
+        src={front ? clothLabScreen : clothLabPick}
         alt=""
-        className="size-full object-cover object-left-top"
+        className={`size-full object-cover ${front ? "object-left-top" : "object-top"}`}
       />
     );
   const blocks = (bg: string, rows: [number, string][]) => (
@@ -55,12 +56,6 @@ function Screen({ id, front }: { id: ProjectId; front: boolean }) {
     </div>
   );
   switch (id) {
-    case "cloth-lab":
-      return blocks("#fbf8f1", [
-        [22, "#fff"],
-        [30, "#fff"],
-        [12, "#fbf3c9"],
-      ]);
     case "ting":
       return front ? (
         <div className="grid h-full place-items-center bg-accent font-display text-[17px] font-semibold text-white tabular-nums">

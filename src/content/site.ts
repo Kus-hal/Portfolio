@@ -43,7 +43,7 @@ export const hero = {
   sub: "Mobile engineer. Kotlin, Jetpack Compose and Kotlin Multiplatform, from the first commit to the store release.",
   proof: [
     { value: "5 apps", label: "Built, shipped or in progress" },
-    { value: "1.5+ yrs", label: "Production Kotlin" },
+    { value: "2+ yrs", label: "Production Kotlin" },
     { value: "350 → 110 MB", label: "OMNIA release, a team effort" },
     { value: "~11 ms", label: "Loudly timing error on two phones" },
   ],
