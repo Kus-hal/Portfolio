@@ -198,7 +198,7 @@ export const work: { heading: string; projects: Project[] } = {
     {
       id: "loudly",
       name: "Loudly",
-      status: "Public release soon",
+      status: "In development",
       summary:
         "One song, every phone in the room, in sync. An offline engine that brought the timing error between two phones down to ~11 ms.",
       tags: ["Kotlin", "Nearby Connections", "Opus", "Clock sync"],

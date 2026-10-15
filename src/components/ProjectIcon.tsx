@@ -1,17 +1,21 @@
-import { SpeakerHigh, Timer } from "@phosphor-icons/react/dist/ssr";
+import { Timer } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import clothLabIcon from "@/assets/work/clothlab-icon.png";
+import loudlyIcon from "@/assets/work/loudly-icon.png";
 import omniaIcon from "@/assets/work/omnia-icon.png";
 import type { ProjectId } from "@/content/site";
 
-// Cloth Lab and OMNIA have real app icons; the others get a tile in their own colour until theirs arrive.
-const icons = { "cloth-lab": clothLabIcon, omnia: omniaIcon } as const;
+// Cloth Lab, OMNIA and Loudly have real app icons; the others get a tile in their own colour until theirs arrive.
+const icons = {
+  "cloth-lab": clothLabIcon,
+  omnia: omniaIcon,
+  loudly: loudlyIcon,
+} as const;
 const hasIcon = (id: ProjectId): id is keyof typeof icons => id in icons;
 const tiles: Record<
   Exclude<ProjectId, keyof typeof icons>,
   { bg: string; Icon: typeof Timer }
 > = {
-  loudly: { bg: "bg-[#1d2027] text-white", Icon: SpeakerHigh },
   ting: { bg: "bg-accent text-white", Icon: Timer },
 };
 

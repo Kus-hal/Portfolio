@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ViewTransition } from "react";
 import { hasCaseStudy } from "@/content/case-studies";
 import clothLabScreen from "@/assets/work/clothlab-screen.webp";
+import loudlyHome from "@/assets/work/loudly-home.webp";
+import loudlyRoom from "@/assets/work/loudly-room.webp";
 import omniaHome from "@/assets/work/omnia-home.webp";
 import omniaWallet from "@/assets/work/omnia-wallet.webp";
 import { work, type Project, type ProjectId } from "@/content/site";
@@ -11,13 +13,21 @@ import { ProjectIcon } from "./ProjectIcon";
 import { Section } from "./Section";
 import { Tags } from "./Tags";
 
-/** Two small phones per card. Cloth Lab and OMNIA show real screens; the rest are simple drawings in
+/** Two small phones per card. Cloth Lab, OMNIA and Loudly show real screens; the rest are simple drawings in
  *  each app's colours, to be swapped for real screenshots. */
 function Screen({ id, front }: { id: ProjectId; front: boolean }) {
-  if (id === "omnia")
+  if (id === "omnia" || id === "loudly")
     return (
       <Image
-        src={front ? omniaHome : omniaWallet}
+        src={
+          id === "omnia"
+            ? front
+              ? omniaHome
+              : omniaWallet
+            : front
+              ? loudlyRoom
+              : loudlyHome
+        }
         alt=""
         className="size-full object-cover object-top"
       />
@@ -51,24 +61,6 @@ function Screen({ id, front }: { id: ProjectId; front: boolean }) {
         [30, "#fff"],
         [12, "#fbf3c9"],
       ]);
-    case "loudly":
-      return front ? (
-        <div className="flex h-full items-center justify-center gap-[3px] bg-[#1d2027]">
-          {[30, 46, 22, 38].map((h, i) => (
-            <i
-              key={i}
-              className={`block w-1 rounded-sm ${i === 2 ? "bg-[#8fa0ff]" : "bg-white"}`}
-              style={{ height: h }}
-            />
-          ))}
-        </div>
-      ) : (
-        blocks("#1d2027", [
-          [14, "#2c303a"],
-          [14, "#2c303a"],
-          [14, "#2c303a"],
-        ])
-      );
     case "ting":
       return front ? (
         <div className="grid h-full place-items-center bg-accent font-display text-[17px] font-semibold text-white tabular-nums">
