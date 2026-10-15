@@ -321,7 +321,7 @@ export const geofence: CaseStudy = {
     body: "A working portfolio project: two phones on real Firebase, a fence, and alerts that only fire for real crossings. The screens here are from an earlier version of the design.",
     items: [
       { value: "19", label: "tests, milliseconds to run" },
-      { value: "~90", label: "lines in the geofence engine" },
+      { value: "<100", label: "lines of code in the geofence engine" },
       { value: "17", label: "edge cases handled on purpose" },
       { value: "0", label: "API keys or billing to run it" },
     ],
