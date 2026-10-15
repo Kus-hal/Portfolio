@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight, DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import { Fragment } from "react";
 import portrait from "@/assets/kushal.jpg";
@@ -64,6 +64,9 @@ export function Hero() {
               </ButtonLink>
               <ButtonLink href="#work" variant="soft">
                 See the work
+              </ButtonLink>
+              <ButtonLink href={links.resume} variant="ghost" download>
+                Résumé <DownloadSimple aria-hidden="true" size={16} />
               </ButtonLink>
             </div>
           </EntranceItem>
