@@ -192,11 +192,14 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
                 key={g.title}
                 className={`rounded-[22px] p-7 ${glanceTone[g.tone]} ${g.wide ? "min-[901px]:col-span-2" : ""} ${g.tall ? "min-[901px]:row-span-2" : ""}`}
               >
-                <p className="font-display text-[clamp(2.6rem,5vw,4rem)] leading-[0.95] font-semibold tracking-[-0.05em]">
-                  {g.value}
-                </p>
-                <h3 className="mt-3 max-w-[26ch] text-[17px] leading-[1.35] font-semibold">
-                  {g.title}
+                <h3>
+                  <span className="block font-display text-[clamp(2.6rem,5vw,4rem)] leading-[0.95] font-semibold tracking-[-0.05em]">
+                    {g.value}
+                  </span>
+                  <span className="sr-only"> </span>
+                  <span className="mt-3 block max-w-[26ch] text-[17px] leading-[1.35] font-semibold">
+                    {g.title}
+                  </span>
                 </h3>
                 <p
                   data-full

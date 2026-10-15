@@ -39,7 +39,7 @@ export const clothLab: CaseStudy = {
         { text: "Food, groceries and rides come to you in one tap. " },
         { text: "Laundry still doesn't.", mark: true },
       ],
-      body: "I lived it, first in Pune and now in Jaipur. The man who pressed our clothes closed his shop, and we were back to asking around for someone new. A quick-commerce app for laundry, where you book a pickup and your clothes come back clean, simply didn't exist here.",
+      body: "I lived it, first in Pune and now in Jaipur. The man who pressed our clothes closed his shop, and we were back to asking around for someone new. A quick-commerce app for laundry, where you book a pickup and your clothes come back clean, was nowhere to be found here.",
     },
     client: {
       label: "For the founder",
@@ -84,9 +84,9 @@ export const clothLab: CaseStudy = {
         wide: true,
       },
       {
-        value: "0 releases",
-        title: "to change the app",
-        body: "Banners, catalogue, prices, promos, service areas and notifications all change from the admin portal.",
+        value: "1 click",
+        title: "to change banners, prices or promos",
+        body: "The catalogue, prices, promos, service areas and notifications change from the admin portal, with no app update.",
         tone: "ink",
         tall: true,
       },
@@ -360,7 +360,7 @@ export const clothLab: CaseStudy = {
           { text: "WhatsApp, not SMS", mark: true },
           { text: "." },
         ],
-        body: "My own OTP flow on Meta's Cloud API: salted hashes, rate limits and attempt counts, with Android autofill. SMS verification costs about forty times more and Indian carriers often bury it.",
+        body: "My own OTP flow on Meta's Cloud API: salted hashes, rate limits and attempt counts, with Android autofill. SMS verification costs about forty times more.",
         fact: "≈ 40× cheaper per sign-in",
       },
       {
@@ -406,7 +406,7 @@ export const clothLab: CaseStudy = {
       },
       {
         who: "If you're hiring for Kotlin Multiplatform",
-        what: "Someone who has shipped one codebase to Android, iPhone and the web, and knows where to share code and where not to.",
+        what: "Someone building one codebase for Android, iPhone and the web, who knows where to share code and where not to.",
       },
       {
         who: "If you need a freelancer",

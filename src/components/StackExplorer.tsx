@@ -2,6 +2,7 @@
 
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "@phosphor-icons/react";
 import { useReducedMotion } from "motion/react";
+import Link from "next/link";
 import {
   useCallback,
   useEffect,
@@ -282,7 +283,7 @@ export function StackExplorer({
                         className="stage-in"
                         style={{ animationDelay: `${60 + n * 30}ms` }}
                       >
-                        <a
+                        <Link
                           href={p.href}
                           onClick={() => phone && close()}
                           className="grid grid-cols-[44px_1fr_auto] items-center gap-3.5 rounded-2xl bg-surface px-3.5 py-3 transition-[background-color,translate] duration-300 pointer-fine:hover:translate-x-[3px] pointer-fine:hover:bg-white"
@@ -297,7 +298,7 @@ export function StackExplorer({
                             </span>
                           </span>
                           <ArrowUpRight aria-hidden="true" size={16} />
-                        </a>
+                        </Link>
                       </li>
                     );
                   })}

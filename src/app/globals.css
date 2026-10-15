@@ -114,6 +114,12 @@
       transition: none !important;
     }
 
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+
     /* Motion renders entrance/reveal targets hidden on the server; show them straight away. */
     [data-animate] {
       opacity: 1 !important;

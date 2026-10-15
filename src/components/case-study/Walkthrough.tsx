@@ -103,8 +103,12 @@ export function Walkthrough({ steps }: { steps: readonly WalkStep[] }) {
         ))}
       </ol>
 
-      <div className="sticky top-0 hidden h-screen items-center justify-end pr-5 min-[901px]:flex">
-        <div className="relative aspect-[290/600] w-[290px] rounded-[46px] bg-[linear-gradient(145deg,#2a2c31,#0e0f11_60%)] p-2.5 shadow-[inset_0_0_0_1.5px_rgb(255_255_255/0.12),0_50px_80px_-40px_rgb(23_24_28/0.55)]">
+      <div className="sticky top-0 hidden h-svh items-center justify-end pr-5 min-[901px]:flex">
+        <div
+          role="img"
+          aria-label={steps[active].screenAlt}
+          className="relative aspect-[290/600] w-[290px] rounded-[46px] bg-[linear-gradient(145deg,#2a2c31,#0e0f11_60%)] p-2.5 shadow-[inset_0_0_0_1.5px_rgb(255_255_255/0.12),0_50px_80px_-40px_rgb(23_24_28/0.55)]"
+        >
           <div className="relative size-full overflow-hidden rounded-[37px] bg-paper">
             {steps.map((s, i) => (
               <Image

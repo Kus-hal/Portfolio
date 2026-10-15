@@ -1,10 +1,10 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { CaseStudy } from "@/content/case-studies/types";
-import { useMedia } from "../useMedia";
+import { REDUCED_MOTION, useMedia } from "../useMedia";
+import { useScrollScene } from "./useScrollScene";
 
 type Layers = NonNullable<CaseStudy["layers"]>;
 
@@ -15,8 +15,8 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 /**
  * "One app, taken apart": as you scroll, the phone tilts flat and separates into its three layers
- * (what you tap, what's shared, what owns the rules) while the copy steps through them. One rAF
- * loop runs only while the section is on screen; transforms are written straight to the DOM.
+ * (what you tap, what's shared, what owns the rules) while the copy steps through them. Updates run
+ * only on scroll while the section is on screen; transforms are written straight to the DOM.
  * Reduced motion and phones show the finished, separated stack and all three descriptions.
  */
 export function ExplodedLayers({
@@ -27,7 +27,7 @@ export function ExplodedLayers({
   screen: StaticImageData;
 }) {
   // Phones and reduced motion get the finished, separated stack with all three layers described.
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useMedia(REDUCED_MOTION);
   const phone = useMedia("(max-width: 900px)");
   const reduce = reducedMotion || phone;
   const section = useRef<HTMLElement>(null);
@@ -38,21 +38,13 @@ export function ExplodedLayers({
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState([0, 0, 0]);
 
-  useEffect(() => {
-    if (reduce) return;
-    const el = section.current;
-    if (!el) return;
-    let raf = 0;
-    let visible = false;
-    const frame = () => {
-      const r = el.getBoundingClientRect();
-      const p = clamp(-r.top / (r.height - window.innerHeight));
-      const small = window.innerWidth < 900;
+  useScrollScene(
+    section,
+    (p) => {
       const rot = ease(seg(p, 0.04, 0.32));
       const spread = ease(seg(p, 0.22, 0.5));
-      const scale = small ? 0.5 : 0.8;
       if (stack.current)
-        stack.current.style.transform = `translateY(${small ? -40 : 0}px) scale(${scale}) rotateX(${lerp(0, 58, rot)}deg) rotateZ(${lerp(0, -38, rot)}deg) translateY(${lerp(0, 30, rot)}px)`;
+        stack.current.style.transform = `scale(0.8) rotateX(${lerp(0, 58, rot)}deg) rotateZ(${lerp(0, -38, rot)}deg) translateY(${lerp(0, 30, rot)}px)`;
       if (ui.current)
         ui.current.style.transform = `translateZ(${lerp(0, 230, spread)}px)`;
       if (kt.current) {
@@ -76,19 +68,9 @@ export function ExplodedLayers({
         );
         return fresh.every((v, i) => Math.abs(v - old[i]) < 0.02) ? old : fresh;
       });
-      if (visible) raf = requestAnimationFrame(frame);
-    };
-    const io = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      cancelAnimationFrame(raf);
-      if (visible) raf = requestAnimationFrame(frame);
-    });
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-    };
-  }, [reduce]);
+    },
+    !reduce,
+  );
 
   const plateBase =
     "absolute inset-0 rounded-[42px] [transform-style:preserve-3d] transition-[filter,opacity] duration-400";
@@ -111,7 +93,7 @@ export function ExplodedLayers({
         className={
           reduce
             ? "wrap grid items-center gap-10 min-[901px]:grid-cols-[0.9fr_1.1fr]"
-            : "sticky top-0 grid h-screen min-h-[640px] items-start overflow-hidden min-[901px]:items-center"
+            : "sticky top-0 grid h-svh min-h-[640px] items-start overflow-hidden min-[901px]:items-center"
         }
       >
         <div
@@ -153,7 +135,6 @@ export function ExplodedLayers({
               {layers.states.map((s, i) => (
                 <div
                   key={s.tag}
-                  aria-hidden={!reduce && active !== i}
                   className={
                     reduce
                       ? ""
@@ -166,10 +147,7 @@ export function ExplodedLayers({
                   <h3 className="mt-2 mb-2.5 font-display text-[1.6rem] leading-[1.15] font-semibold tracking-[-0.02em]">
                     {s.title}
                   </h3>
-                  <p
-                    data-full
-                    className="max-w-[42ch] text-body max-[900px]:hidden"
-                  >
+                  <p data-full className="max-w-[42ch] text-body">
                     {s.body}
                   </p>
                   <ul className="mt-4 flex flex-wrap gap-1.5">
@@ -189,7 +167,7 @@ export function ExplodedLayers({
 
           <div
             aria-hidden="true"
-            className={`order-1 grid place-items-center [perspective-origin:50%_40%] [perspective:1700px] min-[901px]:order-none ${reduce ? "h-[520px] min-[901px]:h-[560px]" : "h-[50vh] min-[901px]:h-screen min-[901px]:min-h-[640px]"}`}
+            className={`order-1 grid place-items-center [perspective-origin:50%_40%] [perspective:1700px] min-[901px]:order-none ${reduce ? "h-[520px] min-[901px]:h-[560px]" : "h-[50vh] min-[901px]:h-svh min-[901px]:min-h-[640px]"}`}
           >
             <div
               ref={stack}

@@ -1,8 +1,9 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { CaseStudy } from "@/content/case-studies/types";
+import { REDUCED_MOTION, useMedia } from "../useMedia";
+import { useScrollScene } from "./useScrollScene";
 
 type PipelineData = NonNullable<CaseStudy["pipeline"]>;
 
@@ -17,43 +18,25 @@ const dot = {
  * moved it. Reduced motion shows every stage at once as a list.
  */
 export function Pipeline({ data }: { data: PipelineData }) {
-  const reduce = useReducedMotion();
+  const reduce = useMedia(REDUCED_MOTION);
   const section = useRef<HTMLElement>(null);
   const fill = useRef<HTMLDivElement>(null);
   const token = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState(0);
   const last = data.stages.length - 1;
 
-  useEffect(() => {
-    if (reduce) return;
-    const el = section.current;
-    if (!el) return;
-    let raf = 0;
-    let visible = false;
-    const frame = () => {
-      const r = el.getBoundingClientRect();
-      const p = Math.min(
-        1,
-        Math.max(0, -r.top / (r.height - window.innerHeight)),
-      );
+  useScrollScene(
+    section,
+    (p) => {
       const q = Math.min(1, Math.max(0, (p - 0.08) / 0.84));
       if (fill.current) fill.current.style.transform = `scaleX(${q})`;
-      if (token.current) token.current.style.left = `${q * 100}%`;
+      if (token.current)
+        token.current.style.transform = `translateX(${q * 100}%)`;
       const i = Math.round(q * last);
       setStage((s) => (s === i ? s : i));
-      if (visible) raf = requestAnimationFrame(frame);
-    };
-    const io = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      cancelAnimationFrame(raf);
-      if (visible) raf = requestAnimationFrame(frame);
-    });
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-    };
-  }, [reduce, last]);
+    },
+    !reduce,
+  );
 
   const legend = (
     <div className="mt-8 flex flex-wrap gap-6 text-sm text-body">
@@ -114,12 +97,12 @@ export function Pipeline({ data }: { data: PipelineData }) {
       aria-labelledby="pipeline-heading"
       className="h-[240vh]"
     >
-      <div className="sticky top-0 grid h-screen min-h-[620px] items-center">
+      <div className="sticky top-0 grid h-svh min-h-[620px] items-center">
         <div className="wrap">
           {heading}
           <div
             className="mt-11 flex min-h-[96px] items-baseline gap-[18px]"
-            aria-live="polite"
+            aria-hidden="true"
           >
             <span className="text-sm text-muted tabular-nums">
               {String(stage + 1).padStart(2, "0")} /{" "}
@@ -132,6 +115,13 @@ export function Pipeline({ data }: { data: PipelineData }) {
               <p className="mt-2 text-[15px] text-muted">{current.who}</p>
             </div>
           </div>
+          <ol className="sr-only">
+            {data.stages.map((s) => (
+              <li key={s.label}>
+                {s.label}: {s.who}
+              </li>
+            ))}
+          </ol>
           <div aria-hidden="true" className="relative mt-11 h-[60px]">
             <div className="absolute inset-x-0 top-[29px] h-0.5 bg-line" />
             <div
@@ -145,7 +135,7 @@ export function Pipeline({ data }: { data: PipelineData }) {
                 style={{ left: `${(i / last) * 100}%` }}
               />
             ))}
-            <div ref={token} className="absolute top-0 left-0">
+            <div ref={token} className="absolute inset-x-0 top-0">
               <span className="absolute top-[-6px] -translate-x-1/2 rounded-lg bg-ink px-2.5 py-1 text-xs whitespace-nowrap text-paper tabular-nums">
                 CL-2041
               </span>
