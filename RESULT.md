@@ -75,7 +75,7 @@ estimate. Measure the real number with PageSpeed Insights once the site is deplo
 
 1. **Hosting + domain:** pending (GitHub Student Pack). Build with
    `NEXT_PUBLIC_SITE_URL=https://<domain>` so canonical and OG URLs are absolute. It currently falls back to
-   `http://localhost:3000`.
+   `https://kushal.studio` (the live domain) since October 2026.
 2. **Loudly link:** add `href` in `src/content/site.ts` when the repo or demo goes public.
 3. **Certificates:** to be added to the Education section when provided.
 4. **Real-world Lighthouse:** run PageSpeed Insights on the deployed URL.
