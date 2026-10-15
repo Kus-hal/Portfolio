@@ -492,7 +492,7 @@ export const stack: {
         {
           name: "DataStore",
           abbr: "DS",
-          usedIn: ["omnia", "loudly", "ting", "geofence"],
+          usedIn: ["omnia", "loudly", "ting"],
           how: "Settings and small state, like Ting's widget.",
         },
         {

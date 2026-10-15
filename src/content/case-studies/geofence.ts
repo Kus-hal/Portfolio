@@ -78,14 +78,14 @@ export const geofence: CaseStudy = {
       {
         value: "25 m",
         title: "dead band either side of the fence",
-        body: "GPS drift inside the band can't flip anyone from inside to outside.",
+        body: "GPS drift inside the band can't flip anyone from inside to outside. That's the demo setting; a release build uses 30 m.",
         tone: "strong",
         wide: true,
       },
       {
         value: "5 s",
         title: "outside before it counts",
-        body: "A step out and back, or a fix that jumps and returns, never reaches the group.",
+        body: "A step out and back, or a fix that jumps and returns, never reaches the group. A release build waits 30 s.",
         tone: "ink",
         tall: true,
       },
@@ -120,7 +120,7 @@ export const geofence: CaseStudy = {
           "GeoFence Tracker sign-in asking what the group should call you",
         hotspot: { x: 3, y: 63 },
         callout: "Anonymous Firebase sign-in: nothing to remember.",
-        tools: ["Firebase Auth", "DataStore"],
+        tools: ["Firebase Auth"],
       },
       {
         label: "Place a fence",
@@ -164,7 +164,8 @@ export const geofence: CaseStudy = {
         screenAlt:
           "Alice shown outside the fence in red, 500 m from the centre",
         hotspot: { x: 3, y: 56 },
-        callout: "Past the 25 m band, for 5 seconds, with an accurate fix.",
+        callout:
+          "Past the band, for long enough, with an accurate fix: 25 m and 5 s in the demo, 30 m and 30 s in release.",
         tools: ["GeofenceEvaluator", "Firestore"],
       },
       {
@@ -174,7 +175,7 @@ export const geofence: CaseStudy = {
           { text: "is told", mark: true },
           { text: "." },
         ],
-        body: "A few seconds later the other phones raise a notification. You're never told about yourself, and opening a group doesn't replay its old history as a burst of alerts.",
+        body: "Once the crossing is confirmed, the other phones raise a notification. You're never told about yourself, and opening a group doesn't replay its old history as a burst of alerts.",
         screen: alert,
         screenAlt:
           "Notification on a second phone: Alice left Weekend Trek, now 500 m from the centre of the fence",
@@ -191,7 +192,7 @@ export const geofence: CaseStudy = {
       {
         tag: "Layer 1",
         title: "What you tap",
-        body: "Jetpack Compose and Material 3 screens, and a real vector map with no API key.",
+        body: "Jetpack Compose and Material 3 screens, and a real vector map with no API key. The screens on this page show the earlier, simpler map.",
         chips: ["Jetpack Compose", "Material 3", "MapLibre", "OpenFreeMap"],
       },
       {
@@ -243,7 +244,7 @@ export const geofence: CaseStudy = {
 
   pipeline: {
     heading: "One crossing, start to finish.",
-    note: "Drift inside the band, or a step back within 5 seconds, ends the journey early: nobody is told.",
+    note: "Drift inside the band, or a step back before the wait is over, ends the journey early: nobody is told. Demo settings shown; a release build uses 30 m and 30 s.",
     token: "Alice",
     legend: {
       customer: "Member's phone",
@@ -307,7 +308,7 @@ export const geofence: CaseStudy = {
       {
         title: [
           { text: "Edge cases are " },
-          { text: "decided, not accidents", mark: true },
+          { text: "handled on purpose", mark: true },
           { text: "." },
         ],
         body: "Joining while already outside never alerts. Your own writes don't echo back as news. A wrong device clock can't hide a real crossing. A broken document is skipped instead of taking the listener down.",
@@ -344,7 +345,7 @@ export const geofence: CaseStudy = {
       },
       {
         who: "If your code will be reviewed",
-        what: "Tests as the specification, written-down trade-offs and known limits stated up front.",
+        what: "Tests that read like the spec, with the trade-offs and the limits written down.",
       },
     ],
   },

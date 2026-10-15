@@ -82,16 +82,16 @@ export const ting: CaseStudy = {
         wide: true,
       },
       {
-        value: "Doze-proof",
-        title: "exact alarms",
-        body: "Scheduled with Android's alarm-clock API, which battery saving never delays.",
+        value: "On time",
+        title: "even with battery saving on",
+        body: "Scheduled with Android's alarm-clock API, which battery saving doesn't delay.",
         tone: "ink",
         tall: true,
       },
       {
         value: "1 tap",
         title: "to start a timer",
-        body: "Quick-start buttons, presets, a home-screen widget and app shortcuts.",
+        body: "Quick-start buttons, presets, a home-screen widget and a shortcut to your last timer.",
         tone: "surface",
       },
       {
@@ -133,7 +133,7 @@ export const ting: CaseStudy = {
         screenAlt:
           "Ting home with 10, 20 and 30 minute quick starts and Deep Work, Gym Interval and Micro-Productivity presets",
         hotspot: { x: 3, y: 16 },
-        callout: "Quick start, presets, a widget and app shortcuts.",
+        callout: "Quick start, presets, a widget and a last-timer shortcut.",
         tools: ["Material 3", "Room", "App shortcuts"],
       },
       {
@@ -190,7 +190,7 @@ export const ting: CaseStudy = {
       {
         tag: "Layer 1",
         title: "What you tap",
-        body: "Jetpack Compose and Material 3 in a dark theme with a warm gold accent, plus a home-screen widget built with Glance.",
+        body: "Jetpack Compose and Material 3, dark first with a warm gold accent, plus a home-screen widget built with Glance.",
         chips: ["Jetpack Compose", "Material 3", "Glance"],
       },
       {
@@ -275,8 +275,8 @@ export const ting: CaseStudy = {
           { text: "alarm-clock API", mark: true },
           { text: ", not a plain alarm." },
         ],
-        body: "It's the one kind of alarm battery saving never delays, and it copes with the app being killed far better than an ordinary exact alarm.",
-        fact: "Never deferred by Doze",
+        body: "It's the kind of alarm battery saving doesn't delay, and it copes with the app being killed far better than an ordinary exact alarm.",
+        fact: "Not delayed by battery saving",
       },
       {
         title: [
@@ -300,7 +300,7 @@ export const ting: CaseStudy = {
           { text: "a restart", mark: true },
           { text: "." },
         ],
-        body: "Each timer stores when it started, and WorkManager restores running timers after the phone boots, so nothing is lost to a reboot.",
+        body: "Each timer stores when it started, and WorkManager restores running timers after the phone boots, so a running timer comes back after a restart.",
       },
     ],
   },
