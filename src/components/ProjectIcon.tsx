@@ -1,23 +1,24 @@
-import { MapPinArea, Timer } from "@phosphor-icons/react/dist/ssr";
+import { MapPinArea } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import clothLabIcon from "@/assets/work/clothlab-icon.png";
 import loudlyIcon from "@/assets/work/loudly-icon.png";
 import omniaIcon from "@/assets/work/omnia-icon.png";
+import tingIcon from "@/assets/work/ting-icon.png";
 import type { ProjectId } from "@/content/site";
 
-// Cloth Lab, OMNIA and Loudly have real app icons; the others get a tile in their own colour until theirs arrive.
+// Real app icons; GeoFence has none yet, so it gets a tile in its own colour.
 const icons = {
   "cloth-lab": clothLabIcon,
   omnia: omniaIcon,
   loudly: loudlyIcon,
+  ting: tingIcon,
 } as const;
 const hasIcon = (id: ProjectId): id is keyof typeof icons => id in icons;
 const tiles: Record<
   Exclude<ProjectId, keyof typeof icons>,
-  { bg: string; Icon: typeof Timer }
+  { bg: string; Icon: typeof MapPinArea }
 > = {
   geofence: { bg: "bg-[#1d5fc4] text-white", Icon: MapPinArea },
-  ting: { bg: "bg-accent text-white", Icon: Timer },
 };
 
 /** A project's app icon at `size` px (64 on the work cards, 44 in the stack panel). */

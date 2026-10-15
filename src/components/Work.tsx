@@ -11,64 +11,31 @@ import loudlyHome from "@/assets/work/loudly-home.webp";
 import loudlyRoom from "@/assets/work/loudly-room.webp";
 import omniaHome from "@/assets/work/omnia-home.webp";
 import omniaWallet from "@/assets/work/omnia-wallet.webp";
+import tingActive from "@/assets/work/ting-active.webp";
+import tingRun from "@/assets/work/ting-run.webp";
 import { work, type Project, type ProjectId } from "@/content/site";
 import { ProjectIcon } from "./ProjectIcon";
 import { Section } from "./Section";
 import { Tags } from "./Tags";
 
+// Two real screens per project: [front phone, back phone].
 const shots = {
+  "cloth-lab": [clothLabScreen, clothLabPick],
   omnia: [omniaHome, omniaWallet],
   loudly: [loudlyRoom, loudlyHome],
   geofence: [geofenceOutside, geofenceInside],
-} as const;
+  ting: [tingRun, tingActive],
+} as const satisfies Record<ProjectId, readonly [unknown, unknown]>;
 
-/** Two small phones per card. Cloth Lab, OMNIA, Loudly and GeoFence show real screens; the rest are simple drawings in
- *  each app's colours, to be swapped for real screenshots. */
+/** One of a card's two small phones. Cloth Lab's front shot is a wide banner, so it pins to the left. */
 function Screen({ id, front }: { id: ProjectId; front: boolean }) {
-  if (id === "omnia" || id === "loudly" || id === "geofence")
-    return (
-      <Image
-        src={shots[id][front ? 0 : 1]}
-        alt=""
-        className="size-full object-cover object-top"
-      />
-    );
-  if (id === "cloth-lab")
-    return (
-      <Image
-        src={front ? clothLabScreen : clothLabPick}
-        alt=""
-        className={`size-full object-cover ${front ? "object-left-top" : "object-top"}`}
-      />
-    );
-  const blocks = (bg: string, rows: [number, string][]) => (
-    <div
-      className="grid h-full content-start gap-[5px] px-1.5 pt-3.5"
-      style={{ background: bg }}
-    >
-      {rows.map(([h, c], i) => (
-        <i
-          key={i}
-          className="block rounded-[5px]"
-          style={{ height: h, background: c }}
-        />
-      ))}
-    </div>
+  return (
+    <Image
+      src={shots[id][front ? 0 : 1]}
+      alt=""
+      className={`size-full object-cover ${id === "cloth-lab" && front ? "object-left-top" : "object-top"}`}
+    />
   );
-  switch (id) {
-    case "ting":
-      return front ? (
-        <div className="grid h-full place-items-center bg-accent font-display text-[17px] font-semibold text-white tabular-nums">
-          00:45
-        </div>
-      ) : (
-        blocks("#f4f5f7", [
-          [34, "#2743ff"],
-          [14, "#e2e5ec"],
-          [14, "#e2e5ec"],
-        ])
-      );
-  }
 }
 
 function Thumbs({ id }: { id: ProjectId }) {

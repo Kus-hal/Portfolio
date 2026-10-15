@@ -2,11 +2,18 @@ import type { ProjectId } from "@/content/site";
 import { clothLab } from "./cloth-lab";
 import { geofence } from "./geofence";
 import { loudly } from "./loudly";
+import { ting } from "./ting";
 import { omnia } from "./omnia";
 import type { CaseStudy } from "./types";
 
 /** Published case studies, in the order "Next project" walks through them. */
-export const caseStudies: CaseStudy[] = [clothLab, omnia, loudly, geofence];
+export const caseStudies: CaseStudy[] = [
+  clothLab,
+  omnia,
+  loudly,
+  geofence,
+  ting,
+];
 
 export const caseStudyBySlug = (slug: string) =>
   caseStudies.find((c) => c.slug === slug);
