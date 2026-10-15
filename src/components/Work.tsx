@@ -13,21 +13,18 @@ import { ProjectIcon } from "./ProjectIcon";
 import { Section } from "./Section";
 import { Tags } from "./Tags";
 
+const shots = {
+  omnia: [omniaHome, omniaWallet],
+  loudly: [loudlyRoom, loudlyHome],
+} as const;
+
 /** Two small phones per card. Cloth Lab, OMNIA and Loudly show real screens; the rest are simple drawings in
  *  each app's colours, to be swapped for real screenshots. */
 function Screen({ id, front }: { id: ProjectId; front: boolean }) {
   if (id === "omnia" || id === "loudly")
     return (
       <Image
-        src={
-          id === "omnia"
-            ? front
-              ? omniaHome
-              : omniaWallet
-            : front
-              ? loudlyRoom
-              : loudlyHome
-        }
+        src={shots[id][front ? 0 : 1]}
         alt=""
         className="size-full object-cover object-top"
       />

@@ -52,11 +52,11 @@ export const loudly: CaseStudy = {
     items: [
       {
         title: "Ears are unforgiving",
-        body: "A gap of 20 to 30 ms between two phones already sounds like an echo, so close enough isn't.",
+        body: "A gap of 20 to 30 ms between two phones already sounds like an echo.",
       },
       {
         title: "No two phones are alike",
-        body: "Different chips, different Android builds and different speaker delays all pull the timing apart.",
+        body: "Different processors, schedulers and speaker delays all pull the timing apart.",
       },
       {
         title: "No internet, no server",
@@ -74,8 +74,8 @@ export const loudly: CaseStudy = {
     items: [
       {
         value: "~11 ms",
-        title: "timing error between two phones",
-        body: "Steady, measured on two phones on 8 October 2026. Before that fix it was 12.9 seconds and growing.",
+        title: "timing error, by the app's own reading",
+        body: "Steady on two phones on 8 October 2026, and in sync by ear. A microphone test is still to come.",
         tone: "strong",
         wide: true,
       },
@@ -141,10 +141,10 @@ export const loudly: CaseStudy = {
           { text: "just walk in", mark: true },
           { text: "." },
         ],
-        body: "Guests type the code or pick the room from the nearby list. Phones connect to each other directly, no router and no internet.",
+        body: "Guests type the code or pick the room from the nearby list. Phones connect to each other directly, with no internet needed.",
         screen: join,
         screenAlt:
-          "Join a room screen with six code boxes and a nearby rooms scanner",
+          "Join a room screen with six code boxes and a nearby-rooms scanner, no rooms found yet",
         hotspot: { x: 3, y: 23 },
         callout: "Wi-Fi Direct or Bluetooth, chosen automatically.",
         tools: ["Nearby Connections", "Wi-Fi Direct", "Bluetooth"],
@@ -228,7 +228,7 @@ export const loudly: CaseStudy = {
       },
       {
         label: "Clocks agree",
-        who: "Every phone syncs to the host's clock",
+        who: "Every phone's clock is lined up",
         by: "admin",
       },
       {
@@ -283,16 +283,16 @@ export const loudly: CaseStudy = {
           { text: "not guessed", mark: true },
           { text: "." },
         ],
-        body: "Changes are checked on real phones with the app's own timing readings. A microphone recording of the phones playing together is the final check, and it's next.",
+        body: "Changes are checked on real phones with the app's own timing readings, and by ear. A microphone recording of the phones playing together is the next check.",
       },
     ],
   },
 
   results: {
     heading: "Where it stands.",
-    body: "Loudly isn't on Google Play yet. On 8 October 2026, on two phones, the timing error settled at about 11 ms and the music was in sync by ear. A microphone test on two and three phones is next.",
+    body: "Loudly isn't on Google Play yet. On 8 October 2026, on two phones, the app's own timing reading settled at about 11 ms and the music was in sync by ear. A microphone test on two and three phones is next. The screens here are from a test build on an emulator.",
     items: [
-      { value: "~11 ms", label: "timing error, two phones" },
+      { value: "~11 ms", label: "timing error, app reading on two phones" },
       { value: "0", label: "internet or servers needed" },
       { value: "5+", label: "phones tested together" },
       { value: "15", label: "phones per room, the goal" },
@@ -316,7 +316,7 @@ export const loudly: CaseStudy = {
       },
       {
         who: "If you have a hard problem",
-        what: "Someone who measures first, then fixes, and tells you the real number.",
+        what: "Someone who checks on real devices before claiming a result.",
       },
     ],
   },
@@ -325,7 +325,6 @@ export const loudly: CaseStudy = {
     heading: "What's next.",
     items: [
       "A microphone test on two and three phones",
-      "Scaling a room toward 15 phones",
       "Release on Google Play",
     ],
   },

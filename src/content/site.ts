@@ -45,7 +45,7 @@ export const hero = {
     { value: "4 apps", label: "Built, shipped or in progress" },
     { value: "1.5+ yrs", label: "Production Kotlin" },
     { value: "350 → 110 MB", label: "OMNIA release, a team effort" },
-    { value: "~11 ms", label: "Audio timing error between phones" },
+    { value: "~11 ms", label: "Loudly timing error on two phones" },
   ],
   marquee: "From first commit to store release.",
 } as const;
@@ -141,7 +141,8 @@ export const offers = {
       proof: {
         kind: "sync",
         value: "~11 ms",
-        label: "Timing error between two phones, with no internet",
+        label:
+          "Timing error on two phones by the app's reading, with no internet",
       },
     },
     {
@@ -200,7 +201,7 @@ export const work: { heading: string; projects: Project[] } = {
       name: "Loudly",
       status: "In development",
       summary:
-        "One song, every phone in the room, in sync. An offline engine that brought the timing error between two phones down to ~11 ms.",
+        "One song, every phone in the room, in sync. An offline engine reading ~11 ms of timing error on two phones, in sync by ear.",
       tags: ["Kotlin", "Nearby Connections", "Opus", "Clock sync"],
     },
     {
@@ -525,7 +526,7 @@ export const stack: {
           name: "Clock sync",
           abbr: "NTP",
           usedIn: ["loudly"],
-          how: "Loudly's NTP-style offset estimate that brought the error between phones to ~11 ms.",
+          how: "Loudly keeps every phone's clock lined up with no internet.",
         },
       ],
     },
