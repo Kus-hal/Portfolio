@@ -55,7 +55,7 @@ export const omnia: CaseStudy = {
         { text: "Paying, chatting, travelling and shopping meant " },
         { text: "a different app for each.", mark: true },
       ],
-      body: "OMNIA was made for the government of Guinea as one app for daily life: a wallet linked to local banks, chat and calls, rides and parcels, bills, a shop, gold and metals, EV charging, and a way to invest in the company. Businesses run on it too, with their own tools for merchants, distributors and selling points.",
+      body: "OMNIA was made for a major client in Guinea as one app for daily life: a wallet linked to local banks, chat and calls, rides and parcels, bills, a shop, gold and metals, EV charging, and a way to invest in the company. Businesses run on it too, with their own tools for merchants, distributors and selling points.",
     },
     client: {
       label: "Where I came in",
@@ -79,7 +79,7 @@ export const omnia: CaseStudy = {
         body: "An individual and four business roles each need their own screens and rules, inside one app.",
       },
       {
-        title: "A government client",
+        title: "A high-profile client",
         body: "Delays and crashes are seen at the very top.",
       },
       {
@@ -365,7 +365,7 @@ export const omnia: CaseStudy = {
 
   spotlight: {
     heading: "Pay with your palm.",
-    body: "OMNIA also runs at the counter. A point-of-sale app pairs with an infrared palm-vein camera: the shop rings up the sale, the customer holds out a hand, and the payment comes from their wallet.",
+    body: "OMNIA also runs at the counter. A point-of-sale app on an Android POS device pairs with an infrared palm-vein camera: the shop rings up the sale, the customer holds out a hand, and the payment comes from their wallet.",
     image: palm,
     alt: "OMNIA store image, in French: fast, secure palm payments with Omniia Wallet. A customer holds his scanned palm over a reader",
     points: [
