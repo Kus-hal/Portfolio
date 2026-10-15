@@ -101,8 +101,8 @@ export type CaseStudy = {
     items: readonly {
       title: string;
       body: string;
+      /** Shown cropped and decorative, so no alt text. */
       screen?: StaticImageData;
-      alt?: string;
     }[];
   };
   /** One feature shown large with a single image. */

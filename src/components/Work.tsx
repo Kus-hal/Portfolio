@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ViewTransition } from "react";
 import { hasCaseStudy } from "@/content/case-studies";
-import omniaHome from "@/assets/case-studies/omnia/home.webp";
-import omniaWallet from "@/assets/case-studies/omnia/wallet.webp";
 import clothLabScreen from "@/assets/work/clothlab-screen.webp";
+import omniaHome from "@/assets/work/omnia-home.webp";
+import omniaWallet from "@/assets/work/omnia-wallet.webp";
 import { work, type Project, type ProjectId } from "@/content/site";
 import { ProjectIcon } from "./ProjectIcon";
 import { Section } from "./Section";
@@ -19,7 +19,6 @@ function Screen({ id, front }: { id: ProjectId; front: boolean }) {
       <Image
         src={front ? omniaHome : omniaWallet}
         alt=""
-        sizes="64px"
         className="size-full object-cover object-top"
       />
     );

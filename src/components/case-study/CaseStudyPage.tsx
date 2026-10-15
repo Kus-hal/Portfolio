@@ -135,9 +135,10 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
                     key={l.href}
                     href={l.href}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                   >
                     {l.label} <ArrowUpRight aria-hidden="true" size={16} />
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </ButtonLink>
                 ))}
               </div>
@@ -309,12 +310,8 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
                     // The top of the screen peeks up from the bottom of the card.
                     <div className="mt-auto h-[230px] overflow-hidden px-10">
                       <div className="mx-auto max-w-[220px] overflow-hidden rounded-t-[26px] border-x-[6px] border-t-[6px] border-[#16171b]">
-                        <Image
-                          src={v.screen}
-                          alt={v.alt ?? ""}
-                          sizes="220px"
-                          className="w-full"
-                        />
+                        {/* Decorative: the card's title and line already say what it shows. */}
+                        <Image src={v.screen} alt="" className="w-full" />
                       </div>
                     </div>
                   )}
@@ -330,14 +327,11 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
               <Image
                 src={study.spotlight.image}
                 alt={study.spotlight.alt}
-                sizes="(min-width: 901px) 380px, 80vw"
-                className="mx-auto w-full max-w-[380px] rounded-[28px] shadow-[0_34px_60px_-34px_rgb(23_24_28/0.45)]"
+                className="mx-auto w-full max-w-[280px] rounded-[28px] shadow-[0_34px_60px_-34px_rgb(23_24_28/0.45)] min-[901px]:max-w-[380px]"
               />
               <div>
-                <p
-                  data-full
-                  className="max-w-[46ch] text-[clamp(1.1rem,1.8vw,1.3rem)] leading-[1.45] text-body"
-                >
+                {/* Kept in Skim mode: the points below need it for context. */}
+                <p className="max-w-[46ch] text-[clamp(1.1rem,1.8vw,1.3rem)] leading-[1.45] text-body">
                   {study.spotlight.body}
                 </p>
                 <ul className="mt-8 grid gap-2.5">
@@ -521,9 +515,7 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
               {next ? next.name : "Back to all work"}
             </span>
             <span className="mt-3.5 block max-w-[44ch] text-[#b9bcc6]">
-              {next
-                ? next.sub
-                : "More case studies are on the way."}
+              {next ? next.sub : "More case studies are on the way."}
             </span>
             <span
               aria-hidden="true"

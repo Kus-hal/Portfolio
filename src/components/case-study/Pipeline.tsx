@@ -51,8 +51,11 @@ export function Pipeline({ data }: { data: PipelineData }) {
     <div className="mt-8 flex flex-wrap gap-6 text-sm text-body">
       {owners.map((by) => (
         <span key={by} className="flex items-center gap-2.5">
-          <i className={`size-2.5 rounded-full ${swatch[by]}`} />
-          {data.legend[by]}
+          <i
+            aria-hidden="true"
+            className={`size-2.5 rounded-full ${swatch[by]}`}
+          />
+          {data.legend[by] ?? by}
         </span>
       ))}
     </div>

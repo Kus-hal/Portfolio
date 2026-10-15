@@ -6,6 +6,7 @@ import type { ProjectId } from "@/content/site";
 
 // Cloth Lab and OMNIA have real app icons; the others get a tile in their own colour until theirs arrive.
 const icons = { "cloth-lab": clothLabIcon, omnia: omniaIcon } as const;
+const hasIcon = (id: ProjectId): id is keyof typeof icons => id in icons;
 const tiles: Record<
   Exclude<ProjectId, keyof typeof icons>,
   { bg: string; Icon: typeof Timer }
@@ -23,19 +24,19 @@ export function ProjectIcon({
   size?: number;
 }) {
   const box = { width: size, height: size, borderRadius: size / 4 };
-  if (id in icons)
+  if (hasIcon(id))
     return (
       <Image
-        src={icons[id as keyof typeof icons]}
+        src={icons[id]}
         alt=""
         width={size}
         height={size}
         style={box}
-        // A hairline keeps OMNIA's cream tile from melting into the page.
+        // A hairline keeps light icons (OMNIA's cream tile) from melting into the page.
         className="shrink-0 self-start shadow-[0_0_0_1px_rgb(23_24_28/0.08)]"
       />
     );
-  const { bg, Icon } = tiles[id as keyof typeof tiles];
+  const { bg, Icon } = tiles[id];
   return (
     <span
       aria-hidden="true"

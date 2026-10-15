@@ -33,7 +33,7 @@ export const omnia: CaseStudy = {
   },
   meta: [
     { label: "Role", value: "Kotlin Developer, SDLC Corp" },
-    { label: "Platforms", value: "Android, iOS, web" },
+    { label: "Platforms", value: "Android, plus iOS and web" },
     { label: "Stack", value: "Kotlin, Jetpack Compose" },
     { label: "Time on it", value: "1 year" },
   ],
@@ -55,7 +55,7 @@ export const omnia: CaseStudy = {
         { text: "Paying, chatting, travelling and shopping meant " },
         { text: "a different app for each.", mark: true },
       ],
-      body: "OMNIA was made for the government of Guinea as one app for daily life: a wallet linked to local banks, chat and calls, rides and parcels, bills, a shop, gold and metals, EV charging, and even a way to invest in the company. Businesses run on it too, with their own tools for merchants, distributors and selling points.",
+      body: "OMNIA was made for the government of Guinea as one app for daily life: a wallet linked to local banks, chat and calls, rides and parcels, bills, a shop, gold and metals, EV charging, and a way to invest in the company. Businesses run on it too, with their own tools for merchants, distributors and selling points.",
     },
     client: {
       label: "Where I came in",
@@ -63,7 +63,7 @@ export const omnia: CaseStudy = {
         { text: "Huge scope, little time, and " },
         { text: "code with no architecture.", mark: true },
       ],
-      body: "The Android app had grown with API calls, logic and UI in the same files. I joined SDLC Corp as a Kotlin developer to help turn it around while features kept shipping: split it into modules, make it more secure, raise the UI and UX, and bring Claude into the project.",
+      body: "The Android app had grown with API calls, logic and UI in the same files. I joined SDLC Corp as a Kotlin developer to help turn it around while features kept shipping: split it into modules, make it more secure, improve the UI and UX, and bring Claude into the project.",
     },
   },
 
@@ -80,7 +80,7 @@ export const omnia: CaseStudy = {
       },
       {
         title: "A government client",
-        body: "Delays and crashes are seen at the very top, and the app carries the client's name.",
+        body: "Delays and crashes are seen at the very top.",
       },
       {
         title: "A big app on modest phones",
@@ -142,8 +142,8 @@ export const omnia: CaseStudy = {
       {
         label: "KYC",
         title: [
-          { text: "A face check that " },
-          { text: "knows a photo from a person", mark: true },
+          { text: "A face check made to " },
+          { text: "tell a photo from a person", mark: true },
           { text: "." },
         ],
         body: "Upload an ID card, passport or licence, then take a selfie with random live challenges: blink, turn your head, smile. Business roles can't enter the app until both steps are done.",
@@ -167,7 +167,8 @@ export const omnia: CaseStudy = {
         screenAlt:
           "Omniia Money wallet with the balance and add, send, request and withdraw buttons",
         hotspot: { x: 3, y: 31 },
-        callout: "Card top-ups go through Stripe; balances are in Guinean francs.",
+        callout:
+          "Card top-ups go through Stripe; balances are in Guinean francs.",
         tools: ["Stripe", "QR scanning", "Paging"],
       },
       {
@@ -188,8 +189,8 @@ export const omnia: CaseStudy = {
       {
         label: "Chat",
         title: [
-          { text: "Messages only " },
-          { text: "the two of you can read", mark: true },
+          { text: "Messages " },
+          { text: "encrypted end to end", mark: true },
           { text: "." },
         ],
         body: "One-to-one and group chat with photos, documents, location and contacts, voice and video calls, and money sent inside the conversation. Chats back up to Google Drive.",
@@ -198,7 +199,7 @@ export const omnia: CaseStudy = {
           "Group chat marked end-to-end encrypted, with call history and an attach menu including Pay",
         hotspot: { x: 3, y: 16 },
         callout:
-          "Each message gets its own AES-256 key, wrapped with the other person's RSA key.",
+          "Each message gets its own AES-256 key, wrapped with the recipient's RSA key.",
         tools: ["Socket.IO", "mediasoup", "Drive backup"],
       },
       {
@@ -261,8 +262,15 @@ export const omnia: CaseStudy = {
       {
         tag: "Layer 3",
         title: "What it talks to",
-        body: "REST APIs for the money, sockets for anything live, a media server for calls, and on-device ML for identity.",
-        chips: ["REST", "Socket.IO", "mediasoup", "Stripe", "ML Kit", "FCM"],
+        body: "REST APIs for the money, sockets for anything live, a media server for calls, and Stripe and Maps for the rest.",
+        chips: [
+          "REST",
+          "Socket.IO",
+          "mediasoup",
+          "Stripe",
+          "Google Maps",
+          "FCM",
+        ],
       },
     ],
     plates: {
@@ -272,9 +280,9 @@ export const omnia: CaseStudy = {
         blocks: ["wallet", "chat", "calls", "taxi", "shop", "KYC"],
       },
       backend: {
-        sub: "Services",
-        title: "APIs and live",
-        blocks: ["REST", "Socket.IO", "mediasoup", "Stripe", "ML Kit", "FCM"],
+        sub: "Backend",
+        title: "Servers",
+        blocks: ["Wallet API", "Chat", "Calls", "Payments", "Push", "Maps"],
       },
     },
   },
@@ -311,45 +319,38 @@ export const omnia: CaseStudy = {
     items: [
       {
         title: "Gold and metals",
-        body: "Live rates and charts, buy and sell gold at a locked price, track a portfolio, even pay for a ride with it.",
+        body: "Live rates and charts, buy and sell gold at a locked price, track a portfolio, and pay for a ride with it.",
         screen: gold,
-        alt: "Buy 24K pure gold with the live price and an 8-year chart",
       },
       {
         title: "Live metal prices",
         body: "Gold, silver, bauxite, iron, nickel and more, each with its own live chart.",
         screen: metals,
-        alt: "Popular services: live prices for gold, silver, bauxite, iron, uranium and nickel",
       },
       {
         title: "EV charging",
         body: "Find a station, pick a connector, charge by time or by percentage and pay from the wallet.",
         screen: ev,
-        alt: "EV station page with charging points and connectors",
       },
       {
         title: "Video calls",
         body: "One-to-one and group calls, voice or video, from any chat.",
         screen: video,
-        alt: "Incoming video call",
       },
       {
         title: "Parcels",
         body: "Send or receive a package: addresses, type, weight and delivery instructions.",
         screen: parcel,
-        alt: "Omniia Parcel booking form",
       },
       {
         title: "Bills",
         body: "Prepaid and postpaid electricity, by tapping or by asking Omniia Brain.",
         screen: bills,
-        alt: "Omniia Brain paying a postpaid electricity bill",
       },
       {
         title: "Shop and merchants",
-        body: "The biggest part of the app: a store for customers, and sales and products for merchants.",
+        body: "The largest feature in the code: a store for customers, and sales and products for merchants.",
         screen: merchant,
-        alt: "Merchant dashboard with sales overview and top-selling products",
       },
       {
         title: "Invest in OMNIA",
@@ -366,10 +367,10 @@ export const omnia: CaseStudy = {
     heading: "Pay with your palm.",
     body: "OMNIA also runs at the counter. A point-of-sale app pairs with an infrared palm-vein camera: the shop rings up the sale, the customer holds out a hand, and the payment comes from their wallet.",
     image: palm,
-    alt: "OMNIA store image in French: a customer pays by holding his palm over a palm-vein reader",
+    alt: "OMNIA store image, in French: fast, secure palm payments with Omniia Wallet. A customer holds his scanned palm over a reader",
     points: [
-      "A USB infrared camera reads the veins in the palm, not the print",
-      "A liveness check rejects photos and fake hands",
+      "A USB infrared camera reads the vein pattern under the skin",
+      "A liveness check is there to turn away photos and fake hands",
       "One palm is matched against everyone enrolled",
       "The customer approves the payment on their phone",
     ],
@@ -378,10 +379,14 @@ export const omnia: CaseStudy = {
   pipeline: {
     heading: "One trip, start to finish.",
     note: "Parcels take the same path, from the pickup address to the door.",
-    token: "Taxi Go",
+    token: "TRIP-0412",
     legend: { customer: "Rider", partner: "Driver app" },
     stages: [
-      { label: "Requested", who: "By the rider, in Omniia Drop", by: "customer" },
+      {
+        label: "Requested",
+        who: "By the rider, in Omniia Drop",
+        by: "customer",
+      },
       { label: "Accepted", who: "The driver taps Accept", by: "partner" },
       {
         label: "On the way",
@@ -453,11 +458,11 @@ export const omnia: CaseStudy = {
     items: [
       {
         who: "If you need a fintech app",
-        what: "Wallets, bank top-ups, PIN-protected payments and KYC with liveness, done with the care money needs.",
+        what: "Wallets, bank top-ups, PIN-protected payments and KYC with a liveness check.",
       },
       {
         who: "If your app needs real-time",
-        what: "Chat, calls and live updates over sockets that hold up on weak networks.",
+        what: "Chat, calls and live updates over sockets, encrypted where it matters.",
       },
       {
         who: "If your codebase has grown messy",
