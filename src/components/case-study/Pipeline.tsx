@@ -12,10 +12,15 @@ const dot = {
   admin: "bg-tick border-tick",
   partner: "bg-ink border-ink",
 } as const;
+const swatch = {
+  customer: "bg-accent",
+  admin: "bg-tick",
+  partner: "bg-ink",
+} as const;
 
 /**
- * The order pipeline, scrubbed by scroll: an order token travels the stages and the big label says who
- * moved it. Reduced motion shows every stage at once as a list.
+ * A pipeline scrubbed by scroll: a token (an order, a trip) travels the stages and the big label says
+ * who moved it. Reduced motion shows every stage at once as a list.
  */
 export function Pipeline({ data }: { data: PipelineData }) {
   const reduce = useMedia(REDUCED_MOTION);
@@ -38,20 +43,18 @@ export function Pipeline({ data }: { data: PipelineData }) {
     !reduce,
   );
 
+  // Only the owners that move a stage on this project get a key.
+  const owners = (["customer", "admin", "partner"] as const).filter((by) =>
+    data.stages.some((s) => s.by === by),
+  );
   const legend = (
     <div className="mt-8 flex flex-wrap gap-6 text-sm text-body">
-      <span className="flex items-center gap-2.5">
-        <i className="size-2.5 rounded-full bg-accent" />
-        Customer
-      </span>
-      <span className="flex items-center gap-2.5">
-        <i className="size-2.5 rounded-full bg-tick" />
-        Admin
-      </span>
-      <span className="flex items-center gap-2.5">
-        <i className="size-2.5 rounded-full bg-ink" />
-        Partner app
-      </span>
+      {owners.map((by) => (
+        <span key={by} className="flex items-center gap-2.5">
+          <i className={`size-2.5 rounded-full ${swatch[by]}`} />
+          {data.legend[by]}
+        </span>
+      ))}
     </div>
   );
   const heading = (
@@ -137,7 +140,7 @@ export function Pipeline({ data }: { data: PipelineData }) {
             ))}
             <div ref={token} className="absolute inset-x-0 top-0">
               <span className="absolute top-[-6px] -translate-x-1/2 rounded-lg bg-ink px-2.5 py-1 text-xs whitespace-nowrap text-paper tabular-nums">
-                CL-2041
+                {data.token}
               </span>
             </div>
           </div>

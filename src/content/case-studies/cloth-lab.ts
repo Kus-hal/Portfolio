@@ -242,15 +242,23 @@ export const clothLab: CaseStudy = {
       },
     ],
     plates: {
-      shared: ["features", "core", "MVI", "Koin", "Room", "Firebase SDK"],
-      backend: [
+      shared: {
+        sub: "commonMain",
+        title: "Shared Kotlin",
+        blocks: ["features", "core", "MVI", "Koin", "Room", "Firebase SDK"],
+      },
+      backend: {
+        sub: "Backend",
+        title: "Firebase",
+        blocks: [
         "Functions",
         "Firestore",
         "Auth",
         "Messaging",
         "Storage",
-        "WhatsApp API",
-      ],
+          "WhatsApp API",
+        ],
+      },
     },
   },
 
@@ -319,6 +327,8 @@ export const clothLab: CaseStudy = {
   pipeline: {
     heading: "Eight stages, and only the server can move them.",
     note: "Washing, drying and ironing can be added between Picked up and Ready.",
+    token: "CL-2041",
+    legend: { customer: "Customer", admin: "Admin", partner: "Partner app" },
     stages: [
       { label: "Placed", who: "By the customer, in the app", by: "customer" },
       {

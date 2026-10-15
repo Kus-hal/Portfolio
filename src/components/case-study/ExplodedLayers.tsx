@@ -188,23 +188,14 @@ export function ExplodedLayers({
                   reduce ? { transform: "translateZ(-230px)" } : { opacity: 0 }
                 }
               >
-                <Plate
-                  sub="Backend"
-                  title="Firebase"
-                  blocks={layers.plates.backend}
-                  dark
-                />
+                <Plate {...layers.plates.backend} dark />
               </div>
               <div
                 ref={kt}
                 className={`${plateBase} border border-[rgb(39_67_255/0.35)] bg-[rgb(252_252_253/0.78)] shadow-[0_30px_60px_-30px_rgb(39_67_255/0.45)] ${dimmed(1)}`}
                 style={reduce ? undefined : { opacity: 0 }}
               >
-                <Plate
-                  sub="commonMain"
-                  title="Shared Kotlin"
-                  blocks={layers.plates.shared}
-                />
+                <Plate {...layers.plates.shared} />
               </div>
               <div
                 ref={ui}

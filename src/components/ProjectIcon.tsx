@@ -1,14 +1,15 @@
-import { SpeakerHigh, Timer, Wallet } from "@phosphor-icons/react/dist/ssr";
+import { SpeakerHigh, Timer } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import clothLabIcon from "@/assets/work/clothlab-icon.png";
+import omniaIcon from "@/assets/work/omnia-icon.png";
 import type { ProjectId } from "@/content/site";
 
-// Cloth Lab has a real app icon; the others get a tile in their own colour until their icons arrive.
+// Cloth Lab and OMNIA have real app icons; the others get a tile in their own colour until theirs arrive.
+const icons = { "cloth-lab": clothLabIcon, omnia: omniaIcon } as const;
 const tiles: Record<
-  Exclude<ProjectId, "cloth-lab">,
-  { bg: string; Icon: typeof Wallet }
+  Exclude<ProjectId, keyof typeof icons>,
+  { bg: string; Icon: typeof Timer }
 > = {
-  omnia: { bg: "bg-[#101114] text-[#e9c46a]", Icon: Wallet },
   loudly: { bg: "bg-[#1d2027] text-white", Icon: SpeakerHigh },
   ting: { bg: "bg-accent text-white", Icon: Timer },
 };
@@ -22,18 +23,19 @@ export function ProjectIcon({
   size?: number;
 }) {
   const box = { width: size, height: size, borderRadius: size / 4 };
-  if (id === "cloth-lab")
+  if (id in icons)
     return (
       <Image
-        src={clothLabIcon}
+        src={icons[id as keyof typeof icons]}
         alt=""
         width={size}
         height={size}
         style={box}
-        className="shrink-0 self-start"
+        // A hairline keeps OMNIA's cream tile from melting into the page.
+        className="shrink-0 self-start shadow-[0_0_0_1px_rgb(23_24_28/0.08)]"
       />
     );
-  const { bg, Icon } = tiles[id];
+  const { bg, Icon } = tiles[id as keyof typeof tiles];
   return (
     <span
       aria-hidden="true"

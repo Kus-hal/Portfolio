@@ -18,6 +18,9 @@ export type WalkStep = {
   tools: readonly string[];
 };
 
+type Plate = { sub: string; title: string; blocks: readonly string[] };
+type PipelineBy = "customer" | "admin" | "partner";
+
 export type CaseStudy = {
   slug: ProjectId;
   name: string;
@@ -26,6 +29,8 @@ export type CaseStudy = {
   /** The project's own colours, used for highlights inside the portfolio's look. */
   accent: { strong: string; soft: string; mark: string; onStrong: string };
   meta: readonly { label: string; value: string }[];
+  /** Store or live links shown under the hero. */
+  links?: readonly { label: string; href: string }[];
   heroScreen: StaticImageData;
   heroAlt: string;
   problem: {
@@ -57,7 +62,8 @@ export type CaseStudy = {
       body: string;
       chips: readonly string[];
     }[];
-    plates: { shared: readonly string[]; backend: readonly string[] };
+    /** The two lower plates of the 3D stack: the middle layer and what it talks to. */
+    plates: { shared: Plate; backend: Plate };
   };
   apps?: {
     heading: string;
@@ -79,11 +85,33 @@ export type CaseStudy = {
   pipeline?: {
     heading: string;
     note: string;
+    /** The label on the token that travels the stages. */
+    token: string;
+    /** What each kind of stage owner is called on this project. */
+    legend: Partial<Record<PipelineBy, string>>;
     stages: readonly {
       label: string;
       who: string;
-      by: "customer" | "admin" | "partner";
+      by: PipelineBy;
     }[];
+  };
+  /** A grid of the rest of the product: one line each, some with a small screen. */
+  services?: {
+    heading: string;
+    items: readonly {
+      title: string;
+      body: string;
+      screen?: StaticImageData;
+      alt?: string;
+    }[];
+  };
+  /** One feature shown large with a single image. */
+  spotlight?: {
+    heading: string;
+    body: string;
+    image: StaticImageData;
+    alt: string;
+    points: readonly string[];
   };
   decisions: {
     heading: string;

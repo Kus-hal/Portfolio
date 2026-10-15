@@ -3,15 +3,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { ViewTransition } from "react";
 import { hasCaseStudy } from "@/content/case-studies";
+import omniaHome from "@/assets/case-studies/omnia/home.webp";
+import omniaWallet from "@/assets/case-studies/omnia/wallet.webp";
 import clothLabScreen from "@/assets/work/clothlab-screen.webp";
 import { work, type Project, type ProjectId } from "@/content/site";
 import { ProjectIcon } from "./ProjectIcon";
 import { Section } from "./Section";
 import { Tags } from "./Tags";
 
-/** Two small phones per card. Cloth Lab's front screen is its real home banner; the rest are simple
- *  drawings in each app's colours, to be swapped for real screenshots. */
+/** Two small phones per card. Cloth Lab and OMNIA show real screens; the rest are simple drawings in
+ *  each app's colours, to be swapped for real screenshots. */
 function Screen({ id, front }: { id: ProjectId; front: boolean }) {
+  if (id === "omnia")
+    return (
+      <Image
+        src={front ? omniaHome : omniaWallet}
+        alt=""
+        sizes="64px"
+        className="size-full object-cover object-top"
+      />
+    );
   if (id === "cloth-lab" && front)
     return (
       <Image
@@ -41,19 +52,6 @@ function Screen({ id, front }: { id: ProjectId; front: boolean }) {
         [30, "#fff"],
         [12, "#fbf3c9"],
       ]);
-    case "omnia":
-      return front ? (
-        blocks("#101114", [
-          [40, "#2a2c31"],
-          [8, "#e9c46a"],
-          [18, "#1f2126"],
-          [18, "#1f2126"],
-        ])
-      ) : (
-        <div className="grid h-full place-items-center bg-[#101114]">
-          <i className="block h-[52px] w-10 rounded-full border-2 border-dashed border-[#e9c46a]" />
-        </div>
-      );
     case "loudly":
       return front ? (
         <div className="flex h-full items-center justify-center gap-[3px] bg-[#1d2027]">

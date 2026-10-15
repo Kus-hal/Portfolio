@@ -1,9 +1,10 @@
 import type { ProjectId } from "@/content/site";
 import { clothLab } from "./cloth-lab";
+import { omnia } from "./omnia";
 import type { CaseStudy } from "./types";
 
 /** Published case studies, in the order "Next project" walks through them. */
-export const caseStudies: CaseStudy[] = [clothLab];
+export const caseStudies: CaseStudy[] = [clothLab, omnia];
 
 export const caseStudyBySlug = (slug: string) =>
   caseStudies.find((c) => c.slug === slug);

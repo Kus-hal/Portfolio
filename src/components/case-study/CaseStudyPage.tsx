@@ -128,6 +128,20 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
                 </div>
               ))}
             </dl>
+            {study.links && (
+              <div className="mt-9 flex flex-wrap gap-2.5">
+                {study.links.map((l) => (
+                  <ButtonLink
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    {l.label} <ArrowUpRight aria-hidden="true" size={16} />
+                  </ButtonLink>
+                ))}
+              </div>
+            )}
           </div>
           <div className="max-[900px]:hidden">
             <HeroDevice>
@@ -231,7 +245,9 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
 
         {study.apps && (
           <Block id="apps" heading={study.apps.heading}>
-            <div className="grid items-end gap-14 min-[901px]:grid-cols-[1fr_1fr_1.6fr] min-[901px]:gap-7">
+            <div
+              className={`grid gap-14 min-[901px]:gap-7 ${study.apps.items.some((a) => a.kind === "browser") ? "items-end min-[901px]:grid-cols-[1fr_1fr_1.6fr]" : "items-start min-[901px]:grid-cols-3"}`}
+            >
               {study.apps.items.map((a) => (
                 <figure key={a.name}>
                   {a.kind === "phone" ? (
@@ -269,6 +285,76 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
                   </figcaption>
                 </figure>
               ))}
+            </div>
+          </Block>
+        )}
+
+        {study.services && (
+          <Block id="services" heading={study.services.heading}>
+            <ul className="grid gap-2.5 min-[621px]:grid-cols-2 min-[1001px]:grid-cols-3">
+              {study.services.items.map((v) => (
+                <li
+                  key={v.title}
+                  className={`flex flex-col overflow-hidden rounded-[22px] ${v.screen ? "bg-surface" : "bg-[var(--proj-soft)]"}`}
+                >
+                  <div className="p-6">
+                    <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.02em]">
+                      {v.title}
+                    </h3>
+                    <p className="mt-1.5 max-w-[40ch] text-[14.5px] text-body">
+                      {v.body}
+                    </p>
+                  </div>
+                  {v.screen && (
+                    // The top of the screen peeks up from the bottom of the card.
+                    <div className="mt-auto h-[230px] overflow-hidden px-10">
+                      <div className="mx-auto max-w-[220px] overflow-hidden rounded-t-[26px] border-x-[6px] border-t-[6px] border-[#16171b]">
+                        <Image
+                          src={v.screen}
+                          alt={v.alt ?? ""}
+                          sizes="220px"
+                          className="w-full"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Block>
+        )}
+
+        {study.spotlight && (
+          <Block id="spotlight" heading={study.spotlight.heading}>
+            <div className="grid items-center gap-10 min-[901px]:grid-cols-[0.8fr_1fr] min-[901px]:gap-16">
+              <Image
+                src={study.spotlight.image}
+                alt={study.spotlight.alt}
+                sizes="(min-width: 901px) 380px, 80vw"
+                className="mx-auto w-full max-w-[380px] rounded-[28px] shadow-[0_34px_60px_-34px_rgb(23_24_28/0.45)]"
+              />
+              <div>
+                <p
+                  data-full
+                  className="max-w-[46ch] text-[clamp(1.1rem,1.8vw,1.3rem)] leading-[1.45] text-body"
+                >
+                  {study.spotlight.body}
+                </p>
+                <ul className="mt-8 grid gap-2.5">
+                  {study.spotlight.points.map((pt) => (
+                    <li
+                      key={pt}
+                      className="flex gap-3 rounded-card bg-[var(--proj-soft)] px-4 py-3.5 text-[15px]"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-2 size-1.5 shrink-0 rounded-full bg-[var(--proj)]"
+                      />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </Block>
         )}
@@ -437,7 +523,7 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
             <span className="mt-3.5 block max-w-[44ch] text-[#b9bcc6]">
               {next
                 ? next.sub
-                : "More case studies are on the way: OMNIA, Loudly, GeoFence and Ting."}
+                : "More case studies are on the way."}
             </span>
             <span
               aria-hidden="true"
