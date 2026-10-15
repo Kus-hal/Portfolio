@@ -1,4 +1,4 @@
-import { Timer } from "@phosphor-icons/react/dist/ssr";
+import { MapPinArea, Timer } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import clothLabIcon from "@/assets/work/clothlab-icon.png";
 import loudlyIcon from "@/assets/work/loudly-icon.png";
@@ -16,6 +16,7 @@ const tiles: Record<
   Exclude<ProjectId, keyof typeof icons>,
   { bg: string; Icon: typeof Timer }
 > = {
+  geofence: { bg: "bg-[#1d5fc4] text-white", Icon: MapPinArea },
   ting: { bg: "bg-accent text-white", Icon: Timer },
 };
 

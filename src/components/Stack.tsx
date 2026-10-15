@@ -34,6 +34,7 @@ const blurbs: Record<ProjectId | "codeup", string> = {
   "cloth-lab": "Laundry startup, three platforms",
   omnia: "Fintech super-app, SDLC Corp",
   loudly: "Offline audio sync",
+  geofence: "Group geofence alerts",
   ting: "Interval timer on Google Play",
   codeup: "Client work and mentoring",
 };

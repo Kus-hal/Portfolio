@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ViewTransition } from "react";
 import { hasCaseStudy } from "@/content/case-studies";
 import clothLabScreen from "@/assets/work/clothlab-screen.webp";
+import geofenceInside from "@/assets/work/geofence-inside.webp";
+import geofenceOutside from "@/assets/work/geofence-outside.webp";
 import loudlyHome from "@/assets/work/loudly-home.webp";
 import loudlyRoom from "@/assets/work/loudly-room.webp";
 import omniaHome from "@/assets/work/omnia-home.webp";
@@ -16,12 +18,13 @@ import { Tags } from "./Tags";
 const shots = {
   omnia: [omniaHome, omniaWallet],
   loudly: [loudlyRoom, loudlyHome],
+  geofence: [geofenceOutside, geofenceInside],
 } as const;
 
-/** Two small phones per card. Cloth Lab, OMNIA and Loudly show real screens; the rest are simple drawings in
+/** Two small phones per card. Cloth Lab, OMNIA, Loudly and GeoFence show real screens; the rest are simple drawings in
  *  each app's colours, to be swapped for real screenshots. */
 function Screen({ id, front }: { id: ProjectId; front: boolean }) {
-  if (id === "omnia" || id === "loudly")
+  if (id === "omnia" || id === "loudly" || id === "geofence")
     return (
       <Image
         src={shots[id][front ? 0 : 1]}

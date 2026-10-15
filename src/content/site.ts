@@ -42,7 +42,7 @@ export const hero = {
   tagline: "I build Android apps people keep using.",
   sub: "Mobile engineer. Kotlin, Jetpack Compose and Kotlin Multiplatform, from the first commit to the store release.",
   proof: [
-    { value: "4 apps", label: "Built, shipped or in progress" },
+    { value: "5 apps", label: "Built, shipped or in progress" },
     { value: "1.5+ yrs", label: "Production Kotlin" },
     { value: "350 → 110 MB", label: "OMNIA release, a team effort" },
     { value: "~11 ms", label: "Loudly timing error on two phones" },
@@ -158,7 +158,7 @@ export const offers = {
   ],
 } as const;
 
-export type ProjectId = "cloth-lab" | "omnia" | "loudly" | "ting";
+export type ProjectId = "cloth-lab" | "omnia" | "loudly" | "geofence" | "ting";
 
 export type Project = {
   id: ProjectId;
@@ -203,6 +203,14 @@ export const work: { heading: string; projects: Project[] } = {
       summary:
         "One song, every phone in the room, in sync. An offline engine reading ~11 ms of timing error on two phones, in sync by ear.",
       tags: ["Kotlin", "Nearby Connections", "Opus", "Clock sync"],
+    },
+    {
+      id: "geofence",
+      name: "GeoFence",
+      status: "Portfolio project",
+      summary:
+        "A group shares a fenced area and everyone is told the moment someone leaves. A tested state machine keeps GPS drift from crying wolf.",
+      tags: ["Kotlin Multiplatform", "Compose", "Firebase", "MapLibre"],
     },
     {
       id: "ting",
@@ -358,7 +366,7 @@ export type StackTool = {
   how: string;
 };
 
-// Which project used what, checked against the four codebases (October 2026).
+// Which project used what, checked against the five codebases (October 2026).
 export const stack: {
   heading: string;
   sub: string;
@@ -373,7 +381,7 @@ export const stack: {
         {
           name: "Kotlin",
           icon: "kotlin",
-          usedIn: ["cloth-lab", "omnia", "loudly", "ting"],
+          usedIn: ["cloth-lab", "omnia", "loudly", "ting", "geofence"],
           how: "My main language: every app here, from Compose screens to the clock-sync code in Loudly.",
         },
         {
@@ -402,14 +410,14 @@ export const stack: {
         {
           name: "Jetpack Compose",
           icon: "jetpackcompose",
-          usedIn: ["omnia", "loudly", "ting"],
-          how: "The UI of OMNIA, Loudly and Ting.",
+          usedIn: ["omnia", "loudly", "ting", "geofence"],
+          how: "The UI of OMNIA, Loudly, GeoFence and Ting.",
         },
         {
           name: "Kotlin Multiplatform",
           abbr: "KMP",
-          usedIn: ["cloth-lab"],
-          how: "One shared codebase for Cloth Lab on Android, iOS and the web.",
+          usedIn: ["cloth-lab", "geofence"],
+          how: "One shared codebase for Cloth Lab on Android, iOS and the web, and GeoFence's shared engine.",
         },
         {
           name: "Compose Multiplatform",
@@ -420,7 +428,7 @@ export const stack: {
         {
           name: "Material 3",
           icon: "materialdesign",
-          usedIn: ["cloth-lab", "omnia", "ting"],
+          usedIn: ["cloth-lab", "omnia", "ting", "geofence"],
           how: "Theming and components, extended with each app's own tokens.",
         },
         {
@@ -443,13 +451,13 @@ export const stack: {
         {
           name: "Clean Architecture",
           abbr: "CA",
-          usedIn: ["cloth-lab", "omnia", "loudly", "ting"],
+          usedIn: ["cloth-lab", "omnia", "loudly", "ting", "geofence"],
           how: "Data, domain and UI layers per feature in every app.",
         },
         {
           name: "MVI",
           abbr: "MVI",
-          usedIn: ["cloth-lab", "omnia", "loudly", "ting"],
+          usedIn: ["cloth-lab", "omnia", "loudly", "ting", "geofence"],
           how: "One state per screen, driven by actions, easy to test.",
         },
         {
@@ -461,7 +469,7 @@ export const stack: {
         {
           name: "Koin",
           abbr: "K",
-          usedIn: ["cloth-lab"],
+          usedIn: ["cloth-lab", "geofence"],
           how: "Dependency injection that works in shared Kotlin code.",
         },
       ],
@@ -472,7 +480,7 @@ export const stack: {
         {
           name: "Coroutines and Flow",
           abbr: "Co",
-          usedIn: ["cloth-lab", "omnia", "loudly", "ting"],
+          usedIn: ["cloth-lab", "omnia", "loudly", "ting", "geofence"],
           how: "Everything async: network, timers, playback state.",
         },
         {
@@ -484,7 +492,7 @@ export const stack: {
         {
           name: "DataStore",
           abbr: "DS",
-          usedIn: ["omnia", "loudly", "ting"],
+          usedIn: ["omnia", "loudly", "ting", "geofence"],
           how: "Settings and small state, like Ting's widget.",
         },
         {
@@ -565,8 +573,8 @@ export const stack: {
         {
           name: "Firebase",
           icon: "firebase",
-          usedIn: ["cloth-lab", "ting"],
-          how: "Auth, Firestore, Cloud Functions and messaging for Cloth Lab. Analytics and Crashlytics in Ting.",
+          usedIn: ["cloth-lab", "ting", "geofence"],
+          how: "Auth, Firestore, Cloud Functions and messaging for Cloth Lab. Live positions in GeoFence. Analytics and Crashlytics in Ting.",
         },
         {
           name: "Cloud Functions",
@@ -588,7 +596,7 @@ export const stack: {
         {
           name: "Gradle",
           icon: "gradle",
-          usedIn: ["cloth-lab", "omnia", "loudly", "ting"],
+          usedIn: ["cloth-lab", "omnia", "loudly", "ting", "geofence"],
           how: "Builds and version catalogs in every app.",
         },
         {
@@ -600,7 +608,7 @@ export const stack: {
         {
           name: "Git",
           icon: "git",
-          usedIn: ["cloth-lab", "omnia", "loudly", "ting"],
+          usedIn: ["cloth-lab", "omnia", "loudly", "ting", "geofence"],
           how: "Feature branches and reviewable history on every project.",
         },
       ],
