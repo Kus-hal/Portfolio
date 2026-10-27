@@ -6,6 +6,8 @@ import drop from "@/assets/case-studies/omnia/drop.webp";
 import ev from "@/assets/case-studies/omnia/ev.webp";
 import gold from "@/assets/case-studies/omnia/gold.webp";
 import home from "@/assets/case-studies/omnia/home.webp";
+import invest from "@/assets/case-studies/omnia/invest.webp";
+import investOwn from "@/assets/case-studies/omnia/invest-own.webp";
 import login from "@/assets/case-studies/omnia/login.webp";
 import merchant from "@/assets/case-studies/omnia/merchant.webp";
 import metals from "@/assets/case-studies/omnia/metals.webp";
@@ -232,6 +234,21 @@ export const omnia: CaseStudy = {
         callout: "One booking flow for rides, parcels and reservations.",
         tools: ["Google Maps", "Live location", "Socket.IO"],
       },
+      {
+        label: "Invest",
+        title: [
+          { text: "Own a piece of " },
+          { text: "the company", mark: true },
+          { text: "." },
+        ],
+        body: "Buy OMNIIA, the company's own token, straight from the wallet. Each round has its own price, bonus and lock-in, and a short tour explains holding and quarterly returns before anyone invests.",
+        screen: invest,
+        screenAlt:
+          "Invest in Omniia: the OMNIIA token at 140 GNF, supply figures and an open Seed Round with an Invest now button",
+        hotspot: { x: 3, y: 70 },
+        callout: "Each round has its own price, bonus and lock-in.",
+        tools: ["Jetpack Compose", "Wallet", "Onboarding tour"],
+      },
     ],
   },
 
@@ -354,7 +371,8 @@ export const omnia: CaseStudy = {
       },
       {
         title: "Invest in OMNIA",
-        body: "People can invest in the company itself, from the app.",
+        body: "A short tour, then buy the company's token from the wallet, round by round.",
+        screen: investOwn,
       },
       {
         title: "Airtime and a virtual card",
