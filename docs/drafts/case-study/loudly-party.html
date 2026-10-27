@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Loudly party room draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* Tokens come from Loudly's own screens: the night room, the app's lavender gradient,
+     the coral of its album art and the mint of its "Everyone in sync" banner. */
+  :root {
+    --night: #17132b;
+    --night-2: #211b3c;
+    --night-3: #2c2550;
+    --lav: #a99bff;
+    --lav-2: #7478f5;
+    --coral: #f2738a;
+    --mint: #45d6a6;
+    --text: #f3f0ff;
+    --muted: #b6b0d4;
+    --line: rgb(169 155 255 / 0.18);
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --display: "Space Grotesk", system-ui, sans-serif;
+    --sans: "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--night); color: var(--text);
+    font: 400 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  .wrap { width: min(1180px, 100% - 32px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--display); margin: 0; letter-spacing: -0.03em; }
+  p { margin: 0; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--lav); outline-offset: 3px; border-radius: 8px; }
+
+  /* Nav: the portfolio's pill, in the room's colours */
+  .nav {
+    position: sticky; top: 14px; z-index: 50; margin: 14px auto 0; width: fit-content;
+    display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 999px;
+    background: rgb(33 27 60 / 0.72); backdrop-filter: blur(16px); border: 1px solid var(--line);
+  }
+  .nav a { color: var(--muted); text-decoration: none; font-size: 15px; padding: 7px 12px; border-radius: 999px; }
+  .nav a[aria-current] { background: rgb(169 155 255 / 0.16); color: var(--text); }
+  .nav .ks { width: 30px; height: 30px; padding: 0; display: grid; place-items: center; background: var(--text); color: var(--night); border-radius: 9px; font: 600 13px var(--display); }
+  .nav .cta { background: var(--text); color: var(--night); font-weight: 600; }
+
+  /* ---------- Hero: the table ---------- */
+  .hero { position: relative; padding: 70px 0 40px; }
+  .lamp {
+    position: absolute; inset: -120px 0 auto; height: 900px; pointer-events: none;
+    background: radial-gradient(48% 42% at 64% 46%, rgb(116 120 245 / 0.28), transparent 70%),
+                radial-gradient(30% 30% at 30% 70%, rgb(242 115 138 / 0.12), transparent 70%);
+    opacity: 0; transition: opacity 1.6s ease;
+  }
+  .ready .lamp { opacity: 1; }
+  .hero-grid { position: relative; display: grid; gap: 40px; align-items: center; grid-template-columns: 0.9fr 1.1fr; }
+  .hero h1 { font-size: clamp(2.8rem, 5.4vw, 5rem); line-height: 0.94; font-weight: 700; }
+  .hero h1 span { display: block; white-space: nowrap; }
+  .hero h1 .soft { color: var(--lav); }
+  .lede { margin-top: 22px; max-width: 34ch; font-size: clamp(1.1rem, 1.8vw, 1.3rem); line-height: 1.45; color: var(--muted); }
+  .meta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--muted); }
+
+  .stage { position: relative; aspect-ratio: 5 / 4; }
+  .table {
+    position: absolute; inset: 6% 2%; border-radius: 46%;
+    background: radial-gradient(closest-side, #2a2350, #1c1736 70%, transparent 100%);
+  }
+  .rings { position: absolute; inset: 0; pointer-events: none; }
+  .ring {
+    position: absolute; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%;
+    border: 2px solid var(--lav); opacity: 0;
+  }
+  .ring.sync { border-color: var(--mint); }
+  .phone {
+    position: absolute; width: 15%; aspect-ratio: 9 / 18; margin: -15% 0 0 -7.5%;
+    border-radius: 14% / 7%; background: #0d0b19; padding: 5px;
+    box-shadow: 0 24px 40px -18px rgb(0 0 0 / 0.7), inset 0 0 0 1px rgb(255 255 255 / 0.08);
+    opacity: 0; translate: 0 18px;
+  }
+  .ready .phone { opacity: 1; translate: 0 0; transition: opacity 0.6s var(--ease-out), translate 0.7s var(--ease-out); }
+  .screen {
+    height: 100%; border-radius: 11% / 5.5%; overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; gap: 6%;
+    padding: 12% 10%; background: linear-gradient(160deg, #241e45, #16122b);
+  }
+  .art { width: 74%; justify-self: center; aspect-ratio: 1; border-radius: 16%; background: linear-gradient(145deg, var(--art-a), var(--art-b)); }
+  .eq { display: flex; align-items: flex-end; justify-content: center; gap: 8%; height: 100%; min-height: 0; }
+  .eq i { width: 12%; height: 80%; border-radius: 3px; background: var(--lav); transform-origin: bottom; }
+  .who { font: 500 clamp(8px, 0.9vw, 11px) var(--sans); color: var(--muted); text-align: center; white-space: nowrap; overflow: hidden; }
+
+  .demo { margin-top: 26px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  .seg { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--night-2); border: 1px solid var(--line); }
+  .seg button {
+    border: 0; background: transparent; padding: 10px 16px; border-radius: 999px; cursor: pointer; color: var(--muted);
+    font-weight: 600; font-size: 15px; transition: background-color 0.2s, color 0.2s, scale 0.15s;
+  }
+  .seg button:active { scale: 0.97; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--night); }
+  .sound { border: 1px solid var(--line); background: transparent; padding: 10px 14px; border-radius: 999px; cursor: pointer; color: var(--muted); font-size: 14px; }
+  .sound[aria-pressed="true"] { color: var(--text); border-color: var(--lav); }
+  .readout { min-height: 3.2em; margin-top: 16px; font-size: 15px; color: var(--muted); }
+  .readout b { font-family: var(--display); font-size: 1.6rem; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; margin-right: 8px; }
+  .readout.locked b { color: var(--mint); }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 130px 0 0; }
+  .h2 { font-size: clamp(2rem, 4.4vw, 3.3rem); line-height: 1.02; font-weight: 700; max-width: 18ch; }
+  .sub { margin-top: 16px; max-width: 52ch; color: var(--muted); }
+
+  .story { display: grid; gap: 14px; margin-top: 46px; grid-template-columns: 1fr 1fr; }
+  .card { border-radius: 26px; padding: 34px; background: var(--night-2); border: 1px solid var(--line); }
+  .card.warm { background: linear-gradient(160deg, #3a2240, #26193a); border-color: rgb(242 115 138 / 0.25); }
+  .card h3 { font-size: clamp(1.4rem, 2.4vw, 1.85rem); line-height: 1.15; }
+  .card p { margin-top: 14px; color: var(--muted); }
+  .card .who-for { font-size: 14px; color: var(--coral); margin-bottom: 12px; }
+  .card:not(.warm) .who-for { color: var(--lav); }
+
+  /* Join: code tiles and the guest list */
+  .join { display: grid; gap: 50px; margin-top: 46px; grid-template-columns: 1fr 1fr; align-items: center; }
+  .code { display: flex; gap: 10px; }
+  .code span {
+    flex: 1; aspect-ratio: 3 / 4; display: grid; place-items: center; border-radius: 16px;
+    background: var(--night-2); border: 1px solid var(--line);
+    font: 700 clamp(1.6rem, 4vw, 2.8rem) var(--display); font-variant-numeric: tabular-nums; color: var(--text);
+  }
+  .code span.set { border-color: var(--lav); box-shadow: 0 0 0 4px rgb(169 155 255 / 0.12); }
+  .guests { margin: 26px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .guest {
+    display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-radius: 16px; background: var(--night-2);
+    opacity: 0; translate: 0 10px; transition: opacity 0.4s var(--ease-out), translate 0.5s var(--ease-out);
+  }
+  .guest.in { opacity: 1; translate: 0 0; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 600 14px var(--display); color: var(--night); }
+  .guest .name { font-weight: 600; }
+  .pill { margin-left: auto; font-size: 13px; color: var(--mint); background: rgb(69 214 166 / 0.12); padding: 4px 10px; border-radius: 999px; }
+  .join-copy p { margin-top: 14px; color: var(--muted); max-width: 44ch; }
+
+  /* Pipeline as a music editor: one lane, six clips, a playhead driven by scroll */
+  .track-sec { height: 260vh; margin-top: 60px; }
+  .track-pin { position: sticky; top: 0; height: 100svh; display: grid; align-content: center; }
+  .lane { position: relative; margin-top: 46px; height: 150px; border-radius: 22px; background: var(--night-2); border: 1px solid var(--line); overflow: hidden; }
+  .ruler { position: absolute; inset: 0 0 auto; height: 26px; border-bottom: 1px solid var(--line);
+    background: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 40px); }
+  .clip {
+    position: absolute; top: 44px; height: 88px; border-radius: 14px; padding: 12px 14px;
+    background: rgb(169 155 255 / 0.1); border: 1px solid rgb(169 155 255 / 0.25);
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .clip b { display: block; font: 600 15px var(--display); }
+  .clip span { display: block; margin-top: 4px; font-size: 13px; line-height: 1.35; color: var(--muted); }
+  .clip.on { background: rgb(169 155 255 / 0.26); border-color: var(--lav); }
+  .clip.on.k-host { background: rgb(242 115 138 / 0.22); border-color: var(--coral); }
+  .clip.on.k-guests { background: rgb(69 214 166 / 0.18); border-color: var(--mint); }
+  .playhead { position: absolute; top: 0; bottom: 0; left: 0; width: 2px; background: var(--text); }
+  .playhead::before { content: ""; position: absolute; top: 0; left: -6px; border: 7px solid transparent; border-top-color: var(--text); }
+  .legend { margin-top: 18px; display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .now { margin-top: 26px; min-height: 4.4em; }
+  .now b { display: block; font: 700 clamp(1.8rem, 4.5vw, 3.2rem) var(--display); letter-spacing: -0.035em; }
+  .now span { color: var(--muted); }
+
+  /* Numbers as a now-playing strip */
+  .stats { margin-top: 46px; display: grid; gap: 12px; grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+  .stat { border-radius: 24px; padding: 26px; background: var(--night-2); border: 1px solid var(--line); }
+  .stat.big { background: linear-gradient(150deg, var(--lav-2), #9b7bf0); border: 0; color: #fff; }
+  .stat b { display: block; font: 700 clamp(2.2rem, 4.6vw, 3.6rem) var(--display); letter-spacing: -0.045em; line-height: 1; }
+  .stat span { display: block; margin-top: 10px; font-size: 14.5px; color: var(--muted); }
+  .stat.big span { color: rgb(255 255 255 / 0.85); }
+
+  /* Liner notes: the decisions */
+  .notes { margin-top: 40px; columns: 2; column-gap: 50px; }
+  .note { break-inside: avoid; padding: 24px 0; border-top: 1px solid var(--line); }
+  .note h3 { font-size: 1.35rem; }
+  .note p { margin-top: 8px; color: var(--muted); }
+
+  .end { margin: 130px auto 120px; text-align: center; }
+  .end h2 { font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: 0.98; }
+  .end p { margin: 18px auto 0; max-width: 46ch; color: var(--muted); }
+  .end a { display: inline-block; margin-top: 28px; background: var(--text); color: var(--night); text-decoration: none; font-weight: 600; padding: 13px 22px; border-radius: 999px; }
+
+  @media (max-width: 900px) {
+    .hero-grid, .story, .join { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat.big { grid-column: 1 / -1; }
+    .notes { columns: 1; }
+    .nav .hide-sm { display: none; }
+    .track-sec { height: auto; }
+    .track-pin { position: static; height: auto; }
+    .lane { height: auto; padding: 16px; display: grid; gap: 8px; }
+    .lane .ruler, .lane .playhead { display: none; }
+    .clip { position: static; height: auto; width: auto !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .phone, .guest { transition: none !important; opacity: 1; translate: 0 0; }
+    .lamp { transition: none; }
+  }
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Case study">
+  <a class="ks" href="#" aria-label="KS, Kushal Sharma, home">KS</a>
+  <a href="#" class="hide-sm">All work</a>
+  <a href="#" aria-current="page">Loudly</a>
+  <a href="#" class="cta">Get in touch</a>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="lamp" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <h1><span>Every phone</span><span>in the room.</span><span class="soft">One speaker.</span></h1>
+        <p class="lede">Loudly turns a room full of phones into one sound system. One person hosts, friends join with a code, and every phone plays the same song at the same moment. No internet needed.</p>
+        <div class="meta">
+          <span class="chip">Solo developer</span>
+          <span class="chip">Android, Kotlin, Jetpack Compose</span>
+          <span class="chip">In development</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="stage" id="stage" role="img" aria-label="Five phones on a table, pulsing to the same song">
+          <div class="table"></div>
+          <div class="rings" id="rings"></div>
+        </div>
+        <div class="demo">
+          <div class="seg" role="group" aria-label="How the phones play">
+            <button type="button" id="apart" aria-pressed="true">Play separately</button>
+            <button type="button" id="together" aria-pressed="false">Play with Loudly</button>
+          </div>
+          <button type="button" class="sound" id="sound" aria-pressed="false">Sound off</button>
+        </div>
+        <p class="readout" id="readout" aria-live="polite"></p>
+      </div>
+    </div>
+  </header>
+
+  <section class="block wrap" aria-labelledby="story-h">
+    <h2 class="h2" id="story-h">Two problems, one app.</h2>
+    <div class="story">
+      <article class="card warm">
+        <p class="who-for">For the people using it</p>
+        <h3>Friends, music, and nobody brought a speaker.</h3>
+        <p>It started at a jam with friends in college. Nobody had a speaker, but everyone had a phone. Loudly turns those phones into one: one person hosts, everyone else joins, and the room plays as one.</p>
+      </article>
+      <article class="card">
+        <p class="who-for">Why it's hard</p>
+        <h3>Press play on five phones and they drift apart in seconds.</h3>
+        <p>Every phone has a different processor, scheduler and speaker delay, and ears hear 20 to 30 ms as an echo. Sonos and AirPlay solve this with their own hardware. Loudly does it in software, on ordinary phones.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="block wrap" aria-labelledby="join-h">
+    <div class="join">
+      <div class="join-copy">
+        <h2 class="h2" id="join-h">A code, and the room fills up.</h2>
+        <p>The host gets a six-character code. Friends type it or pick the room from the nearby list, and their phones connect straight to the host's over Wi-Fi Direct or Bluetooth. Late arrivals drop into the song mid-play.</p>
+      </div>
+      <div>
+        <div class="code" id="code" aria-label="Room code K7QJAM"></div>
+        <ul class="guests" id="guests" aria-label="Speakers in the room"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="track-sec" id="track" aria-labelledby="track-h">
+    <div class="track-pin">
+      <div class="wrap">
+        <h2 class="h2" id="track-h">One song, start to finish.</h2>
+        <div class="lane" id="lane">
+          <div class="ruler" aria-hidden="true"></div>
+          <div class="playhead" id="playhead" aria-hidden="true"></div>
+        </div>
+        <div class="now" aria-live="polite"><b id="now-b"></b><span id="now-s"></span></div>
+        <div class="legend"><span><i style="background:var(--coral)"></i>Host</span><span><i style="background:var(--lav)"></i>Loudly</span><span><i style="background:var(--mint)"></i>Guests</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block wrap" aria-labelledby="stats-h">
+    <h2 class="h2" id="stats-h">Where it stands.</h2>
+    <p class="sub">On 8 October 2026, on two phones, the app's own timing reading settled at about 11 ms and the music was in sync by ear. A microphone test is next.</p>
+    <div class="stats">
+      <div class="stat big"><b>~11 ms</b><span>timing error, app reading on two phones</span></div>
+      <div class="stat"><b>0</b><span>internet or servers needed</span></div>
+      <div class="stat"><b>5+</b><span>phones tested together</span></div>
+      <div class="stat"><b>15</b><span>phones per room, the goal</span></div>
+    </div>
+  </section>
+
+  <section class="block wrap" aria-labelledby="notes-h">
+    <h2 class="h2" id="notes-h">Liner notes.</h2>
+    <p class="sub">The calls behind the sound.</p>
+    <div class="notes">
+      <div class="note"><h3>One place owns time.</h3><p>Only the sync engine works out clock offsets. Screens never touch audio, codecs or radios, so timing bugs have one place to live.</p></div>
+      <div class="note"><h3>Never fail silently.</h3><p>When a guest drops to a slow Bluetooth link, the room says so and the stream falls from 128 to 48 kbps.</p></div>
+      <div class="note"><h3>People leave and come back.</h3><p>A guest tries three times to reconnect. The host keeps their place for 15 seconds, and they rejoin mid-song.</p></div>
+      <div class="note"><h3>Checked on real phones.</h3><p>Every change is tried on real devices with the app's own timing readings and by ear. A microphone recording is the next check.</p></div>
+    </div>
+  </section>
+
+  <section class="end wrap" aria-labelledby="end-h">
+    <h2 id="end-h">Got something that has to happen at the same moment?</h2>
+    <p>Real-time audio, offline peer-to-peer and Android down to the metal. I'd like to hear about it.</p>
+    <a href="#">Get in touch</a>
+  </section>
+</main>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const BEAT = 600; // ms, a 100 bpm pulse
+
+  // ---------- Hero: five phones around a table ----------
+  const stage = document.getElementById("stage");
+  const ringsEl = document.getElementById("rings");
+  const people = [
+    { name: "Host", x: 50, y: 27, a: "#ff8a5c", b: "#f2618a" },
+    { name: "Riya", x: 17, y: 50, a: "#7478f5", b: "#a78bfa" },
+    { name: "Sam", x: 83, y: 48, a: "#45d6a6", b: "#2fa58f" },
+    { name: "Arjun", x: 33, y: 86, a: "#f7c35f", b: "#f2738a" },
+    { name: "Meera", x: 68, y: 86, a: "#a99bff", b: "#5b5bd6" },
+  ];
+  const phones = people.map((p, i) => {
+    const el = document.createElement("div");
+    el.className = "phone";
+    el.style.left = p.x + "%";
+    el.style.top = p.y + "%";
+    el.style.rotate = (i % 2 ? -1 : 1) * (6 + i * 3) + "deg";
+    el.style.transitionDelay = 300 + i * 120 + "ms";
+    el.innerHTML = `<div class="screen" style="--art-a:${p.a};--art-b:${p.b}"><div class="art"></div><div class="eq">${"<i></i>".repeat(5)}</div><div class="who">${p.name}</div></div>`;
+    stage.appendChild(el);
+    return { el, bars: [...el.querySelectorAll(".eq i")], offset: 0, target: 0, x: p.x, y: p.y };
+  });
+
+  // Out of sync: each phone starts somewhere in the first quarter-second and keeps drifting.
+  // With Loudly: offsets pull together to within ~11 ms.
+  let together = false;
+  const spreadApart = () => phones.forEach((p, i) => (p.target = i === 0 ? 0 : 40 + Math.random() * 190));
+  spreadApart();
+  phones.forEach((p) => (p.offset = p.target));
+
+  const readout = document.getElementById("readout");
+  const apartBtn = document.getElementById("apart");
+  const togetherBtn = document.getElementById("together");
+  const setMode = (t) => {
+    together = t;
+    apartBtn.setAttribute("aria-pressed", String(!t));
+    togetherBtn.setAttribute("aria-pressed", String(t));
+    if (t) phones.forEach((p) => (p.target = Math.random() * 11));
+    else spreadApart();
+  };
+  apartBtn.addEventListener("click", () => setMode(false));
+  togetherBtn.addEventListener("click", () => setMode(true));
+
+  // Sound: one soft tick per phone per beat, each at its own offset, so the echo is audible.
+  let ctx = null, soundOn = false;
+  const soundBtn = document.getElementById("sound");
+  soundBtn.addEventListener("click", () => {
+    soundOn = !soundOn;
+    if (soundOn && !ctx) ctx = new AudioContext();
+    if (ctx && soundOn) ctx.resume();
+    soundBtn.setAttribute("aria-pressed", String(soundOn));
+    soundBtn.textContent = soundOn ? "Sound on" : "Sound off";
+  });
+  const tick = (when) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = "triangle"; o.frequency.value = 880;
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.exponentialRampToValueAtTime(0.18, when + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + 0.09);
+    o.connect(g).connect(ctx.destination);
+    o.start(when); o.stop(when + 0.1);
+  };
+
+  const ring = (p) => {
+    const r = document.createElement("span");
+    r.className = "ring" + (together ? " sync" : "");
+    r.style.left = p.x + "%";
+    r.style.top = p.y - 10 + "%";
+    ringsEl.appendChild(r);
+    r.animate(
+      [{ opacity: 0.7, transform: "scale(0.6)" }, { opacity: 0, transform: "scale(4.2)" }],
+      { duration: 1400, easing: "cubic-bezier(0.23, 1, 0.32, 1)" }
+    ).onfinish = () => r.remove();
+  };
+
+  let lastBeat = -1, visible = true;
+  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(stage);
+  const frame = (now) => {
+    // Offsets ease toward their targets; out of sync they also creep further apart.
+    phones.forEach((p, i) => {
+      if (!together && i) p.target = Math.min(p.target + 0.02, 320);
+      p.offset += (p.target - p.offset) * (together ? 0.06 : 0.03);
+      const local = (now - p.offset) % BEAT / BEAT; // 0..1 through this phone's beat
+      const pulse = Math.max(0, 1 - local * 3);
+      p.bars.forEach((b, k) => (b.style.transform = `scaleY(${0.18 + pulse * (0.45 + ((k * 37) % 5) / 12)})`));
+    });
+    const beat = Math.floor(now / BEAT);
+    if (beat !== lastBeat && visible) {
+      lastBeat = beat;
+      const base = beat * BEAT + BEAT; // the next beat, in performance time
+      phones.forEach((p) => {
+        setTimeout(() => ring(p), Math.max(0, base + p.offset - performance.now()));
+        if (soundOn && ctx) tick(ctx.currentTime + Math.max(0, base + p.offset - performance.now()) / 1000);
+      });
+      const offs = phones.map((p) => p.offset);
+      const spread = Math.round(Math.max(...offs) - Math.min(...offs));
+      readout.className = "readout" + (spread < 15 ? " locked" : "");
+      readout.innerHTML = spread < 15
+        ? `<b>${spread} ms</b>apart. Your ears hear one speaker.`
+        : `<b>${spread} ms</b>apart. That's an echo, and it's getting worse.`;
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  };
+  if (reduce) {
+    setMode(true);
+    phones.forEach((p) => (p.offset = p.target));
+    readout.className = "readout locked";
+    readout.innerHTML = "<b>~11 ms</b>apart with Loudly. Your ears hear one speaker.";
+  } else {
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(() => document.body.classList.add("ready"));
+
+  // ---------- Join: the code spins into place, then friends arrive ----------
+  const CODE = "K7QJAM", ALPHA = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const codeEl = document.getElementById("code");
+  const tiles = [...CODE].map(() => { const s = document.createElement("span"); s.textContent = "·"; codeEl.appendChild(s); return s; });
+  const guestsEl = document.getElementById("guests");
+  const roster = [
+    ["You", "Host", "#ff8a5c"], ["Riya", "Joined by code", "#a99bff"], ["Sam", "Joined nearby", "#45d6a6"],
+    ["Arjun", "Joined by code", "#f7c35f"], ["Meera", "Joined mid-song", "#7478f5"],
+  ];
+  const guestEls = roster.map(([n, how, c]) => {
+    const li = document.createElement("li");
+    li.className = "guest";
+    li.innerHTML = `<span class="avatar" style="background:${c}">${n[0]}</span><span><span class="name">${n}</span><br><span style="font-size:13px;color:var(--muted)">${how}</span></span><span class="pill">In sync</span>`;
+    guestsEl.appendChild(li);
+    return li;
+  });
+  let played = false;
+  new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting || played) return;
+    played = true;
+    if (reduce) { tiles.forEach((t, i) => { t.textContent = CODE[i]; t.classList.add("set"); }); guestEls.forEach((g) => g.classList.add("in")); return; }
+    tiles.forEach((t, i) => {
+      const stopAt = performance.now() + 500 + i * 160;
+      const spin = () => {
+        if (performance.now() >= stopAt) { t.textContent = CODE[i]; t.classList.add("set"); t.animate([{ transform: "scale(1.08)" }, { transform: "none" }], { duration: 260, easing: "cubic-bezier(0.23,1,0.32,1)" }); return; }
+        t.textContent = ALPHA[(Math.random() * ALPHA.length) | 0];
+        setTimeout(spin, 45);
+      };
+      spin();
+    });
+    guestEls.forEach((g, i) => setTimeout(() => g.classList.add("in"), 1500 + i * 420));
+  }, { threshold: 0.5 }).observe(codeEl);
+
+  // ---------- Pipeline: a lane of clips, scrubbed by scroll ----------
+  const clips = [
+    ["Room created", "The host gets a code", "k-host"],
+    ["Guests join", "By code or nearby", "k-guests"],
+    ["Clocks agree", "Every phone's clock is lined up", ""],
+    ["Song streams", "Sent to every phone as Opus", ""],
+    ["Play together", "Same instant, every phone", ""],
+    ["Late joiners", "Snap in mid-song", "k-guests"],
+  ];
+  const lane = document.getElementById("lane");
+  const clipEls = clips.map(([t, s, k], i) => {
+    const d = document.createElement("div");
+    d.className = "clip " + k;
+    d.style.left = 2 + i * 16.2 + "%";
+    d.style.width = "15.2%";
+    d.innerHTML = `<b>${t}</b><span>${s}</span>`;
+    lane.appendChild(d);
+    return d;
+  });
+  const track = document.getElementById("track"), head = document.getElementById("playhead");
+  const nowB = document.getElementById("now-b"), nowS = document.getElementById("now-s");
+  let current = -1;
+  const show = (i) => {
+    if (i === current) return;
+    current = i;
+    clipEls.forEach((c, k) => c.classList.toggle("on", k <= i));
+    nowB.textContent = clips[i][0];
+    nowS.textContent = clips[i][1];
+    if (!reduce) nowB.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 300, easing: "cubic-bezier(0.23,1,0.32,1)" });
+  };
+  const scrub = () => {
+    const r = track.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+    head.style.transform = `translateX(${(2 + p * 96) / 100 * lane.clientWidth}px)`;
+    show(Math.min(clips.length - 1, Math.floor(p * clips.length)));
+  };
+  show(0);
+  addEventListener("scroll", () => requestAnimationFrame(scrub), { passive: true });
+  scrub();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>kushal.studio promo</title>
+<link rel="stylesheet" href="shared.css" />
+<link rel="stylesheet" href="cine.css" />
+<style>
+  .cam { width: 60vw; }
+  [data-r="45"] .cam { width: 90vw; }
+  .center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+  .typed { font: 600 calc(var(--u) * 8) var(--display); letter-spacing: -0.04em; }
+  .caret { display: inline-block; width: 0.06em; height: 0.9em; margin-left: 0.04em; background: #2743ff; vertical-align: -0.08em; }
+  .cap { position: absolute; left: 6vw; bottom: 7vh; max-width: 70vw; }
+  [data-r="45"] .cap { left: 5vw; bottom: 6vh; max-width: 90vw; }
+  .cap .lower { margin-top: calc(var(--u) * 1.4); }
+  .stat { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .stat .num { font: 700 calc(var(--u) * 17) / 0.9 var(--display); letter-spacing: -0.06em; }
+  .stat .lab { margin-top: calc(var(--u) * 2.4); font: 500 calc(var(--u) * 3) var(--sans); color: rgb(255 255 255 / 0.82); }
+  .statbg { position: absolute; inset: 0; background: radial-gradient(70% 70% at 50% 40%, #3550ff, #1a2bb8 60%, #0d0e12); }
+  .name { position: absolute; left: 6vw; top: 6vh; }
+  [data-r="45"] .name { left: 5vw; top: 6vh; }
+  .name .title { font-size: calc(var(--u) * 11); }
+  .tag { position: absolute; left: 6vw; top: 7vh; }
+  [data-r="45"] .tag { left: 5vw; top: 5vh; }
+  .phones { position: absolute; inset: 0; }
+  .end { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: calc(var(--u) * 2.6); }
+  .end .title { font-size: calc(var(--u) * 13); }
+  .end .lower { font-size: calc(var(--u) * 3); }
+  .end .pill { font-size: calc(var(--u) * 2.8); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="leak a" id="la"></div>
+  <div class="leak b" id="lb"></div>
+
+  <!-- 1. Cold open: the address types itself -->
+  <section class="shot" id="s1"><div class="center"><div class="typed"><span id="typed"></span><span class="caret" id="caret"></span></div></div></section>
+
+  <!-- 2. The hero, straightening out of 3D -->
+  <section class="shot" id="s2">
+    <div class="cam" id="c2"><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">kushal.studio</span></div><div class="view"><img src="assets/v/new-hero.jpg" alt="" /></div></div></div>
+    <div class="cap" id="cap2"><div class="title sm" id="t2">The new kushal.studio.</div></div>
+  </section>
+
+  <!-- 3. The proof, one number at a time -->
+  <section class="shot" id="s3">
+    <div class="statbg"></div>
+    <div class="stat"><div><div class="num" id="num"></div><div class="lab" id="lab"></div></div></div>
+  </section>
+
+  <!-- 4. Five projects -->
+  <section class="shot" id="s4">
+    <div class="center" id="s4title"><div class="title" id="t4">Five apps. Five stories.</div></div>
+    <div class="cam" id="c4"><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url" id="u4">kushal.studio/work</span></div><div class="view"><img id="i4" src="assets/v/new-cs-cloth-lab.jpg" alt="" /></div></div></div>
+    <div class="name" id="n4"><div class="title" id="nt4"></div><div class="lower" id="nl4"></div></div>
+  </section>
+
+  <!-- 5. Depth: the walkthrough and the app taken apart -->
+  <section class="shot" id="s5">
+    <div class="cam" id="c5"><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url" id="u5">kushal.studio/work/cloth-lab</span></div><div class="view"><img id="i5" src="assets/v/new-cs-cloth-walk.jpg" alt="" /></div></div></div>
+    <div class="cap"><div class="title sm" id="t5">Every project, explained in depth.</div></div>
+  </section>
+
+  <!-- 6. The stack, with a click -->
+  <section class="shot" id="s6">
+    <div class="cam" id="c6"><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">kushal.studio/#stack</span></div><div class="view"><img src="assets/v/new-stack.jpg" alt="" /><img id="i6b" src="assets/v/new-stack-open.jpg" alt="" /><div class="cursor" id="cur6"></div><div class="ripple" id="rip6"></div></div></div></div>
+    <div class="cap"><div class="title sm" id="t6">Pick a tool, see where I used it.</div></div>
+  </section>
+
+  <!-- 7. Phones -->
+  <section class="shot" id="s7">
+    <div class="phones">
+      <div class="phone" id="p1"><img src="assets/v/new-m-home.jpg" alt="" /></div>
+      <div class="phone" id="p2"><img src="assets/v/new-m-omnia.jpg" alt="" /></div>
+      <div class="phone" id="p3"><img src="assets/v/new-m-ting.jpg" alt="" /></div>
+    </div>
+    <div class="cap"><div class="title sm" id="t7">Made for the phone in your hand.</div></div>
+  </section>
+
+  <!-- 8. End card -->
+  <section class="shot" id="s8">
+    <div class="end">
+      <div class="title" id="t8">Kushal Sharma</div>
+      <div class="lower" id="l8">Android and Kotlin Multiplatform engineer</div>
+      <div><span class="pill cobalt" id="p8"><span class="dot"></span>kushal.studio</span></div>
+    </div>
+  </section>
+
+  <div class="grain" id="grain"></div>
+  <div class="vignette"></div>
+  <div class="flash" id="flash"></div>
+</div>
+
+<script src="shared.js"></script>
+<script src="cine.js"></script>
+<script>
+  const DUR = 32;
+  window.VIDEO = { ...SIZE, duration: DUR, poster: 30.6 };
+  const $ = (id) => document.getElementById(id);
+  const grain = $("grain");
+  grain.style.backgroundImage = `url(${makeGrain()})`;
+  $("cur6").innerHTML = CURSOR_SVG;
+
+  const t2 = words($("t2")), t4 = words($("t4")), t5 = words($("t5")), t6 = words($("t6")), t7 = words($("t7")), t8 = words($("t8"));
+
+  const STATS = [
+    ["5 apps", "Built, shipped or in progress"],
+    ["2+ yrs", "Production Kotlin"],
+    ["Idea to store.", "Design, build, ship."],
+    ["Phone-first.", "Android and Kotlin Multiplatform."],
+  ];
+  const PROJECTS = [
+    ["new-cs-cloth-lab", "Cloth Lab", "Laundry pickup on one Kotlin Multiplatform codebase", "cloth-lab"],
+    ["new-cs-omnia", "OMNIA", "A fintech super-app for people and businesses", "omnia"],
+    ["new-cs-loudly", "Loudly", "Every phone in the room, one speaker", "loudly"],
+    ["new-cs-geofence", "GeoFence", "Alerts when someone leaves the group's area", "geofence"],
+    ["new-cs-ting", "Ting", "One desk-bell ting, live on Google Play", "ting"],
+  ];
+
+  // Sound cues, mixed in by render.mjs (see sfx.py).
+  window.SFX = [
+    { t: 0.45, k: "type", n: 13, gap: 0.085 },
+    { t: 2.0, k: "click" },
+    { t: 2.12, k: "whoosh" },
+    { t: 6.35, k: "whoosh" },
+    ...STATS.map((_, i) => ({ t: 6.6 + i, k: "hit" })),
+    { t: 10.35, k: "whoosh" },
+    ...PROJECTS.map((_, i) => ({ t: 11.35 + i * 1.4, k: "whoosh" })),
+    { t: 18.35, k: "whoosh" },
+    { t: 20.55, k: "whoosh" },
+    { t: 22.55, k: "whoosh" },
+    { t: 24.2, k: "click" },
+    { t: 25.95, k: "whoosh" },
+    { t: 29.35, k: "riser" },
+    { t: 30.1, k: "hit" },
+  ];
+
+  const shots = [
+    { from: 0, to: 2.7, el: $("s1"), run(t) {
+      const n = Math.floor(clamp((t - 0.45) / (13 * 0.085)) * 13);
+      $("typed").textContent = "kushal.studio".slice(0, n);
+      $("caret").style.opacity = t < 1.6 || Math.floor(t * 3) % 2 ? 1 : 0;
+      const z = easeIn(prog(t, 2.05, 0.6));
+      $("s1").style.transform = `scale(${1 + z * 7})`;
+      $("s1").style.opacity = 1 - z;
+    } },
+    { from: 2.2, to: 6.7, el: $("s2"), run(t) {
+      const settle = easeOut(prog(t, 2.2, 2.4));
+      cam($("c2"), {
+        rx: lerp(26, 4, settle), ry: lerp(-22, -6, settle), rz: lerp(-4, 0, settle),
+        s: lerp(0.82, 1, settle) + 0.05 * prog(t, 4.6, 2.1), y: lerp(8, PORTRAIT ? -8 : -6, settle),
+        o: prog(t, 2.2, 0.35) * (1 - prog(t, 6.45, 0.25)), blur: whip(t, 6.5, 0.4, 14),
+      });
+      revealWords(t2, t, 3.3, { stagger: 0.07, out: 6.2 });
+    } },
+    { from: 6.45, to: 10.45, el: $("s3"), run(t) {
+      const i = Math.min(3, Math.floor(t - 6.6 < 0 ? 0 : t - 6.6));
+      const lt = t - 6.6 - i;
+      $("num").textContent = STATS[i][0];
+      // Words set smaller than numbers so they still fit the 4:5 frame.
+      $("num").style.fontSize = STATS[i][0].length > 7 ? "calc(var(--u) * 12)" : "";
+      $("lab").textContent = STATS[i][1];
+      const p = easeOut(clamp(lt / 0.45));
+      $("num").style.transform = `translateY(${(1 - p) * 40}px) scale(${1.15 - 0.15 * p})`;
+      $("num").style.filter = `blur(${(1 - p) * 10}px)`;
+      $("num").style.opacity = p;
+      $("lab").style.opacity = easeOut(clamp((lt - 0.15) / 0.4));
+      $("s3").style.opacity = prog(t, 6.45, 0.2) * (1 - prog(t, 10.25, 0.2));
+    } },
+    { from: 10.25, to: 18.6, el: $("s4"), run(t) {
+      // Title card, then each project slides in on a whip.
+      revealWords(t4, t, 10.4, { stagger: 0.08, out: 11.1 });
+      $("s4title").style.opacity = t < 11.6 ? 1 : 0;
+      const i = clamp(Math.floor((t - 11.4) / 1.4), 0, 4);
+      const lt = t - 11.4 - i * 1.4;
+      const [img, name, line, slug] = PROJECTS[i];
+      if ($("i4").dataset.k !== img) { $("i4").src = `assets/v/${img}.jpg`; $("i4").dataset.k = img; }
+      $("u4").textContent = `kushal.studio/work/${slug}`;
+      const inn = easeOut(clamp(lt / 0.5));
+      const show4 = t >= 11.4;
+      cam($("c4"), {
+        x: (1 - inn) * 60, ry: (1 - inn) * -28 + 4 * Math.sin(lt * 1.2), rx: 6, s: (PORTRAIT ? 0.98 : 1) + 0.04 * lt / 1.4,
+        y: PORTRAIT ? 6 : 8, blur: (1 - inn) * 16, o: show4 ? 1 : 0,
+      });
+      $("nt4").textContent = name;
+      $("nl4").textContent = line;
+      const np = easeOut(clamp((lt - 0.15) / 0.45));
+      $("n4").style.opacity = show4 ? np * (1 - prog(lt, 1.25, 0.15)) : 0;
+      $("n4").style.transform = `translateY(${(1 - np) * 30}px)`;
+      $("s4").style.opacity = 1 - prog(t, 18.4, 0.2);
+    } },
+    { from: 18.4, to: 22.8, el: $("s5"), run(t) {
+      const first = t < 20.6;
+      const img = first ? "new-cs-cloth-walk" : "new-cs-omnia-layers";
+      if ($("i5").dataset.k !== img) { $("i5").src = `assets/v/${img}.jpg`; $("i5").dataset.k = img; }
+      $("u5").textContent = first ? "kushal.studio/work/cloth-lab" : "kushal.studio/work/omnia";
+      const lt = first ? t - 18.4 : t - 20.6;
+      const inn = easeOut(clamp(lt / 0.6));
+      cam($("c5"), first
+        ? { s: lerp(0.9, 1.35, easeInOut(clamp(lt / 2.2))), x: lerp(0, -12, easeInOut(clamp(lt / 2.2))), y: PORTRAIT ? -8 : -6, ry: (1 - inn) * 20, o: inn, blur: (1 - inn) * 12 }
+        : { s: 1, ry: lerp(-24, 10, easeInOut(clamp(lt / 2.2))), rx: 8, y: PORTRAIT ? -8 : -6, o: inn, blur: (1 - inn) * 12 });
+      revealWords(t5, t, 18.9, { out: 22.3 });
+      $("s5").style.opacity = 1 - prog(t, 22.6, 0.2);
+    } },
+    { from: 22.6, to: 26.1, el: $("s6"), run(t) {
+      const inn = easeOut(prog(t, 22.6, 0.6));
+      cam($("c6"), { s: lerp(0.86, 1, inn), rx: (1 - inn) * 14, y: PORTRAIT ? -8 : -6, o: inn, blur: (1 - inn) * 12 });
+      // Cursor glides to the Kotlin tile and clicks; the panel opens.
+      pointer($("cur6"), $("rip6"), t, [[22.9, 78, 92], [23.9, 16.5, 47], [26, 16.5, 47]], [24.2]);
+      $("i6b").style.opacity = easeOut(prog(t, 24.25, 0.35));
+      revealWords(t6, t, 23.1, { out: 25.6 });
+      $("s6").style.opacity = 1 - prog(t, 25.9, 0.2);
+    } },
+    { from: 25.9, to: 29.6, el: $("s7"), run(t) {
+      const W = PORTRAIT ? 27 : 13; // phone width in vw
+      [["p1", -1], ["p2", 0], ["p3", 1]].forEach(([id, k], i) => {
+        const p = easeOut(prog(t, 26 + i * 0.15, 0.8));
+        const el = $(id);
+        el.style.width = W + "vw";
+        el.style.left = `calc(50% + ${k * W * 1.12}vw - ${W / 2}vw)`;
+        el.style.top = `${(PORTRAIT ? 10 : 6) + (1 - p) * 40 - (k === 0 ? 3 : 0)}vh`;
+        el.style.transform = `perspective(1600px) rotateY(${k * -16 + Math.sin(t * 0.8 + i) * 3}deg) rotateZ(${k * 2}deg) translateY(${Math.sin(t * 1.3 + i) * 0.6}vh)`;
+        el.style.opacity = p;
+      });
+      revealWords(t7, t, 26.6, { out: 29.1 });
+      $("s7").style.opacity = 1 - prog(t, 29.4, 0.2);
+    } },
+    { from: 29.4, to: DUR + 1, el: $("s8"), run(t) {
+      revealWords(t8, t, 29.7, { stagger: 0.09 });
+      rise($("l8"), t, 30.2, { dur: 0.6, dist: 24 });
+      rise($("p8"), t, 30.5, { dur: 0.6, dist: 20, scale: 0.9 });
+      $("s8").style.opacity = 1 - prog(t, DUR - 0.5, 0.5);
+    } },
+  ];
+
+  function renderAt(t) {
+    play(shots, t);
+    grainAt(grain, t);
+    const boost = Math.max(...[2.1, 6.4, 10.3, 18.4, 22.6, 25.9, 29.5].map((c) => 1 - Math.min(1, Math.abs(t - c) / 0.5)));
+    leaks($("la"), $("lb"), t, boost);
+    $("flash").style.opacity = 0.5 * Math.max(0, 1 - Math.abs(t - 30.1) / 0.18) + 0.35 * Math.max(0, 1 - Math.abs(t - 6.55) / 0.12);
+  }
+  window.renderAt = renderAt;
+  window.ready = (async () => {
+    await assetsReady();
+    // Preload the images that are swapped in later, so no frame catches them half-loaded.
+    await Promise.all([...PROJECTS.map((p) => p[0]), "new-cs-cloth-walk", "new-cs-omnia-layers"].map((n) => new Promise((r) => { const i = new Image(); i.onload = i.onerror = r; i.src = `assets/v/${n}.jpg`; })));
+    renderAt(0);
+  })();
+</script>
+</body>
+</html>

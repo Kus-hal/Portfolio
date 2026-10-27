@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>kushal.studio before and after</title>
+<link rel="stylesheet" href="shared.css" />
+<link rel="stylesheet" href="cine.css" />
+<style>
+  .cam { width: 60vw; }
+  [data-r="45"] .cam { width: 90vw; }
+  .center { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: calc(var(--u) * 2); }
+  .tag { position: absolute; left: 6vw; top: 6vh; z-index: 5; }
+  [data-r="45"] .tag { left: 5vw; top: 5vh; }
+  .cap { position: absolute; left: 6vw; right: 6vw; bottom: 6vh; }
+  [data-r="45"] .cap { left: 5vw; right: 5vw; bottom: 5vh; }
+  .cap .lower { margin-top: calc(var(--u) * 1.2); }
+
+  /* Glitch transition */
+  .slices { position: absolute; inset: 0; }
+  .slice { position: absolute; left: 0; right: 0; overflow: hidden; }
+  .slice img { position: absolute; left: 50%; width: 60vw; transform: translateX(-50%); }
+  [data-r="45"] .slice img { width: 90vw; }
+  .rgb { position: absolute; inset: 0; mix-blend-mode: screen; }
+  .scan { position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.25) 0 2px, transparent 2px 4px); opacity: 0; }
+
+  /* Before / after wipe */
+  .split .view { position: relative; }
+  .split .after { position: absolute; inset: 0; }
+  .divider { position: absolute; top: 0; bottom: 0; width: 3px; background: #fff; box-shadow: 0 0 20px rgb(0 0 0 / 0.4); }
+  .divider::after {
+    content: ""; position: absolute; top: 50%; left: 50%; width: calc(var(--u) * 4.6); height: calc(var(--u) * 4.6);
+    transform: translate(-50%, -50%); border-radius: 50%; background: #fff; box-shadow: 0 6px 18px rgb(0 0 0 / 0.35);
+  }
+  .lbl { position: absolute; top: calc(var(--u) * 1.6); padding: calc(var(--u) * 0.5) calc(var(--u) * 1.4); border-radius: 999px; font: 600 calc(var(--u) * 1.6) var(--sans); }
+  .lbl.b { left: calc(var(--u) * 1.6); background: rgb(23 24 28 / 0.75); color: #fff; }
+  .lbl.a { right: calc(var(--u) * 1.6); background: #2743ff; color: #fff; }
+
+  /* Case-study grid */
+  .grid { position: absolute; inset: 0; }
+  .tile { position: absolute; border-radius: calc(var(--u) * 1); overflow: hidden; box-shadow: 0 20px 50px -20px rgb(0 0 0 / 0.7); background: #fff; }
+  .tile img { width: 100%; display: block; }
+
+  .phones { position: absolute; inset: 0; }
+  .plabel { position: absolute; transform: translateX(-50%); }
+  .end .title { font-size: calc(var(--u) * 12); }
+  .end .lower { font-size: calc(var(--u) * 3); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="leak a" id="la"></div>
+  <div class="leak b" id="lb"></div>
+
+  <!-- 1. Title -->
+  <section class="shot" id="s1"><div class="center"><div class="title md" id="t1a">I rebuilt my portfolio.</div><div class="lower" id="t1b">Here's the before and after.</div></div></section>
+
+  <!-- 2. Before: the old site scrolls -->
+  <section class="shot" id="s2">
+    <div class="tag"><span class="pill" id="pb"><span class="dot"></span>Before</span></div>
+    <div class="cam" id="c2"><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">kushal.studio</span></div><div class="view"><img id="old" src="assets/v/old-full.jpg" alt="" /></div></div></div>
+  </section>
+
+  <!-- 3. Glitch into the new site -->
+  <section class="shot" id="s3">
+    <div class="slices" id="slices"></div>
+    <div class="scan" id="scan"></div>
+  </section>
+
+  <!-- 4. After: the new site scrolls -->
+  <section class="shot" id="s4">
+    <div class="tag"><span class="pill cobalt" id="pa"><span class="dot"></span>After</span></div>
+    <div class="cam" id="c4"><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">kushal.studio</span></div><div class="view"><img id="new" src="assets/v/new-full.jpg" alt="" /></div></div></div>
+  </section>
+
+  <!-- 5. Before and after, side by side -->
+  <section class="shot" id="s5">
+    <div class="cam split" id="c5"><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url">kushal.studio</span></div>
+      <div class="view"><img id="b5" src="assets/v/old-s1.jpg" alt="" /><div class="after" id="a5wrap"><img id="a5" src="assets/v/new-about.jpg" alt="" /></div><div class="divider" id="d5"></div><span class="lbl b">Before</span><span class="lbl a">After</span></div></div></div>
+    <div class="cap"><div class="title sm" id="t5"></div><div class="lower" id="l5"></div></div>
+  </section>
+
+  <!-- 6. What's new: case studies, depth, the stack -->
+  <section class="shot" id="s6">
+    <div class="grid" id="grid"></div>
+    <div class="cam" id="c6"><div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url" id="u6">kushal.studio/work/omnia</span></div><div class="view"><img id="i6" src="assets/v/new-cs-omnia-layers.jpg" alt="" /><img id="i6b" src="assets/v/new-stack-open.jpg" alt="" style="opacity:0" /><div class="cursor" id="cur6"></div><div class="ripple" id="rip6"></div></div></div></div>
+    <div class="cap"><div class="title sm" id="t6"></div></div>
+  </section>
+
+  <!-- 7. On a phone -->
+  <section class="shot" id="s7">
+    <div class="phones">
+      <div class="phone" id="po"><img src="assets/v/old-m-home.jpg" alt="" /></div>
+      <div class="phone" id="pn"><img src="assets/v/new-m-home.jpg" alt="" /></div>
+      <span class="pill plabel" id="lo"><span class="dot"></span>Before</span>
+      <span class="pill cobalt plabel" id="ln"><span class="dot"></span>After</span>
+    </div>
+    <div class="cap"><div class="title sm" id="t7">On a phone, too.</div></div>
+  </section>
+
+  <!-- 8. End -->
+  <section class="shot end" id="s8"><div class="center"><div class="title" id="t8">kushal.studio</div><div class="lower" id="l8">Kushal Sharma, Android and Kotlin Multiplatform engineer</div></div></section>
+
+  <div class="grain" id="grain"></div>
+  <div class="vignette"></div>
+  <div class="flash" id="flash"></div>
+</div>
+
+<script src="shared.js"></script>
+<script src="cine.js"></script>
+<script>
+  const DUR = 46;
+  window.VIDEO = { ...SIZE, duration: DUR, poster: 12.6 };
+  const $ = (id) => document.getElementById(id);
+  const grain = $("grain");
+  grain.style.backgroundImage = `url(${makeGrain()})`;
+  $("cur6").innerHTML = CURSOR_SVG;
+  const t1a = words($("t1a")), t7 = words($("t7")), t8 = words($("t8"));
+
+  // Glitch: horizontal slices of the old and new hero that shear apart and settle.
+  const N = 14;
+  const slices = Array.from({ length: N }, (_, i) => {
+    const d = document.createElement("div");
+    d.className = "slice";
+    d.style.top = (i * 100) / N + "%";
+    d.style.height = 100 / N + 0.2 + "%";
+    d.innerHTML = `<img data-o src="assets/v/old-hero.jpg" alt="" /><img data-n src="assets/v/new-hero.jpg" alt="" />`;
+    $("slices").appendChild(d);
+    return d;
+  });
+  const sliceRand = Array.from({ length: N }, (_, i) => Math.sin(i * 12.9898) * 43758.5453 % 1);
+
+  const PAIRS = [
+    ["old-s1", "new-about", "About", "From a wall of text to proof you can scan."],
+    ["old-s3", "new-work", "Work", "From a list to cards with the real apps."],
+    ["old-s2", "new-offers", "What I build", "From four boxes to a pitch backed by numbers."],
+  ];
+  const CASES = ["new-cs-cloth-lab", "new-cs-omnia", "new-cs-loudly", "new-cs-geofence", "new-cs-ting"];
+  const tiles = CASES.map((c) => {
+    const d = document.createElement("div");
+    d.className = "tile";
+    d.innerHTML = `<img src="assets/v/${c}.jpg" alt="" />`;
+    $("grid").appendChild(d);
+    return d;
+  });
+  const t6 = $("t6");
+
+  window.SFX = [
+    { t: 2.8, k: "whoosh" },
+    { t: 4.6, k: "scroll" },
+    { t: 9.6, k: "glitch" },
+    { t: 11.0, k: "hit" },
+    { t: 13.2, k: "scroll" },
+    { t: 18.5, k: "whoosh" },
+    ...PAIRS.map((_, i) => ({ t: 19.6 + i * 4, k: "swipe" })),
+    { t: 30.5, k: "whoosh" },
+    ...CASES.map((_, i) => ({ t: 30.9 + i * 0.16, k: "tick" })),
+    { t: 33.4, k: "whoosh" },
+    { t: 36.0, k: "whoosh" },
+    { t: 37.4, k: "click" },
+    { t: 38.5, k: "whoosh" },
+    { t: 42.4, k: "riser" },
+    { t: 43.1, k: "hit" },
+  ];
+
+  const tileLayout = () => {
+    // 3 + 2 grid in landscape, 2 + 2 + 1 in portrait; positions in % of the stage.
+    const w = PORTRAIT ? 42 : 27, h = w * (PORTRAIT ? 1080 / 1350 : 1) * 0.625 * (PORTRAIT ? 1350 / 1080 : 1080 / 1920) * (PORTRAIT ? 1 : 1920 / 1080);
+    const rows = PORTRAIT ? [[0, 1], [2, 3], [4]] : [[0, 1, 2], [3, 4]];
+    const gap = 2.4;
+    const out = [];
+    const rowH = (PORTRAIT ? w * 0.625 * 1080 / 1350 : w * 0.625 * 1920 / 1080);
+    const total = rows.length * rowH + (rows.length - 1) * gap;
+    rows.forEach((r, ri) => {
+      const rowW = r.length * w + (r.length - 1) * gap;
+      r.forEach((idx, k) => out[idx] = { x: 50 - rowW / 2 + k * (w + gap), y: 46 - total / 2 + ri * (rowH + gap), w });
+    });
+    return out;
+  };
+  const LAYOUT = tileLayout();
+
+  const shots = [
+    { from: 0, to: 3.1, el: $("s1"), run(t) {
+      revealWords(t1a, t, 0.3, { stagger: 0.08, out: 2.6 });
+      rise($("t1b"), t, 1.2, { dur: 0.6, dist: 20 });
+      fadeOut($("t1b"), t, 2.6, 0.3);
+    } },
+    { from: 2.8, to: 9.9, el: $("s2"), run(t) {
+      const inn = easeOut(prog(t, 2.8, 0.9));
+      cam($("c2"), { s: lerp(0.8, 1, inn), rx: (1 - inn) * 18, ry: (1 - inn) * 12, y: PORTRAIT ? -2 : 2, o: inn, blur: (1 - inn) * 14 });
+      // Scroll the old page: the screenshot is 1600 wide; the view shows 1600×1000 of it.
+      const viewW = $("old").parentElement.clientWidth;
+      const pageH = viewW * (6762 / 1600);
+      const viewH = viewW * 0.625;
+      const p = easeInOut(prog(t, 4.6, 4.8));
+      $("old").style.transform = `translateY(${-p * (pageH - viewH) * 0.72}px)`;
+      $("c2").style.filter = `grayscale(0.3) brightness(0.96)`;
+      rise($("pb"), t, 3.2, { dist: 16 });
+    } },
+    { from: 9.6, to: 12.3, el: $("s3"), run(t) {
+      // 9.6–11.0: the old hero tears into sheared, colour-split slices; 11.0: flash; 11.0–12.2: new hero slices settle.
+      const tear = prog(t, 9.6, 1.4), settle = easeOut(prog(t, 11.0, 1.1));
+      const isNew = t >= 11.0;
+      slices.forEach((d, i) => {
+        const r = sliceRand[i] * 2 - 1;
+        const amp = isNew ? (1 - settle) * 30 : tear * tear * 26;
+        d.style.transform = `translateX(${r * amp}vw)`;
+        const [o, n] = d.querySelectorAll("img");
+        // Each slice shows its own band of one centred image, so the bands line up into the whole hero.
+        const imgW = innerWidth * (PORTRAIT ? 0.9 : 0.6), imgH = imgW * 0.625;
+        const top = (innerHeight - imgH) / 2 - (i * innerHeight) / N;
+        [o, n].forEach((im) => (im.style.top = top + "px"));
+        o.style.display = isNew ? "none" : "block";
+        n.style.display = isNew ? "block" : "none";
+        d.style.filter = isNew ? `blur(${(1 - settle) * 6}px)` : `hue-rotate(${tear * r * 90}deg) saturate(${1 + tear})`;
+      });
+      $("scan").style.opacity = isNew ? 0.6 * (1 - settle) : 0.6 * tear;
+      $("s3").style.opacity = 1 - prog(t, 12.0, 0.25);
+    } },
+    { from: 12.0, to: 18.8, el: $("s4"), run(t) {
+      cam($("c4"), { s: 1, y: PORTRAIT ? -2 : 2, o: prog(t, 12.0, 0.25) });
+      const viewW = $("new").parentElement.clientWidth;
+      const pageH = viewW * (7288 / 1600);
+      const viewH = viewW * 0.625;
+      const p = easeInOut(prog(t, 13.2, 5.0));
+      $("new").style.transform = `translateY(${-p * (pageH - viewH) * 0.62}px)`;
+      rise($("pa"), t, 12.3, { dist: 16 });
+      $("s4").style.opacity = 1 - prog(t, 18.5, 0.25);
+    } },
+    { from: 18.5, to: 30.7, el: $("s5"), run(t) {
+      const i = clamp(Math.floor((t - 18.6) / 4), 0, 2);
+      const lt = t - 18.6 - i * 4;
+      const [b, a, name, line] = PAIRS[i];
+      if ($("b5").dataset.k !== b) { $("b5").src = `assets/v/${b}.jpg`; $("a5").src = `assets/v/${a}.jpg`; $("b5").dataset.k = b; }
+      const inn = easeOut(clamp(lt / 0.5));
+      cam($("c5"), { s: lerp(0.9, 1, inn), y: PORTRAIT ? -6 : -5, ry: (1 - inn) * (i % 2 ? 18 : -18), o: inn, blur: (1 - inn) * 10 });
+      // The divider sweeps from the right edge to the left, revealing the new section.
+      const sweep = easeInOut(clamp((lt - 1.0) / 1.6));
+      const x = 100 - sweep * 100;
+      $("a5wrap").style.clipPath = `inset(0 0 0 ${x}%)`;
+      $("d5").style.left = `calc(${x}% - 1.5px)`;
+      $("d5").style.opacity = sweep > 0 && sweep < 1 ? 1 : 0;
+      $("t5").textContent = name;
+      $("l5").textContent = line;
+      const tp = easeOut(clamp((lt - 0.2) / 0.5));
+      $("t5").style.opacity = $("l5").style.opacity = tp * (1 - clamp((lt - 3.6) / 0.3));
+      $("t5").style.transform = `translateY(${(1 - tp) * 20}px)`;
+      $("s5").style.opacity = 1 - prog(t, 30.5, 0.2);
+    } },
+    { from: 30.5, to: 38.8, el: $("s6"), run(t) {
+      // 30.5–33.4: five case studies fly into a grid. 33.4–36: the app taken apart. 36–38.6: the stack, clicked.
+      const gridOn = t < 33.6;
+      tiles.forEach((d, i) => {
+        const L = LAYOUT[i];
+        const p = easeOut(prog(t, 30.8 + i * 0.16, 0.7));
+        const out = easeIn(prog(t, 33.0, 0.5));
+        d.style.width = L.w + "vw";
+        d.style.left = L.x + "vw";
+        d.style.top = `calc(${L.y}vh + ${(1 - p) * 60}vh)`;
+        d.style.transform = `perspective(1400px) rotateX(${(1 - p) * 30}deg) rotateZ(${(1 - p) * (i % 2 ? 6 : -6)}deg) scale(${1 + out * 0.3})`;
+        d.style.opacity = p * (1 - out);
+      });
+      const stack = t >= 36;
+      $("i6b").style.opacity = stack ? 1 : 0;
+      $("u6").textContent = stack ? "kushal.studio/#stack" : "kushal.studio/work/omnia";
+      if (gridOn) cam($("c6"), { o: 0 });
+      else {
+        const lt = stack ? t - 36 : t - 33.4;
+        const inn = easeOut(clamp(lt / 0.6));
+        cam($("c6"), stack
+          ? { s: lerp(0.86, 1, inn), rx: (1 - inn) * 12, y: PORTRAIT ? -6 : -5, o: inn, blur: (1 - inn) * 10 }
+          : { s: 1, ry: lerp(-24, 10, easeInOut(clamp(lt / 2.6))), rx: 8, y: PORTRAIT ? -6 : -5, o: inn, blur: (1 - inn) * 10 });
+      }
+      pointer($("cur6"), $("rip6"), t, [[36.2, 80, 92], [37.1, 16.5, 47], [38.8, 16.5, 47]], [37.4]);
+      $("cur6").style.opacity = $("rip6").style.visibility = stack ? 1 : 0;
+      if (stack) $("i6b").src.includes("open") || null;
+      // The open panel appears on the click; before it, the plain stack shows.
+      $("i6b").src = t >= 37.45 ? "assets/v/new-stack-open.jpg" : "assets/v/new-stack.jpg";
+      const caption = t < 33.4 ? "A case study for every project." : t < 36 ? "Scroll-driven 3D walkthroughs." : "A stack you can click.";
+      if (t6.dataset.c !== caption) { t6.textContent = caption; t6.dataset.c = caption; }
+      const segStart = t < 33.4 ? 30.8 : t < 36 ? 33.6 : 36.2;
+      const tp = easeOut(prog(t, segStart, 0.5));
+      t6.style.opacity = tp;
+      t6.style.transform = `translateY(${(1 - tp) * 20}px)`;
+      $("s6").style.opacity = 1 - prog(t, 38.5, 0.25);
+    } },
+    { from: 38.5, to: 42.8, el: $("s7"), run(t) {
+      const W = PORTRAIT ? 32 : 14;
+      [["po", -1, "lo"], ["pn", 1, "ln"]].forEach(([id, k, lab], i) => {
+        const p = easeOut(prog(t, 38.7 + i * 0.25, 0.8));
+        const el = $(id);
+        el.style.width = W + "vw";
+        el.style.left = `calc(50% + ${k * W * 0.72}vw - ${W / 2}vw)`;
+        el.style.top = `${(PORTRAIT ? 9 : 8) + (1 - p) * 40}vh`;
+        el.style.transform = `perspective(1600px) rotateY(${k * -14}deg) translateY(${Math.sin(t * 1.2 + i) * 0.5}vh)`;
+        el.style.opacity = p;
+        el.style.filter = k < 0 ? "grayscale(0.35) brightness(0.9)" : "none";
+        const l = $(lab);
+        l.style.left = `calc(50% + ${k * W * 0.72}vw)`;
+        l.style.top = `${(PORTRAIT ? 4 : 3)}vh`;
+        l.style.opacity = easeOut(prog(t, 39.2 + i * 0.25, 0.4));
+      });
+      revealWords(t7, t, 39.4, { out: 42.1 });
+      $("s7").style.opacity = 1 - prog(t, 42.4, 0.2);
+    } },
+    { from: 42.4, to: DUR + 1, el: $("s8"), run(t) {
+      revealWords(t8, t, 42.9, { stagger: 0.1 });
+      rise($("l8"), t, 43.5, { dur: 0.6, dist: 20 });
+      $("s8").style.opacity = 1 - prog(t, DUR - 0.6, 0.6);
+    } },
+  ];
+
+  function renderAt(t) {
+    play(shots, t);
+    grainAt(grain, t);
+    const boost = Math.max(...[2.9, 9.8, 11.0, 18.5, 30.5, 38.5, 42.6].map((c) => 1 - Math.min(1, Math.abs(t - c) / 0.5)));
+    leaks($("la"), $("lb"), t, boost);
+    $("flash").style.opacity = 0.85 * Math.max(0, 1 - Math.abs(t - 11.0) / 0.2) + 0.4 * Math.max(0, 1 - Math.abs(t - 43.1) / 0.18);
+  }
+  window.renderAt = renderAt;
+  window.ready = (async () => {
+    await assetsReady();
+    await Promise.all(["old-s2", "old-s3", "new-work", "new-offers", "new-stack"].map((n) => new Promise((r) => { const i = new Image(); i.onload = i.onerror = r; i.src = `assets/v/${n}.jpg`; })));
+    renderAt(0);
+  })();
+</script>
+</body>
+</html>

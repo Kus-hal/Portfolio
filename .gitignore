@@ -59,3 +59,9 @@ CLAUDE.md
 
 # raw screenshots Kushal drops in for case studies (processed copies go to src/assets/case-studies)
 /docs/case-study-assets/
+
+# raw footage captures (capture.mjs regenerates them); the sized JPEGs in assets/v are kept
+/brag-output/source/assets/*.png
+
+# working notes with client-internal details (OMNIA); kept local
+/docs/drafts/omnia-copy.md

@@ -1,0 +1,62 @@
+/* Cinematic layer for promo.html and story.html. Units come from --u (1% of the short side), so the
+   same scenes work at 16:9 (1920×1080) and 4:5 (1080×1350). */
+
+html, body { background: #0d0e12; }
+#stage {
+  position: relative; width: 100vw; height: 100vh; overflow: hidden; background: #0d0e12; color: #f4f5f7;
+  --u: 1vmin;
+  filter: contrast(1.06) saturate(1.06);
+}
+.shot { position: absolute; inset: 0; visibility: hidden; }
+.layer { position: absolute; inset: 0; }
+
+/* The stage's own light: a cobalt and a warm glow that drift with time */
+.leak { position: absolute; width: 90vmax; height: 90vmax; border-radius: 50%; pointer-events: none; mix-blend-mode: screen; filter: blur(calc(var(--u) * 6)); }
+.leak.a { background: radial-gradient(closest-side, rgb(39 67 255 / 0.55), transparent); }
+.leak.b { background: radial-gradient(closest-side, rgb(255 159 28 / 0.32), transparent); }
+.grain { position: absolute; inset: -50%; pointer-events: none; opacity: 0.075; mix-blend-mode: overlay; background-size: 220px; }
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgb(0 0 0 / 0.55)); }
+.flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+.bars::before, .bars::after { content: ""; position: absolute; left: 0; right: 0; height: 0; background: #000; z-index: 30; }
+
+/* A browser window around a site screenshot */
+.cam { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; will-change: transform; }
+.browser {
+  width: 100%; border-radius: calc(var(--u) * 1.6); overflow: hidden; background: #fff;
+  box-shadow: 0 calc(var(--u) * 5) calc(var(--u) * 10) calc(var(--u) * -3) rgb(0 0 0 / 0.65), 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+.browser .bar { height: calc(var(--u) * 4.2); display: flex; align-items: center; gap: calc(var(--u) * 0.8); padding: 0 calc(var(--u) * 1.6); background: #eceef2; }
+.browser .bar i { width: calc(var(--u) * 1.1); height: calc(var(--u) * 1.1); border-radius: 50%; background: #c9ccd4; }
+.browser .url {
+  margin-left: calc(var(--u) * 2); padding: calc(var(--u) * 0.5) calc(var(--u) * 2.2); border-radius: 999px; background: #fff;
+  font: 500 calc(var(--u) * 1.5) var(--sans); color: #33353c;
+}
+.browser .view { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #f4f5f7; }
+.browser .view img { position: absolute; left: 0; top: 0; width: 100%; display: block; }
+
+/* Phones for the mobile shots */
+.phone {
+  position: absolute; aspect-ratio: 390 / 844; border-radius: calc(var(--u) * 4.4); padding: calc(var(--u) * 0.9);
+  background: linear-gradient(145deg, #2a2c31, #0e0f11 60%);
+  box-shadow: 0 calc(var(--u) * 5) calc(var(--u) * 9) calc(var(--u) * -3) rgb(0 0 0 / 0.7), inset 0 0 0 1px rgb(255 255 255 / 0.12);
+}
+.phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: calc(var(--u) * 3.6); display: block; }
+
+/* Type */
+.title { font: 700 calc(var(--u) * 9) / 0.95 var(--display); letter-spacing: -0.045em; }
+.title.md { font-size: calc(var(--u) * 6.4); }
+.title.sm { font-size: calc(var(--u) * 4.6); letter-spacing: -0.03em; }
+.lower { font: 500 calc(var(--u) * 2.4) / 1.3 var(--sans); color: #c9ccd8; letter-spacing: -0.01em; }
+.w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.w > span { display: inline-block; will-change: transform; }
+.pill {
+  display: inline-flex; align-items: center; gap: calc(var(--u) * 1); padding: calc(var(--u) * 0.9) calc(var(--u) * 2.2);
+  border-radius: 999px; font: 600 calc(var(--u) * 2.2) var(--sans); background: rgb(255 255 255 / 0.12); color: #fff;
+  backdrop-filter: blur(10px);
+}
+.pill.cobalt { background: #2743ff; }
+.pill .dot { width: calc(var(--u) * 1.1); height: calc(var(--u) * 1.1); border-radius: 50%; background: currentColor; }
+
+/* Pointer */
+.cursor { position: absolute; width: calc(var(--u) * 3.4); z-index: 20; filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.4)); }
+.ripple { position: absolute; width: calc(var(--u) * 6); height: calc(var(--u) * 6); margin: calc(var(--u) * -3) 0 0 calc(var(--u) * -3); border-radius: 50%; border: calc(var(--u) * 0.4) solid #fff; opacity: 0; z-index: 19; }

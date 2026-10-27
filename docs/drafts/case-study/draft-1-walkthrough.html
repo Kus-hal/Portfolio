@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloth Lab case study (draft)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4f5f7;--surface:#fcfcfd;--ink:#17181c;--body:#33353c;--muted:#666a73;--line:#e4e5ea;
+  --accent:#2743ff;--accent-ink:#1b31c9;--tick:#ff9f1c;
+  /* Per-project accent: Cloth Lab's own brand green, used only for highlights on its page. */
+  --proj:#14432f;--proj-soft:#d7e4d7;--proj-mark:#fbf3c9;
+  --ease:cubic-bezier(0.23,1,0.32,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:"Space Grotesk",system-ui,sans-serif;letter-spacing:-0.02em;margin:0}
+p{margin:0}
+.kicker{font-size:14px;font-weight:600;color:var(--accent-ink)}
+.muted{color:var(--muted)}
+
+/* nav */
+.nav{position:sticky;top:12px;z-index:50;max-width:1080px;margin:0 auto;padding:0 12px}
+.pill{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:6px 6px 6px 16px;border-radius:999px;
+  background:linear-gradient(135deg,rgb(255 255 255/.55),rgb(255 255 255/.25));border:1px solid rgb(255 255 255/.6);
+  box-shadow:inset 1px 1px 0 rgb(255 255 255/.95),0 12px 32px -16px rgb(23 24 28/.3);backdrop-filter:blur(10px) saturate(1.8)}
+.back{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;display:flex;gap:8px;align-items:center}
+.back b{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--ink);color:var(--paper);font:700 12px "Space Grotesk"}
+.seg{display:flex;background:rgb(23 24 28/.06);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;font:500 14px Inter;padding:7px 14px;border-radius:999px;color:var(--muted);cursor:pointer;transition:color .2s ease,background-color .2s ease}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+
+/* hero */
+.hero{padding:64px 0 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.8rem,6vw,4.4rem);line-height:1;margin:14px 0 18px}
+.hero .sub{font-size:clamp(1.15rem,2vw,1.35rem);line-height:1.45;color:var(--body);max-width:34ch}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--body);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--tick)}
+.facts{margin-top:30px;display:grid;grid-template-columns:repeat(4,auto);gap:10px 28px;justify-content:start;border-top:1px solid var(--line);padding-top:20px}
+.facts dt{font-size:13px;color:var(--muted)}.facts dd{margin:2px 0 0;font-size:15px;font-weight:500}
+
+/* glance bubbles */
+.glance{padding:28px 0 72px}
+.glance h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:10px 0 26px}
+.bubbles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.bubble{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 20px 20px;
+  opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.bubble.in{opacity:1;transform:none}
+.bubble .big{font:600 clamp(1.7rem,3vw,2.2rem)/1 "Space Grotesk";letter-spacing:-0.03em;color:var(--proj)}
+.bubble .t{margin-top:12px;font-weight:600;font-size:16px;line-height:1.35}
+.bubble .d{margin-top:6px;font-size:14px;color:var(--muted);line-height:1.5}
+.bubble::after{content:"";position:absolute;left:24px;bottom:-7px;width:14px;height:14px;background:var(--surface);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+
+/* walkthrough */
+.walk{border-top:1px solid var(--line);padding:72px 0 40px}
+.walk-grid{display:grid;grid-template-columns:1fr 360px;gap:64px}
+.steps{padding-bottom:30vh}
+.step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;opacity:.28;transition:opacity .4s ease}
+.step.on{opacity:1}
+.step .n{font:500 13px "JetBrains Mono",monospace;color:var(--muted)}
+.step h3{font-size:clamp(1.6rem,3vw,2.15rem);line-height:1.12;margin:10px 0 16px;max-width:18ch}
+mark{background:linear-gradient(var(--proj-mark),var(--proj-mark)) no-repeat 0 85%/0% 42%;color:inherit;padding:0 2px;transition:background-size .9s var(--ease) .15s}
+.step.on mark,.in mark{background-size:100% 42%}
+.step .detail{color:var(--body);max-width:46ch}
+.step .proof{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 11px;color:var(--body)}
+
+.stage{position:sticky;top:96px;height:calc(100vh - 140px);display:grid;place-items:center}
+.phone{position:relative;width:300px;height:620px;border-radius:44px;background:#0f1012;padding:11px;box-shadow:0 30px 60px -30px rgb(23 24 28/.45),0 0 0 1px rgb(23 24 28/.08)}
+.screen{position:absolute;inset:11px;border-radius:34px;overflow:hidden;background:#fbf8f1;font-family:"Plus Jakarta Sans",sans-serif;color:#1b2c4e;
+  opacity:0;transform:translateY(12px) scale(.985);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.screen.on{opacity:1;transform:none}
+.notch{position:absolute;top:10px;left:50%;width:84px;height:24px;margin-left:-42px;border-radius:20px;background:#0f1012;z-index:3}
+.sbody{padding:46px 18px 18px;height:100%;display:flex;flex-direction:column;gap:12px;font-size:13px}
+.logo{font:800 20px "Plus Jakarta Sans";color:#14432f}
+.btn{background:#14432f;color:#fff;border-radius:14px;padding:13px;text-align:center;font-weight:700;font-size:14px}
+.card{background:#fff;border-radius:14px;padding:12px;border:1px solid #ece6d6}
+.row{display:flex;justify-content:space-between;align-items:center}
+.tabs{display:flex;gap:6px}.tabs span{padding:6px 11px;border-radius:999px;background:#fff;border:1px solid #ece6d6;font-weight:600;font-size:12px}
+.tabs span.a{background:#14432f;color:#fff;border-color:#14432f}
+.step-q{display:flex;align-items:center;gap:8px;font-weight:700}.step-q b{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:#d7e4d7;color:#14432f}
+.otp{display:flex;gap:8px}.otp span{flex:1;height:44px;border-radius:12px;background:#fff;border:1.5px solid #d7e4d7;display:grid;place-items:center;font-weight:800;font-size:18px}
+.bar{margin-top:auto;background:#14432f;color:#fff;border-radius:16px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.bar small{display:block;font-weight:500;opacity:.8;font-size:11px}
+.track li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-weight:600}
+.track ul{margin:0;padding:0}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid #d7e4d7;margin-top:2px;flex:none}
+.dot.done{background:#14432f;border-color:#14432f}
+.offer{background:#fbf3c9;border-radius:12px;padding:8px 10px;font-weight:700;font-size:12px}
+
+/* hotspot + callout over the phone */
+.hot{position:absolute;z-index:4;pointer-events:none}
+.hot .ring{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgb(39 67 255/.2)}
+.hot .ring::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--accent);animation:ping 1.8s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.55}80%,100%{transform:scale(2.6);opacity:0}}
+.callout{position:absolute;z-index:5;width:210px;background:var(--ink);color:var(--paper);border-radius:16px;padding:12px 14px;font:500 14px/1.4 Inter;
+  box-shadow:0 18px 40px -18px rgb(23 24 28/.6);opacity:0;transform:scale(.96);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.callout b{display:block;font:600 11px "JetBrains Mono";letter-spacing:.02em;color:#aab4ff;margin-bottom:4px}
+.callout.on{opacity:1;transform:none}
+.callout.r{left:calc(100% - 36px)}.callout.l{right:calc(100% - 36px)}
+
+/* system diagram */
+.sys{border-top:1px solid var(--line);padding:84px 0}
+.sys h2,.decide h2,.pipe h2{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.08;margin:12px 0 30px;max-width:22ch}
+.diagram{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
+.node{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px}
+.node h3{font-size:1.1rem}.node p{font-size:14px;color:var(--muted);margin-top:4px}
+.node .who{font:500 12px "JetBrains Mono";color:var(--proj);margin-bottom:8px}
+.hub{grid-column:1/-1;background:var(--ink);color:var(--paper);border-radius:18px;padding:20px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.hub h3{font-size:1.15rem}.hub p{color:#b9bcc6;font-size:14px;margin-top:4px}
+.hub .fns{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.hub .fns span{font:500 12px "JetBrains Mono";background:rgb(255 255 255/.08);border:1px solid rgb(255 255 255/.14);border-radius:8px;padding:4px 8px}
+.wires{grid-column:1/-1;height:46px;margin:-16px 0}
+.wires svg{width:100%;height:100%}
+.wires path{stroke:var(--accent);stroke-width:1.5;fill:none;stroke-dasharray:4 6;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-20}}
+
+/* pipeline */
+.pipe{border-top:1px solid var(--line);padding:84px 0}
+.lane{display:flex;flex-wrap:wrap;gap:8px;position:relative}
+.stage-chip{font:500 13px "JetBrains Mono";padding:7px 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--muted);transition:background-color .3s ease,color .3s ease,border-color .3s ease}
+.stage-chip.lit{background:var(--proj);border-color:var(--proj);color:#fff}
+.who-row{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--body)}
+.who-row span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:-1px;background:var(--proj)}
+.who-row span.ro::before{background:var(--line)}
+
+/* decisions */
+.decide{border-top:1px solid var(--line);padding:84px 0}
+.dlist{display:grid;gap:14px}
+.dec{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+.dec .q{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;cursor:pointer}
+.dec h3{font-size:1.25rem;line-height:1.3}
+.dec .why{font-size:15px;color:var(--body);max-width:62ch;display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s var(--ease)}
+.dec .why>div{overflow:hidden}.dec .why p{padding-top:12px}
+.dec.open .why{grid-template-rows:1fr}
+.dec .tg{flex:none;font-size:14px;color:var(--accent-ink);font-weight:500}
+
+/* next project */
+.next{border-top:1px solid var(--line);padding:56px 0 80px;display:flex;justify-content:space-between;align-items:end;gap:20px}
+.next a{color:var(--ink);text-decoration:none}
+.next .big{font:600 clamp(2.2rem,5vw,3.4rem)/1 "Space Grotesk";letter-spacing:-0.03em}
+.next .arrow{display:inline-block;transition:transform .25s var(--ease)}
+.next a:hover .arrow{transform:translateX(6px)}
+.draftnote{position:fixed;left:16px;bottom:16px;z-index:60;font:500 12px "JetBrains Mono";background:var(--tick);color:#1b1206;border-radius:8px;padding:6px 10px}
+
+/* Skim mode: hide long-form text, keep highlights, images and numbers */
+body.skim .detail,body.skim .bubble .d,body.skim .node p,body.skim .hub p,body.skim .dec .why,body.skim .hero .sub{display:none}
+body.skim .step{min-height:62vh}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr}.bubbles{grid-template-columns:1fr 1fr}
+  .walk-grid{grid-template-columns:1fr;gap:0}
+  .stage{order:-1;top:58px;height:auto;z-index:2;padding:6px 0 10px;background:linear-gradient(var(--paper) 88%,transparent)}
+  .stage .phone{transform:scale(.5);transform-origin:top center;margin-bottom:-310px}
+  .callout{width:180px;font-size:13px}
+  .callout{width:250px;font-size:15px}.callout.r{left:calc(100% - 20px)}.callout.l{right:calc(100% - 20px)}
+  .step{min-height:70vh;justify-content:flex-start;padding-top:12px}.steps{padding-bottom:20vh}
+  .diagram{grid-template-columns:1fr}.wires{display:none}.hub{flex-direction:column;align-items:flex-start}.hub .fns{justify-content:flex-start}
+  .facts{grid-template-columns:1fr 1fr}
+  .heroPhone{display:none}
+}
+</style>
+</head>
+<body>
+<div class="draftnote">DRAFT · sample screens and copy</div>
+
+<header class="nav"><div class="pill">
+  <a class="back" href="#"><b>KS</b>← All work</a>
+  <div class="seg" role="group" aria-label="Reading mode">
+    <button type="button" aria-pressed="false" data-mode="skim">Skim</button>
+    <button type="button" aria-pressed="true" data-mode="full">Full story</button>
+  </div>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <span class="status"><i></i>In development · startup product</span>
+      <h1>Cloth Lab</h1>
+      <p class="sub">Laundry pickup and delivery for Jaipur. One Kotlin Multiplatform codebase for the customer apps, a partner app for the laundries, and an admin portal to run it all.</p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>Product &amp; sole engineer</dd></div>
+        <div><dt>Platforms</dt><dd>Android · iOS · Web</dd></div>
+        <div><dt>Stack</dt><dd>KMP · Compose · Firebase</dd></div>
+        <div><dt>Since</dt><dd>Sep 2026</dd></div>
+      </dl>
+    </div>
+    <div class="heroPhone" style="display:grid;place-items:center">
+      <div class="phone" style="transform:rotate(-4deg) scale(.86)">
+        <div class="notch"></div>
+        <div class="screen on"><div class="sbody">
+          <div class="row"><span class="logo">ClothLab</span><span style="font-weight:600;font-size:12px">Jaipur 302017</span></div>
+          <div class="card" style="background:#14432f;color:#fff;border:0;padding:16px"><div style="font-weight:800;font-size:20px;line-height:1.15">FLAT 50% OFF</div><div style="font-size:12px;opacity:.85;margin-top:4px">on your first 3 orders · CLOTHLAB50</div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div class="card" style="background:#d7e4d7;border:0"><b>Wash &amp; Iron</b><div style="font-size:11px">11 items · from ₹29</div></div>
+            <div class="card" style="background:#d7e4d7;border:0"><b>Dry clean</b><div style="font-size:11px">Sarees, suits</div></div>
+            <div class="card" style="background:#d7e4d7;border:0"><b>Steam iron</b><div style="font-size:11px">Pressed &amp; packed</div></div>
+            <div class="card" style="background:#d7e4d7;border:0"><b>Shoes</b><div style="font-size:11px">Clean &amp; restore</div></div>
+          </div>
+          <div class="row" style="font-size:11px;font-weight:600;opacity:.8"><span>Hygienic &amp; Safe</span><span>Fabric Care</span><span>24–48 Hrs</span></div>
+          <div class="btn" style="margin-top:auto">Schedule a pickup</div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="glance">
+    <p class="kicker">In 30 seconds</p>
+    <h2>The four things worth knowing.</h2>
+    <div class="bubbles">
+      <div class="bubble"><div class="big">1 → 3</div><div class="t">One codebase, three apps</div><div class="d">Kotlin Multiplatform and Compose Multiplatform for Android, iOS and web.</div></div>
+      <div class="bubble"><div class="big">11 steps</div><div class="t">An order pipeline the partner drives</div><div class="d">Only the laundry partner moves an order forward. Customer and admin watch it live.</div></div>
+      <div class="bubble"><div class="big">0</div><div class="t">Prices worked out on the phone</div><div class="d">The app sends items only. A Cloud Function computes every total and checks every promo.</div></div>
+      <div class="bubble"><div class="big">3</div><div class="t">Permissions, each asked just in time</div><div class="d">Location at sign-up, notifications after the first order, camera only in the partner app.</div></div>
+    </div>
+  </section>
+
+  <section class="walk">
+    <p class="kicker">Walkthrough</p>
+    <div class="walk-grid">
+      <div class="steps">
+        <article class="step" data-screen="0">
+          <span class="n">01 · Sign in</span>
+          <h3>Sign in with a <mark>WhatsApp code</mark>, not a password.</h3>
+          <p class="detail">Most customers already live in WhatsApp, so the one-time code goes there and autofills. Location comes next, explained before the system asks, and there's no way to land on Home half set up.</p>
+          <div class="proof"><span class="chip">WhatsApp OTP</span><span class="chip">Firebase Auth</span><span class="chip">Back stack cleared per step</span></div>
+        </article>
+        <article class="step" data-screen="1">
+          <span class="n">02 · Pick clothes</span>
+          <h3>A <mark>live estimate</mark> while you pick, the real count at pickup.</h3>
+          <p class="detail">Tabs for Men, Women, Kids and Home, steppers on every row, and variants in a bottom sheet so the list keeps its place. The bar at the bottom updates as you tap.</p>
+          <div class="proof"><span class="chip">~240 catalogue items</span><span class="chip">Bottom-sheet variants</span></div>
+        </article>
+        <article class="step" data-screen="2">
+          <span class="n">03 · Review &amp; book</span>
+          <h3>Every rupee is <mark>computed on the server</mark>.</h3>
+          <p class="detail">The app only sends item ids and quantities. A Cloud Function prices the order and applies the promo in the same transaction that counts the redemption, so nobody can replay CLOTHLAB50.</p>
+          <div class="proof"><span class="chip">Cloud Functions</span><span class="chip">Firestore transaction</span><span class="chip">Cash on delivery</span></div>
+        </article>
+        <article class="step" data-screen="3">
+          <span class="n">04 · Track</span>
+          <h3>The <mark>partner moves the order</mark>, everyone else watches.</h3>
+          <p class="detail">Each tap in the partner app timestamps a stage and pushes it to the customer and the admin board. No live GPS: a clear, timestamped list instead.</p>
+          <div class="proof"><span class="chip">FCM push</span><span class="chip">Live admin board</span></div>
+        </article>
+      </div>
+
+      <div class="stage">
+        <div class="phone" id="phone">
+          <div class="notch"></div>
+          <!-- 0 sign in -->
+          <div class="screen on"><div class="sbody">
+            <span class="logo" style="margin-top:10px">ClothLab</span>
+            <div style="font-weight:800;font-size:20px;line-height:1.2">Enter the code we sent on WhatsApp</div>
+            <div style="font-size:12px;opacity:.75">+91 98•••• ••210 · Change</div>
+            <div class="otp" id="otp"><span>4</span><span>8</span><span>1</span><span>9</span><span>0</span><span>2</span></div>
+            <div style="font-size:12px;font-weight:600;color:#14432f">Autofilled from WhatsApp</div>
+            <div class="btn" style="margin-top:auto">Verify</div>
+          </div></div>
+          <!-- 1 pick -->
+          <div class="screen"><div class="sbody">
+            <div style="font-weight:800;font-size:18px">Wash &amp; Iron</div>
+            <div class="tabs"><span class="a">Men</span><span>Women</span><span>Kids</span><span>Home</span></div>
+            <div class="card row"><span><b>Shirt</b><br><small>₹29</small></span><span class="step-q"><b>–</b>3<b>+</b></span></div>
+            <div class="card row"><span><b>Trousers</b><br><small>₹35</small></span><span class="step-q"><b>–</b>2<b>+</b></span></div>
+            <div class="card row"><span><b>Kurta</b><br><small>₹39</small></span><span class="step-q"><b>–</b>1<b>+</b></span></div>
+            <div class="card row"><span><b>Blazer</b><br><small>₹99–149</small></span><span class="step-q"><b>+</b></span></div>
+            <div class="bar"><span>6 pieces<small>Estimated ₹196</small></span><span>Confirm</span></div>
+          </div></div>
+          <!-- 2 review -->
+          <div class="screen"><div class="sbody">
+            <div style="font-weight:800;font-size:18px">Review &amp; book</div>
+            <div class="card"><div class="row"><b>Pickup</b><small style="color:#14432f;font-weight:700">Change</small></div><div style="font-size:12px">Today · 10am–12pm</div></div>
+            <div class="card" id="bill">
+              <div class="row"><span>Items (estimated)</span><b>₹196</b></div>
+              <div class="row"><span>Delivery</span><b style="color:#14432f">FREE</b></div>
+              <div class="row"><span>CLOTHLAB50</span><b>−₹98</b></div>
+              <div class="row" style="border-top:1px dashed #ece6d6;margin-top:6px;padding-top:6px"><b>Cash to pay</b><b>₹98</b></div>
+            </div>
+            <div class="offer">Pay cash on delivery · ₹98</div>
+            <div class="btn" style="margin-top:auto">Book pickup</div>
+          </div></div>
+          <!-- 3 track -->
+          <div class="screen"><div class="sbody">
+            <div style="font-weight:800;font-size:18px">Order #CL-2041</div>
+            <div class="card track"><ul>
+              <li><span class="dot done"></span><span>Order confirmed<br><small style="font-weight:500">9:02 am</small></span></li>
+              <li><span class="dot done"></span><span>Collected · 6 pieces<br><small style="font-weight:500">10:41 am</small></span></li>
+              <li><span class="dot done" id="trackNow"></span><span>Washed and dried<br><small style="font-weight:500">2:15 pm</small></span></li>
+              <li><span class="dot"></span><span>Ironing</span></li>
+              <li><span class="dot"></span><span>Delivered</span></li>
+            </ul></div>
+            <div class="offer">KEEP CASH READY · ₹98</div>
+          </div></div>
+
+          <div class="hot" id="hot"><div class="ring"></div></div>
+          <div class="callout r" id="callout"><b id="cTag">01</b><span id="cText"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sys">
+    <p class="kicker">How it fits together</p>
+    <h2>Three apps, one backend that owns the rules.</h2>
+    <div class="diagram">
+      <div class="node"><div class="who">CUSTOMER</div><h3>Customer app</h3><p>Android, iOS and web from one Compose Multiplatform UI.</p></div>
+      <div class="node"><div class="who">LAUNDRY PARTNER</div><h3>Partner app</h3><p>Android. 60px buttons, text never under 16px, built for one hand in the sun.</p></div>
+      <div class="node"><div class="who">CLOTH LAB TEAM</div><h3>Admin portal</h3><p>Web. Live board, assign orders, set commission, settle cash.</p></div>
+      <div class="wires"><svg viewBox="0 0 300 46" preserveAspectRatio="none"><path d="M50 0 V46"/><path d="M150 0 V46"/><path d="M250 0 V46"/></svg></div>
+      <div class="hub"><div><h3>Firebase backend</h3><p>Cloud Functions hold every rule: pricing, promos, order state and payouts.</p></div>
+        <div class="fns"><span>createOrder</span><span>confirmPickup</span><span>advanceStage</span><span>sendOtp</span><span>settleCash</span></div></div>
+    </div>
+  </section>
+
+  <section class="pipe">
+    <p class="kicker">The order pipeline</p>
+    <h2>Eleven steps, and only one app can move them.</h2>
+    <div class="lane" id="lane">
+      <span class="stage-chip">PLACED</span><span class="stage-chip">ASSIGNED</span><span class="stage-chip">EN_ROUTE_PICKUP</span><span class="stage-chip">PICKED_UP</span><span class="stage-chip">WASHING</span><span class="stage-chip">DRYING</span><span class="stage-chip">IRONING</span><span class="stage-chip">READY</span><span class="stage-chip">OUT_FOR_DELIVERY</span><span class="stage-chip">DELIVERED</span><span class="stage-chip">CASH_COLLECTED</span>
+    </div>
+    <div class="who-row"><span>Partner app advances</span><span class="ro">Customer and admin read only</span></div>
+  </section>
+
+  <section class="decide">
+    <p class="kicker">Decisions</p>
+    <h2>Why it's built this way.</h2>
+    <div class="dlist">
+      <div class="dec"><div class="q"><h3>Commission is set <mark>per order</mark>, and the partner never sees it.</h3><span class="tg">Why ▾</span></div>
+        <div class="why"><div><p>The admin can try different rates without renegotiating contracts or redeploying anything. The partner app only shows cash collected and what they keep, so a changing percentage never causes friction.</p></div></div></div>
+      <div class="dec"><div class="q"><h3>Taking cash is a <mark>confirmation, not a form</mark>.</h3><span class="tg">Why ▾</span></div>
+        <div class="why"><div><p>The partner taps "Got ₹410 cash" instead of typing an amount. Fewer taps, fewer typos, and the amount always matches the order.</p></div></div></div>
+      <div class="dec"><div class="q"><h3>The delivery line shows <mark>FREE</mark> instead of disappearing.</h3><span class="tg">Why ▾</span></div>
+        <div class="why"><div><p>Every order stores a delivery charge, currently zero. Charging later is a data change, not a redesign, and customers already read the line as a perk.</p></div></div></div>
+    </div>
+  </section>
+
+  <nav class="next">
+    <div><p class="kicker">Next project</p><a href="#"><span class="big">OMNIA <span class="arrow">→</span></span></a><p class="muted" style="margin-top:8px">Fintech super-app · SDLC Corp</p></div>
+    <a href="#" class="muted" style="font-size:15px">Back to all work</a>
+  </nav>
+</main>
+
+<script>
+// Skim / Full story
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  document.body.classList.toggle("skim",b.dataset.mode==="skim");
+}));
+// Decisions expand
+document.querySelectorAll(".dec .q").forEach(q=>q.addEventListener("click",()=>q.parentElement.classList.toggle("open")));
+// Glance bubbles stagger in
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
+  [...e.target.querySelectorAll(".bubble")].forEach((b,i)=>setTimeout(()=>b.classList.add("in"),i*80));
+  e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.3});
+io.observe(document.querySelector(".glance"));
+document.querySelectorAll(".dec").forEach(d=>new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){d.classList.add("in");o.disconnect()}}),{threshold:.6}).observe(d));
+
+// Walkthrough: active step drives the phone screen, hotspot and callout
+const CALLOUTS=[
+  {sel:"#otp",side:"r",text:"WhatsApp OTP that autofills. No passwords to forget."},
+  {sel:".bar",side:"l",text:"Live estimate. The partner confirms the real count at pickup."},
+  {sel:"#bill",side:"r",text:"Totals come from a Cloud Function, never from the phone."},
+  {sel:"#trackNow",side:"l",text:"Only the partner app can move this to the next stage."},
+];
+const phone=document.getElementById("phone"),screens=[...phone.querySelectorAll(".screen")];
+const hot=document.getElementById("hot"),co=document.getElementById("callout");
+let cur=-1;
+function show(i){
+  if(i===cur)return;cur=i;
+  screens.forEach((s,k)=>s.classList.toggle("on",k===i));
+  co.classList.remove("on");hot.style.opacity=0;
+  setTimeout(()=>{
+    const c=CALLOUTS[i],t=screens[i].querySelector(c.sel),pr=phone.getBoundingClientRect(),tr=t.getBoundingClientRect();
+    const s=pr.width/phone.offsetWidth; // phone is scaled on small screens
+    const x=(tr.left-pr.left+(c.side==="r"?tr.width+2:-2))/s, y=(tr.top-pr.top+tr.height/2)/s;
+    hot.style.left=x+"px";hot.style.top=y+"px";hot.style.opacity=1;
+    co.className="callout "+c.side;co.style.top=(y-30)+"px";
+    document.getElementById("cTag").textContent=String(i+1).padStart(2,"0");
+    document.getElementById("cText").textContent=c.text;
+    requestAnimationFrame(()=>co.classList.add("on"));
+  },320);
+}
+const steps=[...document.querySelectorAll(".step")];
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
+  steps.forEach(s=>s.classList.toggle("on",s===e.target));show(+e.target.dataset.screen);}}),{rootMargin:"-45% 0px -45% 0px"});
+steps.forEach(s=>so.observe(s));
+show(0);steps[0].classList.add("on");
+
+// Pipeline: light the stages one after another when it scrolls in
+const lane=document.getElementById("lane");
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){
+  [...lane.children].forEach((c,i)=>setTimeout(()=>c.classList.add("lit"),i*120));o.disconnect();}}),{threshold:.6}).observe(lane);
+</script>
+</body>
+</html>
