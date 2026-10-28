@@ -7,6 +7,7 @@ import placed from "@/assets/case-studies/cloth-lab/placed.webp";
 import signin from "@/assets/case-studies/cloth-lab/signin.webp";
 import slot from "@/assets/case-studies/cloth-lab/slot.webp";
 import tracker from "@/assets/case-studies/cloth-lab/tracker.webp";
+import { links } from "@/content/site";
 import type { CaseStudy } from "./types";
 
 // Screens come from Kushal's final UI design (ClothLab for Figma.pdf / Loondry UI Design.pdf) until
@@ -31,11 +32,11 @@ export const clothLab: CaseStudy = {
   links: [
     {
       label: "Google Play",
-      href: "https://play.google.com/store/apps/details?id=com.clothlab.app",
+      href: links.clothLab,
     },
     {
       label: "Partner app",
-      href: "https://play.google.com/store/apps/details?id=com.clothlab.vendor.app",
+      href: links.clothLabPartner,
       soft: true,
     },
   ],

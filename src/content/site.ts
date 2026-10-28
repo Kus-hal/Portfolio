@@ -21,6 +21,10 @@ export const links = {
   linkedin: "https://www.linkedin.com/in/kushal-0602-sharma",
   resume: "/Kushal_Sharma_Resume.pdf",
   ting: "https://play.google.com/store/apps/details?id=com.binarycoders.ting",
+  clothLab: "https://play.google.com/store/apps/details?id=com.clothlab.app",
+  clothLabPartner:
+    "https://play.google.com/store/apps/details?id=com.clothlab.vendor.app",
+  omnia: "https://play.google.com/store/apps/details?id=com.omniia.superapp",
 } as const;
 
 export const navItems = [
@@ -147,16 +151,28 @@ export const offers = {
     },
     {
       title: "From the idea to the store listing.",
-      body: "Widgets, alarms that survive Doze, release builds and the Play Store, handled.",
-      from: { label: "From Ting", href: "#work-ting" },
+      body: "Signing, release builds, store listings and review, all the way to launch. Four apps are live on Google Play: three built solo, one with a team.",
+      from: { label: "See the work", href: "#work" },
       proof: {
         kind: "store",
-        value: "On Google Play",
-        label: "Ting, built and shipped solo",
+        value: "4 apps",
+        label: "Live on Google Play. Tap one to see it.",
       },
     },
   ],
 } as const;
+
+/** The apps live on Google Play, shown as icons on the "store" offer. */
+export const playApps = [
+  { id: "clothlab", name: "Cloth Lab", href: links.clothLab },
+  {
+    id: "clothlab-partner",
+    name: "Cloth Lab Partner",
+    href: links.clothLabPartner,
+  },
+  { id: "omnia", name: "OMNIA", href: links.omnia },
+  { id: "ting", name: "Ting", href: links.ting },
+] as const;
 
 export type ProjectId = "cloth-lab" | "omnia" | "loudly" | "geofence" | "ting";
 

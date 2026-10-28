@@ -18,6 +18,7 @@ import selfie from "@/assets/case-studies/omnia/selfie.webp";
 import subdistributor from "@/assets/case-studies/omnia/subdistributor.webp";
 import video from "@/assets/case-studies/omnia/video.webp";
 import wallet from "@/assets/case-studies/omnia/wallet.webp";
+import { links } from "@/content/site";
 import type { CaseStudy } from "./types";
 
 // Screens are the team's final Figma designs (file "OMNIIAAAAA"), exported by Kushal. The tour is in
@@ -42,7 +43,7 @@ export const omnia: CaseStudy = {
   links: [
     {
       label: "Google Play",
-      href: "https://play.google.com/store/apps/details?id=com.omniia.superapp",
+      href: links.omnia,
     },
   ],
   heroScreen: home,

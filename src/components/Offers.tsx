@@ -1,7 +1,12 @@
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
 import Link from "next/link";
+import clothLabPartnerIcon from "@/assets/work/clothlab-partner-icon.png";
+import clothLabIcon from "@/assets/work/clothlab-store-icon.png";
+import omniaIcon from "@/assets/work/omnia-icon.png";
+import tingIcon from "@/assets/work/ting-icon.png";
 import { hasCaseStudy } from "@/content/case-studies";
-import { offers, type ProjectId } from "@/content/site";
+import { offers, playApps, type ProjectId } from "@/content/site";
 import { Section } from "./Section";
 
 type Proof = (typeof offers.items)[number]["proof"];
@@ -11,6 +16,13 @@ const caseHref = (href: string) => {
   const id = href.replace("#work-", "") as ProjectId;
   return hasCaseStudy(id) ? `/work/${id}` : href;
 };
+
+const storeIcons = {
+  clothlab: clothLabIcon,
+  "clothlab-partner": clothLabPartnerIcon,
+  omnia: omniaIcon,
+  ting: tingIcon,
+} as const;
 
 const panel: Record<
   Proof["kind"],
@@ -62,7 +74,33 @@ function ProofArt({ kind }: { kind: Proof["kind"] }) {
         ))}
       </div>
     );
-  return null;
+  // The four apps on Google Play, each a link to its listing.
+  return (
+    <ul className="mt-4 flex flex-wrap gap-2.5">
+      {playApps.map((app) => (
+        <li key={app.id}>
+          <a
+            href={app.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={app.name}
+            className="block rounded-[13px] transition-transform duration-200 ease-out active:scale-[0.96] pointer-fine:hover:-translate-y-0.5"
+          >
+            <Image
+              src={storeIcons[app.id]}
+              alt=""
+              width={48}
+              height={48}
+              className="size-12 rounded-[13px] shadow-[0_0_0_1px_rgb(255_255_255/0.35)]"
+            />
+            <span className="sr-only">
+              {app.name} on Google Play (opens in a new tab)
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export function Offers() {
