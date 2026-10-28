@@ -14,7 +14,7 @@ import type { CaseStudy } from "./types";
 export const clothLab: CaseStudy = {
   slug: "cloth-lab",
   name: "Cloth Lab",
-  status: "In development, startup product",
+  status: "Live on Google Play, startup product",
   sub: "Laundry pickup for Jaipur, on Android, iPhone and the web. I designed it with the founder and I'm building every part of it.",
   accent: {
     strong: "#14432f",
@@ -27,6 +27,17 @@ export const clothLab: CaseStudy = {
     { label: "Platforms", value: "Android, iOS, web, admin web" },
     { label: "Stack", value: "Kotlin Multiplatform, Firebase" },
     { label: "Started", value: "September 2026" },
+  ],
+  links: [
+    {
+      label: "Google Play",
+      href: "https://play.google.com/store/apps/details?id=com.clothlab.app",
+    },
+    {
+      label: "Partner app",
+      href: "https://play.google.com/store/apps/details?id=com.clothlab.vendor.app",
+      soft: true,
+    },
   ],
   heroScreen: home,
   heroAlt: "Cloth Lab home screen: a 50% off banner and the laundry services",
@@ -394,7 +405,7 @@ export const clothLab: CaseStudy = {
 
   results: {
     heading: "Where it stands.",
-    body: "Cloth Lab hasn't launched yet. The admin portal is already in use while the launch is prepared.",
+    body: "The customer app and the partner app are live on Google Play, and the admin portal runs the business. The marketing launch in Jaipur comes next.",
     items: [
       { value: "4", label: "surfaces: Android, iPhone, web and admin" },
       { value: "9", label: "customer features, from sign-in to reorder" },
@@ -428,8 +439,7 @@ export const clothLab: CaseStudy = {
   whatsNext: {
     heading: "What's next.",
     items: [
-      "Partner app screens on top of the finished partner backend",
-      "Launch in the first Jaipur neighbourhoods",
+      "The marketing launch in the first Jaipur neighbourhoods",
       "The marketing site with a pincode check",
     ],
   },

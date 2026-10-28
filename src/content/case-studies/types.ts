@@ -30,7 +30,7 @@ export type CaseStudy = {
   accent: { strong: string; soft: string; mark: string; onStrong: string };
   meta: readonly { label: string; value: string }[];
   /** Store or live links shown under the hero. */
-  links?: readonly { label: string; href: string }[];
+  links?: readonly { label: string; href: string; soft?: boolean }[];
   heroScreen: StaticImageData;
   heroAlt: string;
   problem: {

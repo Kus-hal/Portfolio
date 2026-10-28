@@ -134,6 +134,7 @@ export function CaseStudyPage({ study }: { study: CaseStudy }) {
                   <ButtonLink
                     key={l.href}
                     href={l.href}
+                    variant={l.soft ? "soft" : "solid"}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

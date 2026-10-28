@@ -178,7 +178,7 @@ export const work: { heading: string; projects: Project[] } = {
       // Client startup product; Kushal shaped the product and design with the founder and builds it solo.
       id: "cloth-lab",
       name: "Cloth Lab",
-      status: "In development, startup product",
+      status: "Live on Google Play, startup product",
       summary:
         "Laundry pickup for Jaipur, shaped with its founder: customer app, partner app and admin portal on one Kotlin Multiplatform codebase.",
       tags: [
