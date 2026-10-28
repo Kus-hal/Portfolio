@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CaseStudyJsonLd } from "@/components/case-study/CaseStudyJsonLd";
 import { CaseStudyPage } from "@/components/case-study/CaseStudyPage";
 import { caseStudies, caseStudyBySlug } from "@/content/case-studies";
 import { person } from "@/content/site";
@@ -16,7 +17,8 @@ export async function generateMetadata({
 }: PageProps<"/work/[slug]">): Promise<Metadata> {
   const study = caseStudyBySlug((await params).slug);
   if (!study) return {};
-  const title = `${study.name}: case study | ${person.name}`;
+  const title = `${study.seo.title} | ${person.name}`;
+  const { description, keywords } = study.seo;
   const url = `/work/${study.slug}`;
   const images = [
     {
@@ -29,13 +31,14 @@ export async function generateMetadata({
   // Metadata merges shallowly, so canonical, Open Graph and Twitter are set in full here.
   return {
     title,
-    description: study.sub,
+    description,
+    keywords: [...keywords],
     alternates: { canonical: url },
     openGraph: {
       type: "article",
       url,
       title,
-      description: study.sub,
+      description,
       siteName: person.name,
       locale: "en_US",
       images,
@@ -43,7 +46,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title,
-      description: study.sub,
+      description,
       images,
     },
   };
@@ -52,5 +55,10 @@ export async function generateMetadata({
 export default async function WorkPage({ params }: PageProps<"/work/[slug]">) {
   const study = caseStudyBySlug((await params).slug);
   if (!study) notFound();
-  return <CaseStudyPage study={study} />;
+  return (
+    <>
+      <CaseStudyJsonLd study={study} />
+      <CaseStudyPage study={study} />
+    </>
+  );
 }

@@ -29,7 +29,14 @@ export function ProjectIcon({
   id: ProjectId;
   size?: number;
 }) {
-  const box = { width: size, height: size, borderRadius: size / 4 };
+  // Square at `size`, but free to shrink with a narrower column (phones give the work cards 52px).
+  const box = {
+    width: size,
+    maxWidth: "100%",
+    height: "auto",
+    aspectRatio: "1",
+    borderRadius: size / 4,
+  };
   if (hasIcon(id))
     return (
       <Image

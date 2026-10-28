@@ -65,12 +65,12 @@ export const ogImage = {
 // job title because it's the term recruiters search most.
 // The description is kept to ~158 characters so Google shows it without truncation.
 export const seo = {
-  title: `${person.name} | Mobile Engineer · Android & Kotlin Multiplatform`,
+  title: `${person.name} | Android & Kotlin Multiplatform Engineer`,
   alternateJobTitle: "Android Developer",
 } as const;
 
 export const metaDescription =
-  "Mobile engineer: Android, Kotlin Multiplatform & Compose. Building Cloth Lab solo; before that a fintech super-app at SDLC Corp. Jaipur · remote or relocation.";
+  "Android and Kotlin Multiplatform engineer in Jaipur, open to remote or relocation. Case studies of five apps, four of them live on Google Play.";
 
 /** Text runs; `strong` runs render bold. */
 export type Rich = readonly { text: string; strong?: boolean }[];

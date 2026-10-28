@@ -14,6 +14,19 @@ export const geofence: CaseStudy = {
   name: "GeoFence",
   status: "Portfolio project",
   sub: "A group shares a fenced area, and the moment anyone leaves it, everyone else is told, without GPS drift crying wolf.",
+  seo: {
+    title: "GeoFence: group geofence alerts in Kotlin",
+    description:
+      "Case study: a Kotlin Multiplatform app that alerts a group when someone leaves a shared area, with a tested engine that filters out GPS drift and MapLibre maps.",
+    keywords: [
+      "Kotlin Multiplatform",
+      "geofencing",
+      "Android",
+      "MapLibre",
+      "Firebase",
+      "location app",
+    ],
+  },
   accent: {
     strong: "#1d5fc4",
     soft: "#e2ecfb",

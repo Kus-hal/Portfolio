@@ -26,6 +26,9 @@ export type CaseStudy = {
   name: string;
   status: string;
   sub: string;
+  /** What search results show: a title under ~45 characters (the site name is added) and a
+   *  ~150-character description that says what the app is and what it's built with. */
+  seo: { title: string; description: string; keywords: readonly string[] };
   /** The project's own colours, used for highlights inside the portfolio's look. */
   accent: { strong: string; soft: string; mark: string; onStrong: string };
   meta: readonly { label: string; value: string }[];

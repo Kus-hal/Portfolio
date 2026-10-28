@@ -12,6 +12,19 @@ export const ting: CaseStudy = {
   name: "Ting",
   status: "Live on Google Play",
   sub: "An interval timer that ends with one desk-bell ting instead of an alarm that won't stop, and still fires on time with the phone locked.",
+  seo: {
+    title: "Ting: Android interval timer on Google Play",
+    description:
+      "Case study: an Android interval timer that ends with one desk-bell ting, with exact alarms that fire on time with the phone locked, reminders and a widget.",
+    keywords: [
+      "Android",
+      "interval timer",
+      "Jetpack Compose",
+      "Glance widget",
+      "exact alarms",
+      "Google Play",
+    ],
+  },
   accent: {
     strong: "#1c2740",
     soft: "#f4ecd6",

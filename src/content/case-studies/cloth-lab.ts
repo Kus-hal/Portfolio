@@ -17,6 +17,19 @@ export const clothLab: CaseStudy = {
   name: "Cloth Lab",
   status: "Live on Google Play, startup product",
   sub: "Laundry pickup for Jaipur, on Android, iPhone and the web. I designed it with the founder and I'm building every part of it.",
+  seo: {
+    title: "Cloth Lab: Kotlin Multiplatform laundry app",
+    description:
+      "Case study: laundry pickup for Jaipur on Android, iOS and the web from one Kotlin Multiplatform codebase, plus a partner app and admin portal. On Google Play.",
+    keywords: [
+      "Kotlin Multiplatform",
+      "Compose Multiplatform",
+      "Android app",
+      "laundry app",
+      "Firebase",
+      "case study",
+    ],
+  },
   accent: {
     strong: "#14432f",
     soft: "#d7e4d7",

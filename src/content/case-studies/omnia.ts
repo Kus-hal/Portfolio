@@ -28,6 +28,19 @@ export const omnia: CaseStudy = {
   name: "OMNIA",
   status: "Closed testing on Google Play",
   sub: "A super-app for Guinea: payments, chat, rides, shopping and more in one app, for people and for the businesses that serve them.",
+  seo: {
+    title: "OMNIA: Android fintech super-app case study",
+    description:
+      "Case study: an Android fintech super-app in Kotlin and Jetpack Compose, with liveness KYC, a wallet, encrypted chat, rides, gold trading and palm payments.",
+    keywords: [
+      "Android",
+      "fintech app",
+      "super-app",
+      "Jetpack Compose",
+      "KYC liveness",
+      "Kotlin",
+    ],
+  },
   accent: {
     strong: "#143b4a",
     soft: "#efe3cf",

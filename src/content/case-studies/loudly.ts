@@ -11,6 +11,19 @@ export const loudly: CaseStudy = {
   name: "Loudly",
   status: "In development, not on Google Play yet",
   sub: "Turns a room full of phones into one speaker: every phone plays the same song at the same moment, with no internet.",
+  seo: {
+    title: "Loudly: offline multi-phone audio sync app",
+    description:
+      "Case study: an Android app that turns a room of phones into one speaker with no internet, built in Kotlin with Nearby Connections, Opus and clock sync.",
+    keywords: [
+      "Android",
+      "audio sync",
+      "Nearby Connections",
+      "offline app",
+      "Kotlin",
+      "Jetpack Compose",
+    ],
+  },
   accent: {
     strong: "#5b5bd6",
     soft: "#e7e6fb",
