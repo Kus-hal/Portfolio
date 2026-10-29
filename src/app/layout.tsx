@@ -6,6 +6,7 @@ import { IntroSting } from "@/components/IntroSting";
 import { MotionProvider } from "@/components/MotionProvider";
 import { metaDescription, ogImage, person, seo, siteUrl } from "@/content/site";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <IntroSting />
           {children}
         </MotionProvider>
+        <Analytics />
       </body>
     </html>
   );
