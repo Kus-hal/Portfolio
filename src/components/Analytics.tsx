@@ -11,7 +11,8 @@ import { useEffect } from "react";
  * Clicks on the actions that matter are sent to Clarity as named events you can filter by.
  */
 const PRODUCTION = process.env.DEPLOY_ENV === "production";
-const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID ?? "";
+// The project id is public (it ships in every visitor's page); the env var can override it.
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID || "z54xym44u5";
 // Clarity project ids are short alphanumerics; anything else never reaches the inline script.
 const clarityOn = PRODUCTION && /^[a-z0-9]{6,20}$/i.test(CLARITY_ID);
 // Note: no element may have id="clarity"; browsers expose ids as globals and it would shadow window.clarity.
