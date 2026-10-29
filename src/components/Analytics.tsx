@@ -10,7 +10,7 @@ import { useEffect } from "react";
  *   (consent denied for storage), so no banner is needed; each page view is its own session.
  * Clicks on the actions that matter are sent to Clarity as named events you can filter by.
  */
-const PRODUCTION = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
+const PRODUCTION = process.env.DEPLOY_ENV === "production";
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID ?? "";
 // Clarity project ids are short alphanumerics; anything else never reaches the inline script.
 const clarityOn = PRODUCTION && /^[a-z0-9]{6,20}$/i.test(CLARITY_ID);
